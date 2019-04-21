@@ -1,0 +1,53 @@
+<view class='body g-tc'>
+
+    <view class='_find-type g-m-t-60'>
+        <view class='_find-type-header g-fs-28 g-c-gray'>
+            找回方式
+        </view>
+        <view class='_find-type-content g-m-t-40'>
+            <van-button size="small" round type="info"   custom-class='g-bg-blue g-c-white _type-btn'  data-type="1"  bind:click='handleSelectType'>手机号</van-button>
+            <van-button size="small" round type="info"   custom-class='g-bg-gray g-c-white _type-btn'  data-type="2" bind:click='handleSelectType'>邮箱</van-button>
+        </view>
+    </view>
+    <view class='g-pd-lr-60 g-m-t-80'>
+       <van-cell-group  border='{{ false }}'>
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>手机号</view>
+            <van-field
+                type='number'
+                value="{{ phone }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+             <view class='g-fs-28 g-c-gray g-tl  g-pd-20'>验证码</view>
+            <van-field
+                value="{{ code }}"
+                placeholder="请输入验证码"
+                border="{{ true }}"
+                maxlength="6"
+                bind:change="changePwdCode"
+                use-button-slot
+                type='number'
+            >
+                 <van-button
+                    slot="button"
+                    plain
+                    size="small"
+                    round
+                    type="info"
+                    custom-class='g-c-blue g-b-blue g-w-90'
+                    bind:click='handleSendCode'
+                    >
+                     {{ hasSend ? leftTime + 's后重发' : '发送验证码' }}
+                    </van-button>
+            </van-field>
+            <view class=' g-m-t-60 g-m-b-60'>
+                <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bind:click='handleNext'>下一步</van-button>
+            </view>
+        </van-cell-group>
+
+    </view>
+
+
+</view>
+

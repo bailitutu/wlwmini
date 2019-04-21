@@ -1,0 +1,46 @@
+<view class='body' wx:if="{{ isReady}}">
+
+    <view class='_list-box g-bg-f4'>
+        <view class='g-pd-lr-20 g-oh g-pd-b-20'>
+
+            <view class='g-bg-white g-flex-lr g-pd-20 g-m-t-20' wx:if="{{ list }}" wx:for="{{ list }}" wx:key="{{index}}">
+                <view class='g-oh _list-left-image '>
+                    <image src="{{ item.MainPicUrl }}" class='g-full'/>
+                </view>
+                <view class='g-flex-cols g-oh g-flex-1 _list-center'
+                    data-id="{{ item.ProductId}}"
+                      catchtap="handleProductDetail"
+                >
+                    <view class='g-fs-28 g-oneline _list-center-title'>
+                        {{ item.ProductName}}
+                    </view>
+                    <text class='g-fs-28 g-c-red'>
+                        ￥{{ item.ProudctPriceTxt}}
+                    </text>
+                </view>
+                <view class='g-flex-cols  _list-right-item g-ai-c'>
+                    <!--缺少状态-->
+                    <p class="g-fs-26 g-c-gray">{{ item.PlatformStatusName }}</p>
+                    <van-button size='small' type='info' round custom-class='g-bg-blue g-c-white'
+                                data-id="{{ item.ProductId}}"
+                                catchtap="handleEdit"
+                                wx:if="{{true}}"
+                    >编辑</van-button>
+                    <van-button size='small' type='info' custom-class='g-bg-white g-b-none g-c-gray'
+                                data-id="{{ item.ProductId}}"
+                                catchtap="handleDelete"
+                        wx:else
+                    >删除</van-button>
+                </view>
+            </view>
+        </view>
+        <loading noData='{{ noData }}' noMore='{{ noMore }}'></loading>
+
+
+    </view>
+
+
+
+
+
+</view>

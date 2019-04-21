@@ -1,0 +1,18 @@
+._swiper-section{
+    height: 360rpx;
+    width: 100%;
+}
+._product-price{
+    height: 80rpx;
+    line-height: 80rpx;
+    min-width:150rpx;
+    text-align: right;
+}
+._product-btn{
+    line-height: 46rpx;
+}
+._product-btn image{
+    width:46rpx;
+    height:46rpx;
+    margin-right: 18rpx;
+}

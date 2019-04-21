@@ -1,0 +1,25 @@
+/* pages/mine/company-product/company-product.wxss */
+page{
+    background: #f4f4f4;
+}
+._list-left-image{
+    width:140rpx;
+    height:140rpx;
+    margin-right:20rpx;
+    border-radius:8rpx;
+    flex:0 0 140rpx;
+}
+._list-center{
+    height:140rpx;
+    flex:1;
+    padding-right:20rpx;
+}
+._list-center-title{
+    width:390rpx;
+}
+
+._list-right-item{
+    flex:0 0 120rpx;
+    width:120rpx;
+    height:140rpx;
+}

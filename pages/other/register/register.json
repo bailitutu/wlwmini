@@ -1,0 +1,10 @@
+{
+    "component": true,
+    "navigationBarTitleText": "注册",
+    "usingComponents": {
+        "van-button": "/dist/button/index",
+        "van-field": "/dist/field/index",
+        "van-toast": "/dist/toast/index",
+        "van-cell-group": "/dist/cell-group/index"
+    }
+}

@@ -1,0 +1,22 @@
+/* 加载模块 */
+.loading_compo{
+  height:80rpx;
+  width:100%;
+}
+.loading_compo .loading_inner{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  line-height: 80rpx;
+  justify-content: center;
+}
+.loading_compo .loading_inner .loading-gif{
+  margin-right:12rpx;
+  margin-top: -6rpx;
+}
+.loading_compo .loading_inner text{
+  height:80rpx;
+  line-height: 80rpx;
+  font-size:28rpx;
+  color: #999999;
+}

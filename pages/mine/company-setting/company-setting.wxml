@@ -1,0 +1,52 @@
+<view class="body" wx:if="{{ isReady }}">
+    <view class="_setting-logo ">
+        <image class="g-full" src="{{ detail.EnterpriseLogo || '/images/companydetail_profile@2x.png'}}"></image>
+    </view>
+    <view class="g-tc g-fs-30 g-c-black g-m-t-40" >{{detail.EnterpriseName}}</view>
+    <view class="g-fs-26 g-c-gray g-tc g-m-t-20">{{ detail.WebsiteUrl || '暂无'}}</view>
+    <view class="g-flex g-jc-c g-fw-w g-pd-30" wx:if="{{ detail.LabelList }}">
+        <text  class="_label-tag g-fs-24 g-bra g-m-lr-10" wx:for="{{ detail.LabelList }}" wx:key="index">{{ item}}</text>
+    </view>
+
+    <view class="g-pd-30 g-fs-26">
+        <view class="g-flex-fs g-m-b-20 g-ai-fs">
+            <text class="g-c-gray g-m-r-10">企业公众号：</text>
+            <text class="g-c-block g-twoline g-flex-1">{{ detail.Abbreviation}}</text>
+        </view>
+        <view class="g-flex-fs g-m-b-20 g-ai-fs">
+            <text class="g-c-gray g-m-r-10">地址：</text>
+            <text class="g-c-block g-twoline g-flex-1">{{ detail.Address}}</text>
+        </view>
+        <view class="g-flex-fs g-m-b-20 g-ai-fs">
+            <text class="g-c-gray g-m-r-10">企业联系人：</text>
+            <text class="g-c-block g-twoline g-flex-1">{{ detail.Contacts}}</text>
+        </view>
+        <view class="g-flex-fs g-m-b-20 g-ai-fs">
+            <text class="g-c-gray g-m-r-10">联系人电话：</text>
+            <text class="g-c-block g-twoline g-flex-1">{{ detail.ContactInformation}}</text>
+        </view>
+
+        <view class="g-flex-fs g-m-b-20 g-ai-fs">
+            <text class="g-c-gray g-m-r-10">固定电话：</text>
+            <text class="g-c-block g-twoline g-flex-1">{{ detail.FixedTelephone}}</text>
+        </view>
+        <view class="g-flex-fs g-m-b-20 g-ai-fs">
+            <text class="g-c-gray g-m-r-10">联系人名片图片：</text>
+            <view class="g-c-block g-twoline g-flex-1">
+                <image wx:if="{{ detail.ContactsCardUrl }}" class="_setting-img" src="{{ detail.ContactsCardUrl }}"></image>
+                <p wx:else>暂无</p>
+            </view>
+        </view>
+        <view class="g-flex-fs g-m-b-20 g-ai-fs">
+            <text class="g-c-gray g-m-r-10">营业执照副本：</text>
+            <view class="g-c-block g-twoline g-flex-1">
+                <image class="_setting-img" src="{{ detail.BusinessLicense }}"></image>
+            </view>
+        </view>
+    </view>
+
+    <view class="g-tc g-m-b-60">
+        <van-button type="info" size="small" custom-class="g-bg-blue g-c-white g-m-r-40 _setting-btn" round catchtap="handleEdit">编辑</van-button>
+        <van-button type="info" size="small" custom-class="g-bg-gray g-c-white g-m-l-40 _setting-btn" round catchtap="handleLoginOut">退出</van-button>
+    </view>
+</view>

@@ -1,0 +1,7 @@
+@import '../company-product/company-product'
+page{
+    background: #f4f4f4;
+}
+._list-center-title{
+    width:500rpx;
+}

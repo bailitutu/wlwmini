@@ -1,0 +1,11 @@
+{
+  "component": true,
+  "navigationBarTitleText": "我的活动",
+  "usingComponents": {
+    "van-button": "/dist/button/index",
+    "van-toast": "/dist/toast/index",
+    "loading": "/components/loading/loading",
+    "van-tab": "/dist/tab/index",
+    "van-tabs": "/dist/tabs/index"
+  }
+}

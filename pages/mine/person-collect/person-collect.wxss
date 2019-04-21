@@ -1,0 +1,25 @@
+@import "../company-plan/company-plan.wxss";
+page{
+    background: #f4f4f4;
+}
+._product-info{
+    width:400rpx;
+}
+._company-tab-item{
+    background: #f4f4f4;
+}
+._product-image{
+    width: 100rpx;
+    height: 100rpx;
+}
+._list-purchase-title{
+    width: 500rpx;
+}
+._section{
+    padding: 0 30rpx 20rpx;
+}
+._list-right-item{
+    width: 120rpx;
+    text-align: right;
+    align-items: flex-end;
+}

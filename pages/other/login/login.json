@@ -1,0 +1,13 @@
+{
+    "component": true,
+    "navigationBarTitleText": "登录",
+    "usingComponents": {
+        "van-cell": "/dist/cell/index",
+        "van-icon": "/dist/icon/index",
+        "van-button": "/dist/button/index",
+        "van-popup": "/dist/popup/index",
+        "van-field": "/dist/field/index",
+        "van-toast": "/dist/toast/index",
+        "van-cell-group": "/dist/cell-group/index"
+    }
+}

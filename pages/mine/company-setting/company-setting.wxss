@@ -1,0 +1,13 @@
+._setting-logo{
+    width:120rpx;
+    height:120rpx;
+    margin: 50rpx auto;
+}
+._setting-img{
+    width:270rpx;
+    height:172rpx;
+}
+
+._setting-btn{
+    width:160rpx !important;
+}

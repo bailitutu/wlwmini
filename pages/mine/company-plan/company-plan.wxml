@@ -1,0 +1,39 @@
+<view class='body'>
+    <view class='_list-box g-bg-f4'>
+        <view class='g-pd-lr-20 g-oh g-pd-b-20'>
+
+            <view class='g-bg-white g-flex-lr g-pd-20 g-m-t-20'
+                  wx:if="{{list.length > 0}}"
+                  wx:for="{{list}}"
+                  wx:key="{{ index }}"
+            >
+                <view class='g-oh _list-left-image '>
+                    <image src="{{ item.MainPicUrl }}" class='g-full'/>
+                </view>
+                <view class='g-flex-cols g-oh g-flex-1 _list-center' data-id="{{ item.SchemeId }}" bindtap="handlePlanDetail">
+                    <view class='g-fs-28 g-oneline _list-center-title'>
+                        {{ item.SchemeName}}
+                    </view>
+                    <text class='g-fs-28 g-c-red'>
+                        ￥{{item.SchemePrice}}
+                    </text>
+                </view>
+                <view class='g-flex-cols  _list-right-item g-flex-c g-ai-c'>
+                    <p class="g-fs-26 g-c-gray">{{ item.PlatformStatusName}}</p>
+                    <van-button size='small' type='info' round custom-class='g-c-white g-b-none g-bg-blue'
+                                data-id="{{ item.SchemeId }}" bindtap="handleEdit" wx:if="{{true}}">编辑</van-button>
+                    <van-button size='small' type='info' round custom-class='g-c-white g-b-none g-bg-gray'
+                                data-id="{{ item.SchemeId }}" bindtap="handleDelete" wx:else>删除</van-button>
+                </view>
+            </view>
+        </view>
+
+        <loading noData='{{ noData }}'  noMore='{{ noMore }}'></loading>
+
+    </view>
+
+
+
+
+
+</view>

@@ -1,0 +1,112 @@
+<view class="body">
+    <van-tabs sticky active="{{ tabActive }}"  color="#0d8df9" animated  bind:change="onTabChange" class="g-h-full">
+        <van-tab title="已发布" class="_company-tab-item g-bg-f4 ">
+            <view class="_section g-bg-f4">
+                <view class="g-bg-white"
+                      wx:for="{{ publicInfo.list }}"
+                      wx:key="{{index}}"
+                >
+                    <view class='g-flex-lr  g-bg-white g-bb g-pd-20 g-m-t-20'
+                          data-id="{{ item.ActivityId}}"
+                          catchtap="handleCheckDetail">
+                        <view class="_product-image g-bra g-m-r-20">
+                            <image class="g-full" src="{{ item.MainPicUrl }}"></image>
+                        </view>
+                        <view class='g-flex-cols g-oh  g-flex-1'>
+                            <view class='g-fs-28 g-oneline _list-purchase-title'>
+                                {{ item.ActivityName }}
+                            </view>
+                            <text class='g-fs-28 g-c-999'>
+                               {{ item.BeginTimeTxt }} - {{ item.EndTimeTxt }}
+                            </text>
+                        </view>
+                    </view>
+                    <view class="g-flex-lr g-fs-26">
+                        <text class="g-pd-20 g-c-blue"
+                              data-id="{{ item.ActivityId}}"
+                            catchtap="handleCheckSignDetail"
+                        >报名情况</text>
+                        <text class="g-pd-20 g-c-666"
+                              data-id="{{ item.ActivityId}}"
+                              catchtap="handleEditActivity"
+                        >编辑</text>
+                        <text class="g-pd-20 g-c-red"
+                              data-id="{{ item.ActivityId}}"
+                              data-index="{{ index }}"
+                              catchtap="handleDeleteActivity"
+                        >删除</text>
+                    </view>
+                </view>
+
+
+                <loading noData='{{ publicInfo.noData }}'  noMore='{{ publicInfo.noMore }}'></loading>
+            </view>
+        </van-tab>
+        <van-tab title="已报名" class="_company-tab-item">
+            <view class="_section g-bg-f4 ">
+                <view class='g-flex-lr  g-bg-white g-pd-20 g-m-t-20'
+                    wx:for="{{ signInfo.list }}"
+                      wx:key="{{index}}"
+                >
+                    <view class="_product-image g-bra g-m-r-20">
+                        <image class="g-full" src="{{ item.MainPicUrl}}"></image>
+                    </view>
+                    <view class='g-flex-cols g-oh  g-flex-1'
+                          data-id="{{ item.ActivityId}}"
+                          catchtap="handleCheckDetail"
+                    >
+                        <view class='g-fs-28 g-oneline _list-center-title'>
+                            {{item.ActivityName}}
+                        </view>
+                        <text class='g-fs-28 g-c-999'>
+                          {{item.CallName}}
+                        </text>
+                    </view>
+                    <view class='g-flex-cols  _list-right-item g-flex-cr g-jc-sb'>
+                        <van-button size='mini' type='info' round custom-class='g-bg-gray g-c-white'
+                            data-id="{{ item.SignId }}"
+                            data-index="{{ index }}"
+                            catchtap="handleQuitActivity"
+                        >退出</van-button>
+                    </view>
+                </view>
+
+                <loading noData='{{ signInfo.noData }}'  noMore='{{ signInfo.noMore }}'></loading>
+            </view>
+
+        </van-tab>
+        <van-tab title="已收藏" class="_company-tab-item">
+            <view class="_section g-bg-f4">
+                <view class=' g-bg-white g-flex-lr g-pd-20 g-m-t-20'
+                      wx:for="{{ collectInfo.list }}"
+                      wx:key="{{index}}"
+                >
+                    <view class='g-bra g-m-r-20 _product-image '>
+                        <image src="{{ item.MainPicUrl}}" class='g-full'/>
+                    </view>
+                    <view class='g-flex-cols g-oh g-flex-1'
+                          data-id="{{ item.ActivityId}}"
+                          catchtap="handleCheckDetail"
+                    >
+                        <view class='g-fs-28 g-oneline _list-center-title'>
+                            {{item.ActivityName}}
+                        </view>
+                        <text class='g-fs-28 g-c-999'>
+                            {{ item.BeginTimeTxt }} - {{ item.EndTimeTxt }}
+                        </text>
+                    </view>
+                    <view class='g-flex-cols  _list-right-item g-flex-cr'>
+                        <van-button size='mini' type='info' round custom-class='g-bg-gray g-c-white'
+                            data-id="{{ item.Id }}"
+                            data-index="{{ index }}"
+                            catchtap="handleDeleteCollect"
+                        >删除</van-button>
+                    </view>
+                </view>
+                <loading noData='{{ collectInfo.noData }}'  noMore='{{ collectInfo.noMore }}'></loading>
+            </view>
+
+        </van-tab>
+    </van-tabs>
+
+</view>

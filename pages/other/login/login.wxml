@@ -1,0 +1,75 @@
+<view class="body g-tc">
+    <view class='_login-logo'>
+        <image src="/images/hp_logo.png" class='g-full'  ></image>
+    </view>
+
+    <view class='_btn-cell g-m-t-60'>
+        <van-button size="large" custom-class='g-bg-green g-c-white' type="info">
+            <van-icon name="close" custom-class='g-va-mid g-m-r-10'/>
+            <text class='g-va-mid '>使用微信授权登录</text>
+        </van-button>
+    </view>
+    <view class='_btn-cell g-m-t-60'>
+        <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' catchtap='handleYzmLogin'>短信验证码登录</van-button>
+    </view>
+    <view class='_btn-cell g-m-t-60'>
+        <van-button size="large"  type="info"  custom-class='g-bg-yellow g-c-white' catchtap='handlePwdLogin'>密码登录</van-button>
+    </view>
+    <view class='_btn-cell g-m-t-40'>
+        <view class='g-fs-28 g-c-33 g-pd-20 g-tc g-dp-ilb g-c-gray' catchtap='handleRegister'>注册</view>
+    </view>
+
+    <van-popup
+    show="{{ show }}"
+    position="bottom"
+    overlay="{{ true }}"
+    bind:close="handleClosePopup"
+    >
+        <van-cell-group custom-class='_login-group' border='{{ false }}'>
+            <view class="g-tc g-fs-32 g-pd-30" hover-class="none" hover-stop-propagation="false">
+                短信验证码登录
+            </view>
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>手机号</view>
+            <van-field
+                type='number'
+                value="{{ phone }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+             <view class='g-fs-28 g-c-gray g-tl  g-pd-20'>验证码</view>
+            <van-field
+                value="{{ code }}"
+                placeholder="请输入验证码"
+                maxlength="6"
+                border="{{ true }}"
+                bind:change="changePwdCode"
+                use-button-slot
+                type='number'
+            >
+                 <van-button
+                    slot="button"
+                    plain
+                    size="small"
+                    round
+                    type="info"
+                    custom-class='g-c-blue g-b-blue g-w-90'
+                    bind:click='handleSendCode'
+                    >
+                     {{ hasSend ? leftTime + 's后重发' : '发送验证码' }}
+                    </van-button>
+            </van-field>
+            <view class=' g-m-t-60 g-m-b-60'>
+                <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' catchtap="handleLogin">登录</van-button>
+            </view>
+        </van-cell-group>
+    </van-popup>
+
+    <van-toast id="van-toast" />
+</view>
+
+
+
+
+
+

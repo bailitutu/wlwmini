@@ -1,0 +1,28 @@
+page{
+    background: #f4f4f4;
+}
+._list-item:last-child{
+    border-bottom-color:#fff;
+}
+._enroll-name{
+    width:200rpx;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+._visit-title{
+    border-left:6rpx solid #0D8DFA;
+    line-height: 32rpx;
+    height: 32rpx;
+    padding:0 20rpx;
+    margin:30rpx 0;
+}
+._visit-list image{
+    width: 80rpx;
+    height: 80rpx;
+    margin: 15rpx;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+

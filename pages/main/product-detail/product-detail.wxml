@@ -1,0 +1,48 @@
+<view class="body g-bg-f4" wx:show="{{ isReady }}">
+    <swiper
+            autoplay="true"
+            interval="{{interval}}"
+            duration="{{duration}}"
+            indicator-dots="true"
+            indicator-color="#f1d3d3"
+            indicator-active-color="#6391d1"
+            class="_swiper-section"
+    >
+        <block wx:if="{{ detail.PicUrlsMagnifierList.length>0 }}" wx:for="{{ detail.PicUrlsMagnifierList }}" wx:key="index">
+            <swiper-item class="g-full">
+                <image src="{{item}}" class="slide-image g-full" width="355" height="150" />
+            </swiper-item>
+        </block>
+    </swiper>
+
+    <view class="g-pd-t-30 g-pd-b-20 g-pd-lr-30 g-bg-white">
+        <view class="g-flex">
+            <view class="g-flex-1 g-flex-cols">
+                <view class="g-fs-28 g-pd-tb-10 ">{{ detail.ProductName }}</view>
+                <view class="g-c-gray g-fs-24 g-pd-tb-10">{{ detail.EnterpriseName }}</view>
+            </view>
+            <view class="_product-price g-c-red g-fs-32">￥{{ detail.ProudctPriceTxt}}</view>
+        </view>
+        <view class="g-flex g-flex-lr g-tc  g-fs-28">
+            <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn"  bindtap="handleConnect">
+                <image src="/images/detail_icon_contact@2x.png"></image>
+                <text class="g-c-gray">联系</text>
+            </view>
+            <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn"  bindtap="handleCollect">
+                <image src="/images/detail_icon_collect@2x.png"></image>
+                <text class="g-c-gray">{{ detail.IsCollection ? "已收藏" : "收藏"}}</text>
+            </view>
+            <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleComplain">
+                <image src="/images/detail_icon_appeal@2x.png"></image>
+                <text class="g-c-gray">投诉</text>
+            </view>
+        </view>
+    </view>
+    <view class="g-pd-30 g-bg-white g-m-t-20">
+        <view class="g-fs-28 g-c-black">产品详情</view>
+        <view class="g-fs-24 g-c-black g-m-t-20 g-lh-42">
+            {{detail.TxtContent}}
+        </view>
+    </view>
+
+</view>

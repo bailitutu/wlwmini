@@ -1,0 +1,9 @@
+{
+    "component": true,
+    "navigationBarTitleText": "找回密码",
+    "usingComponents": {
+        "van-button": "/dist/button/index",
+        "van-field": "/dist/field/index",
+        "van-cell-group": "/dist/cell-group/index"
+    }
+}

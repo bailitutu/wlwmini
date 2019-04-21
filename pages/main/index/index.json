@@ -1,0 +1,19 @@
+{
+  "component": true,
+  "navigationBarTitleText": "物联网",
+  "navigationBarBackgroundColor": "#0d8df9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "van-cell": "/dist/cell/index",
+    "van-button": "/dist/button/index",
+    "van-row": "/dist/row/index",
+    "van-search": "/dist/search/index",
+    "van-icon": "/dist/icon/index",
+    "loading": "/components/loading/loading",
+    "van-tabbar": "/dist/tabbar/index",
+    "van-tabbar-item": "/dist/tabbar-item/index",
+    "van-col": "/dist/col/index",
+    "van-popup": "/dist/popup/index",
+    "van-cell-group": "/dist/cell-group/index"
+  }
+}

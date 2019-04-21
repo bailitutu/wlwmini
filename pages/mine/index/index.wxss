@@ -1,0 +1,11 @@
+/* pages/mine/index/index.wxss */
+._person-header{
+    width:150rpx;
+    height:150rpx;
+    border-radius:100%;
+    overflow:hidden;
+}
+
+._person-info{
+    padding:60rpx 30rpx;
+}

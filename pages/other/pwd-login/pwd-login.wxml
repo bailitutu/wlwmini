@@ -1,0 +1,30 @@
+<view class='body g-tc'>
+
+    <view class='g-pd-lr-60 g-m-t-80'>
+        <van-cell-group  border='{{ false }}'>
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>账号</view>
+            <van-field
+                type='text'
+                value="{{ account }}"
+                placeholder="用户名/邮箱/手机号"
+                border="{{ true }}"
+                bind:change="changeAccount"
+            />
+             <view class='g-fs-28 g-c-gray g-tl g-m-t-20 g-pd-20'>密码</view>
+            <van-field
+                value="{{ password }}"
+                placeholder="请输入密码"
+                border="{{ true }}"
+                bind:change="changePassword"
+                type='password'
+            />
+            <view class=' g-m-t-60 g-m-b-60'>
+                <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' catchtap="handleLogin"  >登录</van-button>
+            </view>
+        </van-cell-group>
+    </view>
+
+      <view class='g-tc g-m-t-40'>
+        <view class='g-fs-28 g-c-33 g-pd-20 g-tc g-dp-ilb g-c-gray' catchtap='handleFindPwd'>忘记密码？</view>
+    </view>
+</view>

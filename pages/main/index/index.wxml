@@ -1,0 +1,268 @@
+<view class="body">
+    <van-search
+        value="{{ Keyword }}"
+        background="#0d8df9"
+        placeholder="请输入搜索关键词"
+        bind:change="handleChangeSearch"
+        bind:search="handleSearch"
+    />
+    <scroll-view
+            scroll-x
+            class="_header-bar"
+    >
+        <view class="_header-bar-item" wx:for="{{ headBarList }}" wx:key="idx" wx:for-item="item" wx:for-index="idx"
+              data-idx="{{ idx }}" bindtap="changeHeadTab">
+            <image class="g-full"
+                   src="{{ item.isActive ? '/images/hp_list_bg_hig@2x.png' : '/images/hp_list_bg_nor@2x.png'}}"></image>
+            <view class="g-full  _header-bar-cell">
+                <image class="_header-bar-icon" src="{{ item.isActive ? item.iconActive : item.iconNormal }}"></image>
+                <text class="g-c-white g-fs-30">{{ item.name }}</text>
+            </view>
+        </view>
+    </scroll-view>
+
+    <!--产品列表-->
+    <view class="_section g-bg-white" wx:if="{{ headerBarActive == 0 }}">
+        <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
+            <view class="g-flex-fs">
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="1" bindtap="handleOrderBy">综合
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="2" bindtap="handleOrderBy">收藏
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="3" bindtap="handleOrderBy">价格
+                </view>
+            </view>
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
+                <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
+                <text>筛选</text>
+            </view>
+        </view>
+
+        <view class="_product-list g-pd-lr-30" wx:if="{{ productInfo.list.length > 0 }} ">
+            <view class="g-flex g-bb g-ai-s g-pd-tb-30" wx:for="{{ productInfo.list }}" wx:key="{{ index }}"
+                  data-id="{{ item.ProductId }}" catchtap="handleProductDetail">
+                <view class="_product-image g-bra g-m-r-20">
+                    <image class="g-full" lazy-load src="{{ item.MainPicUrl}}"></image>
+                </view>
+                <view class="_product-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
+                    <view class="g-oneline g-fs-26">{{ item.ProductName }}</view>
+                    <view class="g-c-red g-fs-28">￥{{ item.ProudctPrice }}</view>
+                    <!--<view class="g-oneline g-fs-26 g-c-999">{{ item.TxtContent }}</view>-->
+                </view>
+                <view class="_product-label">
+                    <text class="_label-tag g-fs-18 g-bra g-m-lr-5">{{ item.MainClassName }}</text>
+                </view>
+            </view>
+        </view>
+        <loading noData='{{ productInfo.noData }}' noMore='{{ productInfo.noMore }}'></loading>
+    </view>
+
+    <!--方案-->
+    <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 1 }}">
+        <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
+            <view class="g-flex-fs">
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="1" bindtap="handleOrderBy">综合</view>
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="3" bindtap="handleOrderBy">收藏</view>
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="5" bindtap="handleOrderBy">价格</view>
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="7" bindtap="handleOrderBy">更新时间</view>
+            </view>
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+                <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
+                <text>筛选</text>
+            </view>
+        </view>
+        <view class="_product-list g-pd-lr-30">
+            <view class="g-flex g-bb g-ai-s g-pd-tb-30"
+                wx:for="{{ planInfo.list }}"
+                wx:key="{{ index }}"
+                data-id="{{ item.SchemeId }}"
+                catchtap="handlePlanDetail"
+            >
+                <view class="_product-image g-bra g-m-r-20">
+                    <image class="g-full" lazy-load src="{{ item.MainPicUrl}}" ></image>
+                </view>
+                <view class="_plan-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
+                    <view class="g-oneline g-fs-26">{{ item.SchemeName }}</view>
+                    <view class="g-c-red g-fs-28">￥{{ item.SchemePriceTxt }}</view>
+                </view>
+            </view>
+        </view>
+        <loading noData='{{ planInfo.noData  }}' noMore='{{ planInfo.noMore }}'></loading>
+    </view>
+
+
+    <!--求购列表-->
+    <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 2 }}">
+        <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
+            <view class="g-flex-fs">
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="2" data-order="1" bindtap="handleOrderBy">综合</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="2" data-order="3" bindtap="handleOrderBy">收藏</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="2" data-order="5" bindtap="handleOrderBy">价格</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="2" data-order="7" bindtap="handleOrderBy">更新时间</view>
+            </view>
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+                <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
+                <text>筛选</text>
+            </view>
+        </view>
+
+        <view class="_product-list g-pd-lr-30">
+            <view
+                class="g-flex-lr g-bb  g-pd-t-30 g-pd-b-20"
+                wx:for="{{ purchaseInfo.list }}"
+                wx:key="{{ index }}"
+                data-id="{{ item.WantBuyId }}"
+                catchtap="handlePurchaseDetail"
+            >
+                <view class="g-fs-28 g-c-black g-pd-tb-10 _purchase-title  g-oneline">
+                    {{ item.WantBuyName }}
+                </view>
+                <view class="g-c-red g-pd-lr-20 g-fs-28 _purchase-price">￥{{ item.WantBuyPriceTxt }}</view>
+            </view>
+        </view>
+        <loading noData='{{ purchaseInfo.noData }}' noMore='{{ purchaseInfo.noMore }}'></loading>
+    </view>
+    <!--活动-->
+    <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 3 }}">
+        <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
+            <view class="g-flex-fs">
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="1" bindtap="handleOrderBy">综合</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="3" bindtap="handleOrderBy">收藏</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="5" bindtap="handleOrderBy">会议时间</view>
+            </view>
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+                <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
+                <text>筛选</text>
+            </view>
+        </view>
+
+        <view class="_product-list g-pd-lr-30">
+            <view
+                 class="g-flex-cols g-bb g-ai-s g-pd-t-30 g-pd-b-20"
+                 wx:for="{{ activityInfo.list }}"
+                 wx:key="{{ index }}"
+                 data-id="{{ item.ActivityId }}"
+                 catchtap="handleActivityDetail"
+            >
+                <view class="_activity-image g-bra">
+                    <image class="g-full" src="{{ item.MainPicUrl }}"></image>
+                </view>
+                <view>
+                    <view class="g-fs-28 g-c-black g-pd-tb-10 g-oneline">
+                        {{ item.ActivityName }}
+                    </view>
+                    <view class="g-flex-lr">
+                        <text class="g-fs-24 ">{{ item.BeginTimeTxt }}</text>
+                        <text class="g-fs-24">{{ item.ScaleNum }}人</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <loading noData='{{ activityInfo.noData }}' noMore='{{ activityInfo.noMore }}'></loading>
+    </view>
+    <!--公司列表-->
+    <view class="_section g-bg-white" wx:else>
+        <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
+            <view class="g-flex-fs">
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="1" bindtap="handleOrderBy">综合</view>
+            </view>
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+                <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
+                <text>筛选</text>
+            </view>
+        </view>
+
+        <view class="_product-list g-flex-lr  g-fw-w  g-pd-lr-30">
+            <view
+                class="_company-item  g-m-t-20 "
+                wx:for="{{ companyInfo.list }}"
+                wx:key="{{ index }}"
+                data-id="{{ item.UserId }}"
+                catchtap="handleCompanyDetail"
+            >
+                <view class="g-bsf g-bra">
+                    <view class="_company-image g-bra">
+                        <image class="g-full" src="{{ item.HeadUrl || '/images/company_image@2x.png'}}"></image>
+                    </view>
+                    <view>
+                        <view class="g-fs-28 g-c-black g-pd-20 g-oneline">{{ item.EnterpriseName }}</view>
+                        <view class="g-flex-fs g-m-b-20 g-pd-20">
+                            <text class="_label-tag g-fs-18 g-bra g-m-lr-5 g-m-r-20">{{ item.LevelName }}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <loading noData='{{ companyInfo.noData }}' noMore='{{ companyInfo.noMore }}'></loading>
+    </view>
+</view>
+
+
+<van-popup
+        show="{{ show }}"
+        position="right"
+        z-index="100"
+        overlay
+        bind:close="onClose"
+>
+    <view class="_filter-popup g-bg-white g-pd-lr-20">
+        <view class="g-fs-32 g-c-black g-pd-t-30 ">应用领域</view>
+        <view class="_filter-list g-flex g-jc-fs g-m-t-20 g-fw-w" v-if="{{ DomainApplicationList }}">
+            <view
+                class="_filter-btn g-bg-gray g-c-white g-fs-28 {{ AppDominId == item.Id ? 'active': ''}}"
+                wx:for="{{ DomainApplicationList }}"
+                wx:key="{{ index }}"
+                data-id="{{ item.Id }}"
+                catchtap="handleFilterOne"
+            >
+                {{ item.Name }}
+            </view>
+        </view>
+
+        <view class="g-fs-32 g-c-black g-pd-t-30">技术领域</view>
+        <view class="g-fs-24 g-c-gray g-m-t-20">无线定位</view>
+        <view class="_filter-list g-flex g-jc-fs g-fw-w" v-if="{{ DomainOutDto }}">
+            <view
+                class="_filter-btn g-bg-gray g-c-white {{ TeachDominId == item.Id ? 'active': ''}} g-fs-28"
+                wx:for="{{ DomainOutDto }}"
+                wx:key="{{ index }}"
+                data-id="{{ item.Id }}"
+                catchtap="handleFilterTwo"
+            >
+                {{ item.Name }}
+            </view>
+        </view>
+        <view class="_filter-list g-flex g-jc-fe g-fw-w g-m-t-20">
+            <view
+                    class="_filter-btn g-c-white g-bg-red g-fs-28"
+                    catchtap="handleResetFilter"
+            >
+                重置
+            </view>
+            <view
+                    class="_filter-btn  g-c-white g-bg-main g-fs-28"
+                    catchtap="handleSubmitFilter"
+            >
+                确定
+            </view>
+        </view>
+
+
+    </view>
+
+</van-popup>
+
+<van-tabbar active="{{ tabBarActive }}" bind:change="handleTabBarChange">
+    <van-tabbar-item wx:for="{{ tabBarList }}" wx:key="index" wx:for-item="tabItem">
+        <image
+                slot="icon"
+                src="{{ tabItem.normal }}"
+                mode="aspectFit"
+        />
+        <image
+                slot="icon-active"
+                src="{{ tabItem.active }}"
+                mode="aspectFit"
+        />
+    </van-tabbar-item>
+</van-tabbar>

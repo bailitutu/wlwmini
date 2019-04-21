@@ -1,0 +1,26 @@
+<view class='body g-bg-f4 g-h-full' wx:if="{{ isReady }}">
+    <view class='_list-box g-bg-f4'>
+        <view class='g-pd-lr-20 g-oh g-pd-b-20'>
+            <view class='g-bg-white g-flex-lr g-pd-20 g-m-t-20' wx:if="{{ list }}" wx:for="{{ list }}" wx:key="{{index}}">
+                <view class='g-flex-cols g-oh g-flex-1 _list-center'
+                    data-id="{{ item.WantBuyId }}"
+                      catchtap="handlePurchaseDetail"
+                >
+                    <view class='g-fs-28 g-oneline _list-center-title'>
+                        {{ item.WantBuyName}}
+                    </view>
+                    <text class='g-fs-28 g-c-red'>
+                        ￥{{ item.WantBuyPriceTxt }}
+                    </text>
+                </view>
+                <view class='g-flex-cols g-ai-c _list-right-item '>
+                    <text class=' g-c-gray g-fs-24 g-dp-lib g-tc' >{{ item.PlatformStatusName}}</text>
+                    <van-button size='small' type='info' round custom-class='g-bg-blue g-c-white'
+                                data-id="{{ item.WantBuyId }}"
+                                catchtap="handleEdit">编辑</van-button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <loading noData='{{ noData }}' noMore='{{ noMore }}'></loading>
+</view>

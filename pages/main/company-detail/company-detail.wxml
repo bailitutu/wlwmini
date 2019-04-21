@@ -1,0 +1,86 @@
+<view class="body">
+    <view class="_company-header g-flex-lr g-bg-blue  g-pd-30">
+        <view class="_company-info g-flex-1">
+            <view class="g-fs-28 g-c-white">{{info.EnterpriseName}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">{{ info.WebsiteUrl}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">固话:{{info.FixedTelephone}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">联系人:{{info.Contacts}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">邮箱:{{info.Email}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">QQ:{{info.QQ}}</view>
+            <!--<view class="g-flex-fs g-m-b-20">-->
+                <!--<text class="_company-label g-c-white  g-fs-22 g-bra g-m-lr-5 g-m-r-20" >智慧城市</text>-->
+                <!--<text class="_company-label g-c-white g-fs-22 g-bra g-m-lr-5" >智慧城市</text>-->
+            <!--</view>-->
+        </view>
+        <view class="_company-logo">
+            <image src="{{info.EnterpriseLogo}}" class="g-full" ></image>
+         </view>
+    </view>
+
+    <van-tabs active="{{ tabActive }}" color="#0d8df9" animated  bind:change="onTabChange">
+        <van-tab title="公司产品" class="_company-tab-item g-bg-f4">
+            <view class="_section g-bg-white">
+                <view class="_product-list g-pd-lr-30">
+                    <view class="g-flex g-bb g-ai-s g-pd-tb-30" wx:for="{{ Product.list }}" wx:key="{{index}}" >
+                        <view class="_product-image g-bra g-m-r-20">
+                            <image class="g-full" src="{{ item.MainPicUrl}}"></image>
+                        </view>
+                        <view class="_product-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
+                            <view class="g-oneline g-fs-26">{{ item.ProductName}}</view>
+                            <view class="g-c-red g-fs-28">￥{{ item.ProudctPriceTxt}}</view>
+                            <view class="g-oneline g-fs-26 g-c-999">{{ }}</view>
+                        </view>
+                        <view class="_product-label">
+                            <text class="_label-tag g-fs-22 g-bra g-m-lr-5" >智慧城市</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <loading noData='{{Product.noData }}'  noMore='{{ Product.noMore }}'></loading>
+
+        </van-tab>
+        <van-tab title="解决方案" class="_company-tab-item">
+            <view class="_section g-bg-white">
+                <view class="_product-list g-pd-lr-30">
+                    <view class="g-flex g-bb g-ai-s g-pd-tb-30" wx:for="{{ Scheme.list}}" wx:key="{{index}}">
+                        <view class="_product-image g-bra g-m-r-20">
+                            <image class="g-full" src="{{item.MainPicUrl}}"></image>
+                        </view>
+                        <view class="_plan-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
+                            <view class="g-oneline g-fs-26">{{ item.SchemeName}}</view>
+                            <view class="g-c-red g-fs-28">￥{{ item.SchemePriceTxt }}</view>
+                            <view class="g-oneline g-fs-26 g-c-999">{{ item.Abstract }}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <loading noData='{{ Scheme.noData }}'  noMore='{{ Scheme.noMore }}'></loading>
+
+        </van-tab>
+        <van-tab title="公司活动" class="_company-tab-item">
+            <view class="_section g-bg-white">
+                <view class="_product-list g-pd-lr-30">
+                    <view class="g-flex-cols g-bb g-ai-s g-pd-t-30 g-pd-b-20" wx:for="{{ Activity.list}}" wx:key="{{index}}">
+                        <view class="_activity-image g-bra">
+                            <image class="g-full" src="{{ item.MainPicUrl }}"></image>
+                        </view>
+                        <view >
+                            <view class="g-fs-28 g-c-black g-pd-tb-10 g-oneline">{{ item.ActivityName }}</view>
+                            <view class="g-flex-lr">
+                                <text class="g-fs-24 ">{{item.BeginTime}}</text>
+                                <text class="g-fs-24">{{ item.ScaleNum}}人 </text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <loading noData='{{ Activity.noData }}'  noMore='{{ Activity.noMore }}'></loading>
+
+        </van-tab>
+    </van-tabs>
+
+
+
+</view>
+
+

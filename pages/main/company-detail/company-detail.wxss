@@ -1,0 +1,21 @@
+@import "../index/index.wxss";
+
+page{
+    background: #f4f4f4;
+}
+._company-header{
+    border-bottom-left-radius:16rpx;
+    border-bottom-right-radius:16rpx;
+}
+
+._company-logo{
+    width:100rpx;
+    height: 100rpx;
+}
+._company-label{
+    border:1px solid #ffffff;
+    padding:5rpx;
+}
+.van-tab--active{
+    color: #0d8df9 !important;
+}

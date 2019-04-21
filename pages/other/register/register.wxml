@@ -1,0 +1,218 @@
+<view class='body g-tc'>
+
+    <view class='_find-type g-m-t-40'>
+        <view class='_find-type-content g-m-t-40'>
+            <van-button size="small" round type="info" custom-class='g-bg-blue  g-c-white _type-btn' bind:click='handlePhone'>企业</van-button>
+            <van-button size="small" round type="info" custom-class='g-bg-gray  g-c-white _type-btn' bind:click='handlePhone'>个人</van-button>
+        </view>
+    </view>
+
+    <view class='g-pd-lr-60 g-m-t-60'>
+       <van-cell-group  border='{{ false }}'>
+              <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>用户名</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+                   <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>设置密码</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+                   <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text> 确认密码</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>手机号</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+             <view class='g-fs-28 g-c-gray g-tl  g-pd-20'><text class='g-c-red'>* </text>验证码</view>
+            <van-field
+                value="{{ value }}"
+                placeholder="请输入验证码"
+                border="{{ true }}"
+                bind:change="changePwdCode"
+                use-button-slot
+                type='number'
+            >
+                 <van-button
+                    slot="button"
+                    plain
+                    size="small"
+                    round
+                    type="info"
+                    custom-class='g-c-blue g-b-blue'
+                    bind:click='handleSendCode'
+                    >
+                    发送验证码
+                    </van-button>
+            </van-field>
+            <view class=' g-m-t-60 g-m-b-60'>
+                <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bind:click='handlePersonRegister'>注册</van-button>
+            </view>
+
+        </van-cell-group>
+
+    </view>
+    <view class='g-pd-lr-60 g-m-t-60'>
+       <van-cell-group  border='{{ false }}'>
+              <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>公司名称</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+                   <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>公司简称</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+                   <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text> 主营邻域</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>logo</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>网址</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>公司地址</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>公司电话</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>企业公众号</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+              <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>营业执照副本（大小不超过100k）</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+              <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>企业联系人</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+              <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>联系人名片照片（大小不超过100k）</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+              <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>公司简介</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+              <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>企业banner(大小不超过100k)</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>联系方式</view>
+            <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入手机号"
+                border="{{ true }}"
+                bind:change="changePhone"
+            />
+
+             <view class='g-fs-28 g-c-gray g-tl  g-pd-20'><text class='g-c-red'>* </text>验证码</view>
+            <van-field
+                value="{{ value }}"
+                placeholder="请输入验证码"
+                border="{{ true }}"
+                bind:change="changePwdCode"
+                use-button-slot
+                type='number'
+            >
+                 <van-button
+                    slot="button"
+                    plain
+                    size="small"
+                    round
+                    type="info"
+                    custom-class='g-c-blue g-b-blue'
+                    bind:click='handleSendCode'
+                    >
+                    发送验证码
+                    </van-button>
+            </van-field>
+            <view class=' g-m-t-60 g-m-b-60'>
+                <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bind:click='handleCompanyRegister'>注册</van-button>
+            </view>
+
+        </van-cell-group>
+
+    </view>
+
+</view>
+

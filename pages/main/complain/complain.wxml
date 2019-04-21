@@ -1,0 +1,38 @@
+<view class="body">
+    <view class="g-pd-30 g-flex-lr g-bb">
+        <view class="_user-logo g-m-r-20">
+            <image src="/images/companydetail_profile@2x.png" class="g-full" ></image>
+        </view>
+        <text class="g-c-black g-fs-28 g-flex-1">大师的发达是的发送到发</text>
+    </view>
+
+    <view class="g-flex-fs g-fw-w g-m-t-20 g-pd-lr-30">
+        <van-button type="info" size="small" round custom-class="_btn-active g-m-r-20 g-m-b-20">赌博</van-button>
+        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">诈骗</van-button>
+        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">侵权</van-button>
+        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">违背社会公德</van-button>
+        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">其他违法和不良信息</van-button>
+    </view>
+
+    <view class="g-pd-30 g-fs-28">
+        <textarea class="_complain-text" bindblur="bindTextAreaBlur" auto-height placeholder="请输入投诉内容" />
+    </view>
+
+    <view class="g-pd-lr-30">
+        <view class="g-c-666 g-fs-28">
+            举报描述
+            <text class="g-c-999">(大小不超过100KB)</text>
+        </view>
+        <view class="_img-upload g-m-t-20">
+            <image class="_img-upload-file" src="/images/product_image@2x.png"></image>
+            <image class="_img-upload-bg" src="/images/report_addpicture@2x.png"></image>
+        </view>
+    </view>
+    <view class="g-pd-lr-30 g-m-t-40 ">
+        <van-button size="large" type="info" custom-class='g-bg-blue  g-c-white'  >提交</van-button>
+    </view>
+    <view class="g-m-t-20 g-pd-lr-30 g-m-b-60">
+        <view class="g-c-black g-fs-28">特别声明：</view>
+        <text class="g-fs-26 g-c-gray">爱上的开发商对了房间爱上的疯狂拉升的风景撒地方看见爱上对方</text>
+    </view>
+</view>

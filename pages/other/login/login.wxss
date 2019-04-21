@@ -1,0 +1,11 @@
+._btn-cell{
+    padding: 0 60rpx;
+}
+._login-logo{
+    width:388rpx;
+    height:136rpx;
+    margin:120rpx auto;
+}
+._login-group{
+    padding:0 60rpx;
+}

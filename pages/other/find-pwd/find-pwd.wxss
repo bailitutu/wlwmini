@@ -1,0 +1,33 @@
+._find-type ._find-type-header{
+    position:relative;
+    padding:40rpx 100rpx;
+    display:inline;
+    margin:80rpx auto;
+}
+
+._find-type ._find-type-header::before{
+    content:'';
+    width:60rpx;
+    height:1px;
+    border-bottom:1px solid #b2b2b2;
+    position:absolute;
+    top:50%;
+    left:0;
+    z-index:auto;
+}
+
+._find-type ._find-type-header::after{
+    content:'';
+    width:60rpx;
+    height:1px;
+    border-bottom:1px solid #b2b2b2;
+    position:absolute;
+    top:50%;
+    right:0;
+    z-index:auto;
+}
+
+._type-btn{
+    width:200rpx;
+    margin: 0 20rpx;
+}

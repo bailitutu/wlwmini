@@ -1,0 +1,17 @@
+._banner-image{
+    width:100%;
+    height:360rpx;
+}
+
+._label-left{
+    width: 140 rpx;
+    margin-right: 20rpx;
+}
+._collect-btn{
+    line-height: 46rpx;
+}
+._collect-btn image{
+    width:29rpx;
+    height: 27rpx;
+}
+

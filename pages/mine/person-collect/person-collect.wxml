@@ -1,0 +1,123 @@
+<view class="body">
+    <van-tabs active="{{  currentTab }}" color="#0d8df9" animated  bind:change="onTabChange">
+        <van-tab title="活动" class="_company-tab-item g-bg-f4">
+            <view class="_section g-bg-f4">
+                <view
+                    class="g-flex g-ai-c g-bb g-bg-white g-jc-sb g-pd-30 g-m-t-20"
+                    wx:for="{{ activityInfo.list }}"
+                    wx:key="{{ index }}"
+                >
+                    <view class="_product-image g-bra g-m-r-20">
+                        <image class="g-full" src="{{ item.Activity.MainPicUrl }}"></image>
+                    </view>
+                    <view class="_product-info g-flex-lr g-flex-1"  data-id="{{ item.Activity.ActivityId }}" catchtap="handleActivityDetail">
+                        <view class="g-oneline g-fs-26 g-flex-1">{{ item.Activity.ActivityName }}</view>
+                        <view class="_product-label">
+                            <van-button
+                                size='mini'
+                                type='info'
+                                round
+                                custom-class='g-bg-gray g-c-white'
+                                data-index="{{index}}"
+                                data-id="{{ item.Id }}"
+                                catchtap="handleDelete"
+                            >
+                                删除
+                            </van-button>
+                        </view>
+                    </view>
+                </view>
+                <loading noData='{{ activityInfo.noData }}'  noMore='{{ activityInfo.noMore }}'></loading>
+            </view>
+        </van-tab>
+        <van-tab title="求购" class="_company-tab-item">
+            <view class="_section g-bg-f4 ">
+                <view class='g-flex-lr  g-bg-white g-bb g-pd-20 g-m-t-20'
+                      wx:for="{{ purchaseInfo.list }}"
+                      wx:key="{{ index }}"
+                >
+                    <view class='g-flex-cols g-oh  g-flex-1' data-id="{{ item.WantBuy.WantBuyId }}" catchtap="handlePurchaseDetail" >
+                        <view class='g-fs-28 g-oneline _list-purchase-title'>
+                            {{item.OtherTitle }}
+                        </view>
+                        <text class='g-fs-28 g-c-red'>
+                            ￥{{ item.WantBuy.WantBuyPrice }}
+                        </text>
+                    </view>
+                    <view class='g-flex-cols  _list-right-item g-flex-cr g-jc-sb'>
+                        <van-button
+                            size='mini'
+                            type='info'
+                            round
+                            custom-class='g-bg-gray g-c-white'
+                            data-index="{{index}}"
+                            data-id="{{ item.Id }}"
+                            catchtap="handleDelete"
+                        >
+                            删除
+                        </van-button>
+                    </view>
+                </view>
+                <loading noData='{{ purchaseInfo.noData }}'  noMore='{{ purchaseInfo.noMore }}'></loading>
+            </view>
+
+        </van-tab>
+        <van-tab title="方案" class="_company-tab-item">
+            <view class="_section g-bg-f4">
+                <view class=' g-bg-white g-flex-lr g-bb g-pd-20 g-m-t-20'
+                      wx:for="{{ planInfo.list }}"
+                      wx:key="{{ index }}">
+                    <view class='g-bra g-m-r-20 _product-image '>
+                        <image src="{{ item.Scheme.MainPicUrl }}" class='g-full'/>
+                    </view>
+                    <view class='g-flex-cols g-oh g-flex-1' data-id="{{ item.Scheme.SchemeId }}" catchtap="handlePlanDetail">
+                        <view class='g-fs-28 g-oneline _list-center-title'>
+                            {{ item.Scheme.SchemeName }}
+                        </view>
+                        <text class='g-fs-28 g-c-red'>
+                            ￥{{ item.Scheme.SchemePrice }}
+                        </text>
+                    </view>
+                    <view class='g-flex-cols  _list-right-item g-flex-cr'>
+                        <van-button size='mini' type='info' round custom-class='g-bg-gray g-c-white'
+                                    data-index="{{index}}"
+                                    data-id="{{ item.Id }}"
+                                    catchtap="handleDelete"
+                        >
+                            删除</van-button>
+                    </view>
+                </view>
+                <loading noData='{{ planInfo.noData }}'  noMore='{{ planInfo.noMore }}'></loading>
+            </view>
+
+        </van-tab>
+        <van-tab title="产品" class="_company-tab-item">
+            <view class="_section g-bg-f4 ">
+                <view class='g-bg-white g-flex-lr g-bb g-pd-20 g-m-t-20'
+                      wx:for="{{ productInfo.list }}"
+                      wx:key="{{ index }}"
+                >
+                    <view class='g-bra g-m-r-20 _product-image '>
+                        <image src="{{ item.Product.MainPicUrl}}" class='g-full'/>
+                    </view>
+                    <view class='g-flex-cols g-oh g-flex-1' data-id="{{ item.Product.ProductId }}" catchtap="handleProductDetail">
+                        <view class='g-fs-28 g-oneline _list-center-title'>
+                            {{ item.Product.ProductName }}
+                        </view>
+                        <text class='g-fs-28 g-c-red'>
+                            ￥{{ item.Product.ProudctPrice }}
+                        </text>
+                    </view>
+                    <view class='g-flex-cols  _list-right-item g-flex-cr'>
+                        <van-button size='mini' type='info' round custom-class='g-bg-gray g-c-white' data-index="{{index}}"
+                                    data-id="{{ item.Id }}"
+                                    bindtap="handleDelete">删除</van-button>
+                    </view>
+                </view>
+                <loading noData='{{ productInfo.noData }}'  noMore='{{ productInfo.noMore }}'></loading>
+            </view>
+
+        </van-tab>
+    </van-tabs>
+
+</view>

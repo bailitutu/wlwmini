@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "navigationBarTitleText": "设置",
+  "usingComponents": {
+    "van-tag": "/dist/tag/index",
+    "van-button": "/dist/button/index",
+    "van-toast": "/dist/toast/index"
+  }
+}

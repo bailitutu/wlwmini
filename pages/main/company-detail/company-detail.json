@@ -1,0 +1,13 @@
+{
+  "component": true,
+  "navigationBarTitleText": "企业详情",
+  "navigationBarBackgroundColor": "#0d8df9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "van-button": "/dist/button/index",
+    "van-toast": "/dist/toast/index",
+    "loading": "/components/loading/loading",
+    "van-tab": "/dist/tab/index",
+    "van-tabs": "/dist/tabs/index"
+  }
+}

@@ -1,0 +1,39 @@
+<view class="body g-bg-f4" wx:if="{{ isReady }}">
+
+    <view class="_purchase-header g-bg-white">
+        <view class="_purchase-logo g-bg-blue g-tc">
+            <image src="/images/requirement_icon_logo@2x.png" ></image>
+        </view>
+        <view class="g-pd-t-20  g-pd-lr-30 g-bg-white _purchase-content">
+            <view class="g-flex g-pd-b-10 _purchase-title">
+                <view class="g-flex-1 g-flex-cols">
+                    <view class="g-fs-28 g-pd-tb-10 ">{{ detail.WantBuyName }}</view>
+                    <view class="g-c-gray g-fs-24 g-pd-tb-10">{{ detail.EnterpriseName }}</view>
+                </view>
+                <view class="_product-price g-c-red g-fs-32">￥{{ detail.WantBuyPriceTxt }}</view>
+            </view>
+            <view class="g-flex g-flex-lr g-tc  g-fs-28">
+                <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn"  bindtap="handleConnect">
+                    <image src="/images/detail_icon_contact@2x.png"></image>
+                    <text class="g-c-gray">联系</text>
+                </view>
+                <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleCollect">
+                    <image src="/images/detail_icon_collect@2x.png"></image>
+                    <text class="g-c-gray">{{ detail.IsCollection ? "已收藏" : "收藏"}}</text>
+                </view>
+                <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleComplain">
+                    <image src="/images/detail_icon_appeal@2x.png"></image>
+                    <text class="g-c-gray">投诉</text>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="g-pd-30 g-bg-white g-m-t-20">
+        <view class="g-fs-28 g-c-black">求购详情</view>
+        <view class="g-fs-24 g-c-black g-m-t-20 g-lh-42">
+            {{ detail.TxtContent }}
+        </view>
+    </view>
+
+</view>

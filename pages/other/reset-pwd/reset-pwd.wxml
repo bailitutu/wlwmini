@@ -1,0 +1,31 @@
+<view class='body g-tc'>
+
+    <view class='g-pd-lr-60 g-m-t-80'>
+        <van-cell-group  border='{{ false }}'>
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>设置新密码</view>
+            <van-field
+                type='password'
+                value="{{ pwd_one }}"
+                placeholder="请输入新密码"
+                border="{{ true }}"
+                bind:change="handleChangePwdOne"
+            />
+             <view class='g-fs-28 g-c-gray g-tl g-m-t-20 g-pd-20'>确认新密码</view>
+            <van-field
+                value="{{ pwd_two }}"
+                placeholder="请重新输入新密码"
+                border="{{ true }}"
+                bind:change="handleChangePwdTwo"
+                type='password'
+            />
+            <view class=' g-m-t-60 g-m-b-60'>
+                <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bindtap="handleSubmit">确定修改</van-button>
+            </view>
+
+        </van-cell-group>
+
+    </view>
+
+
+</view>
+

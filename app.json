@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/other/login/login",
+    "pages/main/index/index",
+    "pages/mine/person-collect/person-collect",
+    "pages/release/person-release/person-release",
+    "pages/mine/company-activity/company-activity",
+    "pages/release/company-release/company-release",
+    "pages/main/complain/complain",
+    "pages/main/company-detail/company-detail",
+    "pages/mine/company-enroll/company-enroll",
+    "pages/mine/person-setting/person-setting",
+    "pages/mine/company-setting/company-setting",
+    "pages/other/register/register",
+    "pages/main/purchase-detail/purchase-detail",
+    "pages/main/activity-detail/activity-detail",
+    "pages/main/plan-detail/plan-detail",
+    "pages/main/product-detail/product-detail",
+    "pages/mine/company-purchase/company-purchase",
+    "pages/mine/company-plan/company-plan",
+    "pages/mine/company-product/company-product",
+    "pages/mine/index/index",
+    "pages/other/find-pwd/find-pwd",
+    "pages/other/pwd-login/pwd-login",
+    "pages/other/reset-pwd/reset-pwd",
+    "pages/mine/person-purchase/person-purchase",
+    "pages/mine/person-activity/person-activity",
+    "pages/mine/company-collect/company-collect",
+    "pages/mine/company-editor/company-editor"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  }
+}

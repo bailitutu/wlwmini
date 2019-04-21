@@ -1,0 +1,12 @@
+<view class='loading_compo'>
+    <view class='loading_inner' wx:if="{{ noData }}">
+        <text>-- 暂无数据 --</text>
+    </view>
+    <view class='loading_inner' wx:elif="{{ noMore }}">
+        <text>-- 我是有底线的 --</text>
+    </view>
+    <view class='loading_inner' wx:else>
+        <van-loading color="#0d8df9" class="loading-gif" size="14px"></van-loading>
+        <text>正在加载...</text>
+    </view>
+</view>

@@ -1,0 +1,12 @@
+{
+  "component": true,
+  "navigationBarTitleText": "求购详情",
+  "navigationBarBackgroundColor": "#0d8df9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "van-button": "/dist/button/index",
+    "van-field": "/dist/field/index",
+    "van-toast": "/dist/toast/index",
+    "van-cell-group": "/dist/cell-group/index"
+  }
+}
