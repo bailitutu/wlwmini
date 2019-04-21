@@ -513,9 +513,14 @@ Page({
         let { id } = e.currentTarget.dataset;
         goPage('企业详情',{ CompanyId: id})
     },
+    // 跳转发布
     handleTabBarChange(page){
         if(page.detail == 1 ){
-            goPage('个人发布',{ query: 1, param: 2})
+            if(getItem('hd_IsEnterprise')){
+                goPage('企业发布')
+            } else{
+                goPage('个人发布')
+            }
         }else if(page.detail == 2){
             goPage('个人中心')
         }

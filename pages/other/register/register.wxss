@@ -1,1 +1,6 @@
-@import '../find-pwd/find-pwd.wxss'
+@import '../find-pwd/find-pwd.wxss';
+
+._picker-item{
+    padding-right:0 !important;
+}
+

@@ -22,8 +22,17 @@ const isPassword = (password) => {
         return true;
     }
 }
+// 验证是否为6-20为字母或数字组合（密码）
+const isEmpty = (val) => {
+    if (!val || val == '') {
+        return true;
+    } else {
+        return false;
+    }
+}
 module.exports = {
     isMoney,
     isPhone,
-    isPassword
+    isPassword,
+    isEmpty
 }
