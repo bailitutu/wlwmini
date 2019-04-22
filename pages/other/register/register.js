@@ -14,7 +14,7 @@ Page({
         companyInfo: {
             UserName: "",
             UserPwd: '',
-            UserPwdTwo:'',
+            UserPwdTwo: '',
             Code: '',
             NickName: '',
             HeadUrl: '',
@@ -39,8 +39,14 @@ Page({
             RealName: '',
         },
         showDomainList: false,
-        DomainList: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+        DomainListData: [],
+        DomainList: [],
+        DomainCellData: [],
         DomainCell: [],
+        TeachDominParentId: '',
+        TeachDominParentName: '',
+        TeachDominId: '',
+        TeachDominName: '',
         personInfo: {
             UserName: '',
             UserPwd: '',
@@ -69,7 +75,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        // this.getDomainList();
+        this.getDomainList();
     },
     //切换
     handleType(e) {
@@ -85,50 +91,101 @@ Page({
             ajax({
                 url: '/app/Product/GetByParent',
                 method: 'POST',
+                data: {}
             }).then((res) => {
                 console.log(res, 'res1');
-                setItem("DomainList", JSON.stringify(res.Data));
+                let list = [ ...res.data ];
+                let listData = list.map(item => {
+                    return item.Name;
+                })
+                setItem("DomainList", JSON.stringify(list));
+
                 this.setData({
-                    DomainList: res.Data
+                    DomainListData: res.Data,
+                    DomainList: listData
                 })
             }).catch((error) => {
                 console.log(error)
             })
-        }else{
-           this.setData({
-               DomainList
-           })
+        } else {
+            let listData = JSON.parse(DomainList).map(item => {
+                return item.Name;
+            })
+            this.setData({
+                DomainListData: JSON.parse(DomainList),
+                DomainList:listData
+            })
         }
     },
     // 获取技术领域子级
     getDomainCell(ParentId) {
+        console.log(5555)
         ajax({
             url: '/app/Product/GetByParentId',
             method: 'POST',
+            dataType: '',
             data: {
                 ParentId
             }
         }).then((res) => {
-            console.log(res, 'res2');
-            setItem("DomainCell", JSON.stringify(res.Data));
+            let list = [ ...res.Data ];
+            let cellList = list.map(item => {
+                return item.Name;
+            })
             this.setData({
-                DomainCell: res.Data
+                DomainCellData: res.Data,
+                DomainCell:cellList
             })
         }).catch((error) => {
             console.log(error)
         })
     },
 
-
-    handleDomainList(e){
-        console.log(e)
-    },
-    handleDomainCell(e){
-        console.log(e)
-    },
-
     // 企业注册部分
+    handleCompanyDomainList() {
+        this.setData({
+            ['companyInfo.showDomainList']: true
+        })
+    },
+    handleCompanyDomainCell() {
+        this.setData({
+            ['companyInfo.showDomainCell']: true
+        })
+    },
 
+    handleCompanyDomainListConfirm(event) {
+        const { value, index} = event.detail;
+        let parentId = this.data.DomainListData[index].Id;
+        this.setData({
+            ['companyInfo.TeachDominParentId']: parentId,
+            ['companyInfo.TeachDominParentName']: value,
+            ['companyInfo.showDomainList']: false
+        })
+        this.getDomainCell(parentId)
+    },
+    handleCompanyDomainListCancel() {
+        this.setData({
+            ['companyInfo.showDomainList']: false
+        })
+    },
+
+    handleCompanyDomainCellConfirm(event) {
+        const { value, index} = event.detail;
+        let { DomainCellData } = this.data;
+        let cell_id = DomainCellData[index].Id;
+        let  domainId = 'companyInfo.TeachDominId';
+        let  domainName = 'companyInfo.TeachDominName';
+        this.setData({
+            [domainId]: cell_id,
+            [domainName] : value,
+            ['companyInfo.showDomainCell']: false,
+        })
+    },
+    handleCompanyDomainCellCancel() {
+        this.setData({
+            ['companyInfo.showDomainCell']: false
+        })
+    },
 
 
 
@@ -140,42 +197,51 @@ Page({
         this.setData({
             [changeString]: e.detail
         })
-        console.log(this.data.personInfo.RealName);
     },
 
     //主营领域
-    handlePersonDomainList(){
+
+    handlePersonDomainList() {
         this.setData({
             ['personInfo.showDomainList']: true
         })
     },
-    handlePersonDomainCell(){
+    handlePersonDomainCell() {
         this.setData({
             ['personInfo.showDomainCell']: true
         })
     },
 
-    handlePersonDomainListConfirm(event){
-        const { picker, value, index } = event.detail;
-        console.log(picker, value, index)
+    handlePersonDomainListConfirm(event) {
+        const { value, index} = event.detail;
 
+        let parentId = this.data.DomainListData[index].Id;
+        this.setData({
+            ['personInfo.TeachDominParentId']: parentId,
+            ['personInfo.TeachDominParentName']: value,
+            ['personInfo.showDomainList']: false
+        })
+        this.getDomainCell(parentId)
+    },
+    handlePersonDomainListCancel() {
         this.setData({
             ['personInfo.showDomainList']: false
         })
     },
-    handlePersonDomainListCancel(){
-        this.setData({
-            ['personInfo.showDomainList']: false
-        })
-    },
 
-    handlePersonDomainCellConfirm(event){
-        const { picker, value, index } = event.detail;
+    handlePersonDomainCellConfirm(event) {
+        const { value, index} = event.detail;
+        let { DomainCellData } = this.data;
+        let cell_id = DomainCellData[index].Id;
+        let  domainId = 'personInfo.TeachDominId';
+        let  domainName = 'personInfo.TeachDominName';
         this.setData({
-            ['personInfo.showDomainCell']: false
+            [domainId]: cell_id,
+            [domainName] : value,
+            ['personInfo.showDomainCell']: false,
         })
     },
-    handlePersonDomainCellCancel(){
+    handlePersonDomainCellCancel() {
         this.setData({
             ['personInfo.showDomainCell']: false
         })
@@ -341,7 +407,7 @@ Page({
         })
 
     }
-    ,onClose(){
+    , onClose() {
 
     }
 

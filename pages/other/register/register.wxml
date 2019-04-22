@@ -44,14 +44,24 @@
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                主营邻域
+                主营领域
             </view>
-            <van-field
-                    type='number'
-                    value="{{ value }}"
-                    placeholder="请输入手机号"
-                    border="{{ true }}"
-                    bind:change="changePhone"
+            <van-cell
+                    title="技术领域"
+                    value="{{ companyInfo.TeachDominParentName || ''}}"
+                    is-link
+                    custom-class="_picker-item"
+                    title-class="g-tl"
+                    bind:click="handleCompanyDomainList"
+            />
+            <van-cell
+                    wx:if="{{ companyInfo.TeachDominParentName }}"
+                    title="应用领域"
+                    value="{{ companyInfo.TeachDominName || ''}}"
+                    is-link
+                    custom-class="_picker-item"
+                    title-class="g-tl"
+                    bind:click="handleCompanyDomainCell"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
@@ -336,34 +346,21 @@
             </view>
             <van-cell
                     title="技术领域"
-                    value=""
+                    value="{{ personInfo.TeachDominParentName || ''}}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
                     bind:click="handlePersonDomainList"
             />
             <van-cell
-                    title="技术领域"
-                    value=""
+                    wx:if="{{ personInfo.TeachDominParentName }}"
+                    title="应用领域"
+                    value="{{ personInfo.TeachDominName || ''}}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
                     bind:click="handlePersonDomainCell"
-
             />
-
-            <!--<picker bindchange="handleDomainList" value="{{ index }}" range="{{ DomainList }}">-->
-            <!--<view class="picker">-->
-            <!--{{DomainList[index]}}-->
-            <!--</view>-->
-            <!--</picker>-->
-            <!--<picker bindchange="handleDomainCell" value="{{index}}" range="{{DomainCell}}">-->
-            <!--<view class="picker">-->
-            <!--{{DomainCell[index]}}-->
-            <!--</view>-->
-            <!--</picker>-->
-
-
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
                 真实姓名
@@ -457,10 +454,9 @@
         position="bottom"
 >
     <van-picker show-toolbar
-                title="标题"
+                title="技术领域"
                 columns="{{ DomainList }}"
                 bind:confirm="handlePersonDomainListConfirm"
-                bind:change="handleDomainList"
                 bind:cancel="handlePersonDomainListCancel"
     />
 </van-popup>
@@ -469,10 +465,32 @@
         position="bottom"
 >
     <van-picker show-toolbar
-                title="标题"
-                columns="{{ DomainList }}"
+                title="应用领域"
+                columns="{{ DomainCell }}"
                 bind:cancel="handlePersonDomainCellCancel"
                 bind:confirm="handlePersonDomainCellConfirm"
-                bind:change="handleDomainList"
+    />
+</van-popup>
+
+<van-popup
+        show="{{ companyInfo.showDomainList }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="技术领域"
+                columns="{{ DomainList }}"
+                bind:confirm="handleCompanyDomainListConfirm"
+                bind:cancel="handleCompanyDomainListCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ companyInfo.showDomainCell }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="应用领域"
+                columns="{{ DomainList }}"
+                bind:cancel="handleCompanyDomainCellCancel"
+                bind:confirm="handleCompanyDomainCellConfirm"
     />
 </van-popup>

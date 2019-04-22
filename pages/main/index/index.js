@@ -41,13 +41,16 @@ Page({
         tabBarActive: 0,
         tabBarList: [{
             normal: '/images/hp_label_hp_nor@2x.png',
-            active: '/images/hp_label_hp_hig@2x.png'
+            active: '/images/hp_label_hp_hig@2x.png',
+            title: '主页'
         }, {
             normal: '/images/hp_label_issue_nor@2x.png',
-            active: '/images/hp_label_issue_hig@2x.png'
+            active: '/images/hp_label_issue_hig@2x.png',
+            title: '发布'
         }, {
             normal: '/images/hp_label_about_nor@2x.png',
-            active: '/images/hp_label_about_hig@2x.png'
+            active: '/images/hp_label_about_hig@2x.png',
+            title: '我的'
         }],
         Keyword:'', //搜索关键词
         AppDominId:0, //应用领域
