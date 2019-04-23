@@ -119,7 +119,6 @@ Page({
     },
     // 获取技术领域子级
     getDomainCell(ParentId) {
-        console.log(5555)
         ajax({
             url: '/app/Product/GetByParentId',
             method: 'POST',
@@ -185,6 +184,11 @@ Page({
         this.setData({
             ['companyInfo.showDomainCell']: false
         })
+    },
+
+    // 图片上传
+    handleAddImg(){
+        console.log('点击了')
     },
 
 

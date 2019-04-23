@@ -67,13 +67,7 @@
                 <text class='g-c-red'>*</text>
                 logo
             </view>
-            <van-field
-                    type='number'
-                    value="{{ value }}"
-                    placeholder="请输入手机号"
-                    border="{{ true }}"
-                    bind:change="changePhone"
-            />
+            <img-picker multiple max="1"  bind:handleAddImg="handleAddImg"></img-picker>
 
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>

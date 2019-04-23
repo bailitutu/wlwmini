@@ -1,0 +1,42 @@
+
+.upload_item{
+    margin: 20rpx;
+}
+
+.img_sec{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    align-items: center;
+    align-content: stretch;
+}
+.img_sec_cell{
+    width:25%;
+    height:auto;
+    margin-bottom:20rpx;
+    position: relative;
+}
+
+.img_sec_cell>image{
+    width:200rpx;
+    height:200rpx;
+    margin-left:10rpx;
+}
+.del_btn{
+    width:100%;
+    height: 100%;
+    text-align: center;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index: 100;
+    line-height: 24rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.del_btn>image{
+    width:32rpx;
+    height:32rpx;
+}
