@@ -44,8 +44,9 @@
     <view class="g-pd-30 g-bg-white g-m-t-20">
         <view class="g-fs-28 g-c-black">方案详情</view>
         <view class="g-fs-24 g-c-black g-m-t-20 g-lh-42">
-            {{ detail.TxtContent }}
+            <rich-text nodes="{{ detail.TxtContent }}" ></rich-text>
         </view>
     </view>
 
 </view>
+<contact-dialog show="{{ showContact }}" bind:confirm="handleConfirmContact"  ></contact-dialog>

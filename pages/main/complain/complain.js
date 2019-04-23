@@ -1,66 +1,117 @@
 // pages/main/complain/complain.js
+import {getItem} from "../../../utils/util";
+import {ajax} from "../../../utils/api";
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+      ReportEnumList:[],
+      OtherId:'',
+      OtherType:'',
+      ReportEnum: '',
+      ReportContent: '',
+      ReportImg: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (opt) {
+      this.setData({
+          OtherId: opt.OtherId || '',
+          OtherType: opt.OtherTypeId || '',
+      })
 
+      this.loadReportEnumList();
   },
+    loadReportEnumList(){
+        let UserId = getItem('hd_userId') || '';
+        let Token = getItem('hd_token') || '';
+        let { OtherId, OtherType  } = this.data;
+        ajax({
+            url:'/App/UsersReport/ReportEnumList',
+            method: 'POST',
+            data:{
+                UserId,
+                Token,
+                OtherId,
+                OtherType,
+            }
+        }).then( ( res) => {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+            this.setData({
+                ReportEnumList: res.Data || [],
+                isReady:true,
+                ReportEnum: res.Data[0].ReportEnum
+            })
 
-  },
+        }).catch((error) =>{
+            console.log(error)
+        })
+    },
+    // 选择类型
+    handleReportEnum(e){
+      let { id } = e.currentTarget.dataset;
+      this.setData({
+          ReportEnum: id
+      })
+    },
+    // 举报内容
+    bindTextAreaBlur(e){
+        this.setData({
+            ReportContent: e.detail.value
+        })
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+    handleUploadImg(e){
+        this.setData({
+            ReportImg: e.detail[0].imgUrl
+        })
+    },
+    handleRemoveImg(e){
+        this.setData({
+            ReportImg: ''
+        })
+    },
+    handleSubmit(){
+        let {
+            OtherId,
+            OtherType,
+            ReportEnum,
+            ReportContent,
+            ReportImg
+        } = this.data;
+        let UserId = getItem('hd_userId') || '';
+        let Token = getItem('hd_token') || '';
 
-  },
+        ajax({
+            url:'/App/UsersReport/AddReport',
+            method: 'POST',
+            data:{
+                UserId,
+                Token,
+                OtherId,
+                OtherType,
+                ReportEnum,
+                ReportContent,
+                ReportImg
+            }
+        }).then( ( res) => {
+            wx.showToast({
+              title: '投诉成功！',
+              icon:'none',
+              success: () =>{
+                 setTimeout(()=>{
+                     wx.navigateBack();
+                 },1500)
+              }
+            })
+        }).catch((error) =>{
+            console.log(error)
+        })
+    }
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

@@ -1,0 +1,15 @@
+
+._text-box{
+    padding:30rpx;
+}
+._text-area{
+    height: 300rpx;
+    padding: 30rpx;
+    width:100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 26rpx;
+    color: #333333;
+    border:1rpx solid #f4f4f4;
+}

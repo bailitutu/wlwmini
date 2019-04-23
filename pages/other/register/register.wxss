@@ -3,4 +3,9 @@
 ._picker-item{
     padding-right:0 !important;
 }
+._text-area{
+    height: 300rpx;
+    text-align: left;
+    padding: 10rpx;
+}
 

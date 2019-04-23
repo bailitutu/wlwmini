@@ -18,7 +18,8 @@ Page({
       indicatorDots: false,
       autoplay: false,
       interval: 5000,
-      duration: 1000
+      duration: 1000,
+      showContact: false,
   },
 
   /**
@@ -94,7 +95,48 @@ Page({
 
     // 联系
     handleConnect(){
-
+        this.setData({
+            showContact: true
+        })
+    },
+    handleConfirmContact(e){
+        let  contactText =  e.detail;
+        let UserId = getItem('hd_userId');
+        let Token = getItem('hd_token');
+        let OtherId = this.data.SchemeId;
+        if( contactText == ''){
+            wx.showToast({
+                title: '请输入咨询内容',
+                icon: 'none'
+            })
+            return;
+        }
+        ajax({
+            url:'/App/Home/AddMessage',
+            method: 'POST',
+            data:{
+                OtherId,
+                OtherTypeId: 2,
+                Msg:contactText,
+                MsgType:1,
+                UserId,
+                Token,
+            }
+        }).then( ( res) => {
+            wx.showToast({
+                title: '留言成功！',
+                icon:'none',
+                success: () => {
+                    setTimeout(()=>{
+                        this.setData({
+                            showContact:false
+                        })
+                    },1500)
+                }
+            })
+        }).catch((error) =>{
+            console.log(error)
+        })
     },
 
     // 投诉

@@ -30,7 +30,6 @@
                     bind:change="handleChangeInput"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                <text class='g-c-red'>*</text>
                 公司简称
             </view>
             <van-field
@@ -67,10 +66,9 @@
                 <text class='g-c-red'>*</text>
                 logo
             </view>
-            <img-picker multiple max="1"  bind:handleAddImg="handleAddImg"></img-picker>
+            <img-picker multiple max="1" bind:upload="handleUploadLogo" bind:removeImg="handleRemoveLogo"></img-picker>
 
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                <text class='g-c-red'>*</text>
                 网址
             </view>
             <van-field
@@ -109,7 +107,6 @@
                     bind:change="handleChangeInput"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                <text class='g-c-red'>*</text>
                 企业公众号
             </view>
             <van-field
@@ -122,7 +119,6 @@
                     bind:change="handleChangeInput"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                <text class='g-c-red'>*</text>
                 邮箱
             </view>
             <van-field
@@ -135,7 +131,6 @@
                     bind:change="handleChangeInput"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                <text class='g-c-red'>*</text>
                 QQ
             </view>
             <van-field
@@ -151,13 +146,8 @@
                 <text class='g-c-red'>*</text>
                 营业执照副本（大小不超过100k）
             </view>
-            <van-field
-                    type='number'
-                    value="{{ value }}"
-                    placeholder="请输入手机号"
-                    border="{{ true }}"
-                    bind:change="changePhone"
-            />
+            <img-picker multiple max="1" bind:upload="handleUploadBusinessLicense" bind:removeImg="handleRemoveBusinessLicense"></img-picker>
+
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
                 企业联系人
@@ -165,7 +155,7 @@
             <van-field
                     type='number'
                     value="{{ companyInfo.Contacts }}"
-                    placeholder="请输入手机号"
+                    placeholder="请输入企业联系人"
                     border="{{ true }}"
                     data-type="2"
                     data-cell="Contacts"
@@ -175,37 +165,21 @@
                 <text class='g-c-red'>*</text>
                 联系人名片照片（大小不超过100k）
             </view>
-            <van-field
-                    type='number'
-                    value="{{ value }}"
-                    placeholder="请输入手机号"
-                    border="{{ true }}"
-                    bind:change="changePhone"
-            />
+            <img-picker multiple max="1" bind:upload="handleUploadContactsCardUrl" bind:removeImg="handleRemoveContactsCardUrl"></img-picker>
+
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
                 公司简介
             </view>
-            <van-field
-                    type='number'
+            <view >
+                <textarea
                     value="{{ companyInfo.Abstract }}"
-                    placeholder="请输入公司简介"
-                    border="{{ true }}"
-                    data-type="2"
-                    data-cell="Abstract"
-                    bind:change="handleChangeInput"
-            />
-            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                <text class='g-c-red'>*</text>
-                企业banner(大小不超过100k)
+                    class="_text-area  g-fs-24 g-bg-f4 g-c-black"
+                    bindblur="handleChangeAbstract"
+                    placeholder="公司简介"
+                />
             </view>
-            <van-field
-                    type='number'
-                    value="{{ value }}"
-                    placeholder="请输入手机号"
-                    border="{{ true }}"
-                    bind:change="changePhone"
-            />
+
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
                 联系方式
@@ -228,7 +202,7 @@
                     value="{{ companyInfo.RealName }}"
                     placeholder="请输入真实姓名"
                     border="{{ true }}"
-                    data-type="1"
+                    data-type="2"
                     data-cell="RealName"
                     bind:change="handleChangeInput"
             />
@@ -241,7 +215,7 @@
                     value="{{ companyInfo.UserPwd }}"
                     placeholder="请输入密码"
                     border="{{ true }}"
-                    data-type="1"
+                    data-type="2"
                     data-cell="UserPwd"
                     bind:change="handleChangeInput"
             />
@@ -254,7 +228,7 @@
                     value="{{ companyInfo.UserPwdTwo }}"
                     placeholder="请再次输入密码"
                     border="{{ true }}"
-                    data-type="1"
+                    data-type="2"
                     data-cell="UserPwdTwo"
                     bind:change="handleChangeInput"
             />
@@ -279,7 +253,7 @@
                     value="{{ companyInfo.Code }}"
                     placeholder="请输入验证码"
                     border="{{ true }}"
-                    data-type="1"
+                    data-type="2"
                     data-cell="Code"
                     bind:change="handleChangeInput"
                     use-button-slot
@@ -292,9 +266,9 @@
                         round
                         type="info"
                         custom-class='g-c-blue g-b-blue'
-                        bind:click='handleSendCode'
+                        bind:click='handleCompanySendCode'
                 >
-                    发送验证码
+                    {{ companyInfo.hasSend ? companyInfo.leftTime + 's后重发' : '发送验证码' }}
                 </van-button>
             </van-field>
             <view class=' g-m-t-60 g-m-b-60'>

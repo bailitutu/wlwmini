@@ -1,4 +1,4 @@
-// components/img-picker/img-picker.js
+import  {BASE_URL} from '../../utils/config'
 Component({
     properties: {
         multiple: {
@@ -9,10 +9,6 @@ Component({
             type: String,
             value: 1,
         },
-        noMore: {
-            type: Boolean,
-            value: false
-        }
     },
     data: {
         imgList: [], // 图片列表
@@ -25,13 +21,9 @@ Component({
     methods: {
         // 添加款式图片
         _handleAddImg() {
-            this.triggerEvent('handleAddImg');
-
             const that = this;
             let {imgList, max} = this.data;
-            console.log(max, 'max')
             let len = max - imgList.length;
-
             wx.chooseImage({
                 count: len,
                 sizeType: ['compressed'],
@@ -44,7 +36,7 @@ Component({
                         mask: true
                     })
                     that.uploadImg({
-                        url: app.globalData.httpUrl + '/upload/uploadFile',//这里是你图片上传的接口
+                        url: BASE_URL + '/Home/UpLoadFile',//这里是你图片上传的接口
                         path: imageSrc,//这里是选取的图片的地址数组
                     });
                 },
@@ -62,7 +54,7 @@ Component({
                 success = data.success ? data.success : 0,//上传成功的个数
                 fail = data.fail ? data.fail : 0;//上传失败的个数
 
-            let {imgList} = this.data;
+            let { imgList } = this.data;
             wx.uploadFile({
                 url: data.url,
                 filePath: data.path[i],
@@ -71,14 +63,14 @@ Component({
                 success: (resp) => {
                     success++;//图片上传成功，图片上传成功的变量+1
                     var data = JSON.parse(resp.data);
-                    if (data.head.respCode === '0000000') {
-
+                    if (data.Status ) {
                         imgList.push({
-                            imgUrl: data.body.uploadFilePath
+                            imgUrl: data.Data
                         });
-                        that.setData({
-                            imgList: imgList
+                        this.setData({
+                            imgList
                         })
+                       this.triggerEvent('upload', imgList)
                     }
 
                 },
@@ -110,17 +102,16 @@ Component({
             wx.showModal({
                 title: '提示',
                 content: '确定删除吗？',
-                success: function (res) {
+                success: (res) => {
                     if (res.confirm) {
                         imgList.splice(index, 1);
-                        that.setData({
-                            imgList: imgList
+                        this.setData({
+                            imgList
                         })
+                        this.triggerEvent('removeImg', imgList);
                     }
                 }
             })
-
-            return false;
         },
 
         // 预览图片
@@ -132,7 +123,6 @@ Component({
             }
             const {index} = e.currentTarget.dataset;
             let {imgList} = this.data;
-            const that = this;
             let urls = [];
 
             imgList.map(function (item) {

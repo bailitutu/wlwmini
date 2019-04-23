@@ -1,17 +1,19 @@
-<view class="body">
-    <view class="g-pd-30 g-flex-lr g-bb">
-        <view class="_user-logo g-m-r-20">
-            <image src="/images/companydetail_profile@2x.png" class="g-full" ></image>
-        </view>
-        <text class="g-c-black g-fs-28 g-flex-1">大师的发达是的发送到发</text>
-    </view>
-
+<view class="body" wx:if="{{ isReady }}">
     <view class="g-flex-fs g-fw-w g-m-t-20 g-pd-lr-30">
-        <van-button type="info" size="small" round custom-class="_btn-active g-m-r-20 g-m-b-20">赌博</van-button>
-        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">诈骗</van-button>
-        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">侵权</van-button>
-        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">违背社会公德</van-button>
-        <van-button type="info" size="small" round custom-class="g-m-r-20 g-m-b-20">其他违法和不良信息</van-button>
+        <van-button
+            type="info"
+            size="small"
+            round
+            wx:for="{{ ReportEnumList }}"
+            wx:key="{{ index }}"
+
+            data-id="{{ item.ReportEnum }}"
+            custom-class="{{ ReportEnum == item.ReportEnum ? '_btn-active' : ''}} g-m-r-20 g-m-b-20"
+            bind:click="handleReportEnum"
+        >
+            {{ item.ReportEnumName }}
+        </van-button>
+
     </view>
 
     <view class="g-pd-30 g-fs-28">
@@ -23,16 +25,14 @@
             举报描述
             <text class="g-c-999">(大小不超过100KB)</text>
         </view>
-        <view class="_img-upload g-m-t-20">
-            <image class="_img-upload-file" src="/images/product_image@2x.png"></image>
-            <image class="_img-upload-bg" src="/images/report_addpicture@2x.png"></image>
-        </view>
+        <img-picker multiple max="3" bind:upload="handleUploadImg" bind:removeImg="handleRemoveImg"></img-picker>
+
     </view>
     <view class="g-pd-lr-30 g-m-t-40 ">
-        <van-button size="large" type="info" custom-class='g-bg-blue  g-c-white'  >提交</van-button>
+        <van-button size="large" type="info" custom-class='g-bg-blue  g-c-white' bindtap="handleSubmit" >提交</van-button>
     </view>
     <view class="g-m-t-20 g-pd-lr-30 g-m-b-60">
         <view class="g-c-black g-fs-28">特别声明：</view>
-        <text class="g-fs-26 g-c-gray">爱上的开发商对了房间爱上的疯狂拉升的风景撒地方看见爱上对方</text>
+        <text class="g-fs-26 g-c-gray">物联网是中立的平台服务提供方，仅为用户发布的内容提供存储空间服务，物联网不对用户发表、转载的内容提供任何形式的保证。任何个人或单位如认为物联网网上存在侵犯自身合法权益的内容，可以按照本页面流程向物联网发起书面投诉，物联网将根据相关法律法规的规定进行处理。依照法律规定删除违法信息是物联网的法定义务，当事方不需要委托第三方进行投诉，物联网亦未与任何中介机构合作开展此项业务。 若发现是第三方申请，则不再受理。</text>
     </view>
 </view>

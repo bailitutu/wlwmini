@@ -75,7 +75,8 @@ const ajax = (options = {}) => {
                         })
                     }else{
                         wx.showToast({
-                            title: r.data.Msg || ''
+                            title: r.data.Msg || '',
+                            icon:'none'
                         })
                     }
                 }

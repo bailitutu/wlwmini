@@ -19,3 +19,6 @@ page{
 .van-tab--active{
     color: #0d8df9 !important;
 }
+
+
+
