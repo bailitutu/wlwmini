@@ -1,0 +1,27 @@
+<view class="body g-tc">
+    <view class='_login-logo'>
+        <image src="/images/hp_logo.png" class='g-full'  ></image>
+    </view>
+
+    <view class='_btn-cell g-m-t-60'>
+        <van-button size="large" custom-class='g-bg-green g-c-white' type="info">
+            发布求购
+        </van-button>
+    </view>
+    <view class='_btn-cell g-m-t-60'>
+        <van-button size="large"  type="info"  custom-class='g-bg-yellow g-c-white' catchtap='handlePwdLogin'>发布产品</van-button>
+    </view>
+    <view class='_btn-cell g-m-t-60'>
+        <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' catchtap='handleYzmLogin'>发布方案</van-button>
+    </view>
+    <view class='_btn-cell g-m-t-60'>
+        <van-button size="large"  type="info"  custom-class='g-bg-yellow g-c-white' catchtap='handlePwdLogin'>发布活动</van-button>
+    </view>
+
+</view>
+
+
+
+
+
+

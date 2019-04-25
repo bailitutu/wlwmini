@@ -14,4 +14,12 @@
     width:29rpx;
     height: 27rpx;
 }
-
+._text-cell{
+    border: 1rpx solid #e2e2e2;
+}
+._text-area{
+    height: 300rpx;
+    text-align: left;
+    padding: 10rpx;
+    font-size: 24rpx;
+}

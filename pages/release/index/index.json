@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "navigationBarTitleText": "发布",
+  "usingComponents": {
+    "van-cell": "/dist/cell/index",
+    "van-icon": "/dist/icon/index",
+    "van-button": "/dist/button/index"
+  }
+}

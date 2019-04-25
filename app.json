@@ -26,7 +26,12 @@
     "pages/mine/person-purchase/person-purchase",
     "pages/mine/person-activity/person-activity",
     "pages/mine/company-collect/company-collect",
-    "pages/mine/company-editor/company-editor"
+    "pages/mine/company-editor/company-editor",
+    "pages/release/index/index",
+    "pages/release/release-purchase/release-purchase",
+    "pages/release/release-product/release-product",
+    "pages/release/release-plan/release-plan",
+    "pages/release/release-activity/release-activity"
   ],
   "window": {
     "backgroundTextStyle": "light",

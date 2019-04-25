@@ -1,68 +1,74 @@
 import {getItem} from "../../../utils/util";
 import {ajax} from "../../../utils/api";
 import {goPage} from "../../../utils/common";
-let UserId = getItem('hd_userId') || '';
-let Token = getItem('hd_token') || '';
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-      isReady:false,
-      WantBuyId:'',
-      detail:{},
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        isReady: false,
+        WantBuyId: '',
+        detail: {},
+        UserId: '',
+        Token: "",
+    },
 
-  },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        let UserId = getItem('hd_userId') || '';
+        let Token = getItem('hd_token') || '';
+        this.setData({
+            UserId,
+            Token,
+            WantBuyId: options.WantBuyId
+        })
+        this.loadData();
+    },
+    loadData() {
+        let {UserId, Token, WantBuyId} = this.data
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-      this.setData({
-          WantBuyId: options.WantBuyId
-      })
-      this.loadData();
-  },
-    loadData(){
-        let WantBuyId = this.data.WantBuyId
         let personData = {
-            UserId: UserId,
-            Token: Token,
+            UserId,
+            Token,
             WantBuyId
         };
         ajax({
-            url:'/App/WantBuy/Detail',
+            url: '/App/WantBuy/Detail',
             method: 'POST',
-            data:personData
-        }).then( ( res) => {
+            data: personData
+        }).then((res) => {
             console.log(res);
             this.setData({
-                detail:res.Data,
-                isReady:true
+                detail: res.Data,
+                isReady: true
             })
-        }).catch((error) =>{
+        }).catch((error) => {
             console.log(error)
         })
     },
     // 收藏
-    handleCollect(){
+    handleCollect() {
         let collect_status = this.data.detail.IsCollection;
+        let {UserId, Token, WantBuyId} = this.data
         let personData = {
             UserId,
             Token,
-            WantBuyId: this.data.WantBuyId
+            WantBuyId
         };
         ajax({
-            url:'/App/WantBuy/Collection',
+            url: '/App/WantBuy/Collection',
             method: 'POST',
-            data:personData
-        }).then( ( res) => {
-            if( collect_status ){
+            data: personData
+        }).then((res) => {
+            if (collect_status) {
                 wx.showToast({
                     title: '取消收藏成功'
                 })
-            }else{
+            } else {
                 wx.showToast({
                     title: '收藏成功'
                 })
@@ -70,13 +76,12 @@ Page({
             this.setData({
                 ['detail.IsCollection']: !collect_status
             })
-        }).catch((error) =>{
-            console.log(error);
-            if( collect_status ){
+        }).catch((error) => {
+            if (collect_status) {
                 wx.showToast({
                     title: '取消收藏失败'
                 })
-            }else{
+            } else {
                 wx.showToast({
                     title: '收藏失败'
                 })
@@ -85,17 +90,15 @@ Page({
     },
 
     // 联系
-    handleConnect(){
+    handleConnect() {
         this.setData({
             showContact: true
         })
     },
-    handleConfirmContact(e){
-        let  contactText =  e.detail;
-        let UserId = getItem('hd_userId');
-        let Token = getItem('hd_token');
-        let OtherId = this.data.WantBuyId;
-        if( contactText == ''){
+    handleConfirmContact(e) {
+        let contactText = e.detail;
+        let {UserId, Token, WantBuyId} = this.data
+        if (contactText == '') {
             wx.showToast({
                 title: '请输入咨询内容',
                 icon: 'none'
@@ -103,36 +106,36 @@ Page({
             return;
         }
         ajax({
-            url:'/App/Home/AddMessage',
+            url: '/App/Home/AddMessage',
             method: 'POST',
-            data:{
-                OtherId,
+            data: {
+                OtherId:WantBuyId,
                 OtherTypeId: 3,
-                Msg:contactText,
-                MsgType:1,
+                Msg: contactText,
+                MsgType: 1,
                 UserId,
                 Token,
             }
-        }).then( ( res) => {
+        }).then((res) => {
             wx.showToast({
                 title: '留言成功！',
-                icon:'none',
+                icon: 'none',
                 success: () => {
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.setData({
-                            showContact:false
+                            showContact: false
                         })
-                    },1500)
+                    }, 1500)
                 }
             })
-        }).catch((error) =>{
+        }).catch((error) => {
             console.log(error)
         })
     },
 
     // 投诉
-    handleComplain(){
-        let { WantBuyId } = this.data;
-        goPage('投诉',{ OtherId: WantBuyId,OtherTypeId:3})
+    handleComplain() {
+        let {WantBuyId} = this.data;
+        goPage('投诉', {OtherId: WantBuyId, OtherTypeId: 3})
     }
 })

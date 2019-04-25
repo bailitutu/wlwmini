@@ -519,11 +519,7 @@ Page({
     // 跳转发布
     handleTabBarChange(page){
         if(page.detail == 1 ){
-            if(getItem('hd_IsEnterprise')){
-                goPage('企业发布')
-            } else{
-                goPage('个人发布')
-            }
+            goPage('发布')
         }else if(page.detail == 2){
             goPage('个人中心')
         }

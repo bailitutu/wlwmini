@@ -33,7 +33,7 @@
         </view>
 
         <view class="g-flex-fs g-m-t-20">
-            <van-button type="info" size="small" custom-class="g-bg-blue g-c-white g-m-r-10" bindtap="handleSignUp">我要报名</van-button>
+            <van-button type="info" size="small" custom-class="g-bg-blue g-c-white g-m-r-10" bindtap="handleSignUp">{{ hasSign ? '已报名' : '我要报名'}}</van-button>
             <view class="_collect-btn g-flex g-ai-c g-jc-c g-pd-lr-30" bindtap="handleCollect">
                 <image src="/images/activity_shoucang@2x.png" class="g-m-r-10"></image>
                 <text class="g-c-gray g-fs-28">{{ detail.IsCollection ? "已收藏" : "收藏"}}</text>
@@ -48,3 +48,39 @@
     </view>
 
 </view>
+<van-dialog
+        use-slot
+        title="我要报名"
+        show="{{ show }}"
+        confirmButtonText="确认提交"
+        show-cancel-button
+        bind:cancel="handleCancel"
+        bind:confirm="handleConfirm"
+>
+    <view class="_text-box g-pd-30 ">
+        <view class="_text-cell g-m-b-20">
+            <van-field
+                    type='text'
+                    value="{{ CallName }}"
+                    placeholder="请输入姓名"
+                    border="{{ false }}"
+                    bind:change="handleChangeCallName"
+            />
+        </view>
+        <view class="_text-cell g-m-b-20">
+            <van-field
+                    type='number'
+                    value="{{ MobilePhone }}"
+                    maxlength="11"
+                    placeholder="请输入联系方式"
+                    border="{{ false }}"
+                    bind:change="handleChangePhone"
+            />
+        </view>
+        <view class="_text-cell">
+            <textarea class="_text-area " placeholder-class="g-c-gray g-fs-28" bindinput="bindTextAreaBlur"  placeholder="请输入内容" />
+        </view>
+
+
+    </view>
+</van-dialog>
