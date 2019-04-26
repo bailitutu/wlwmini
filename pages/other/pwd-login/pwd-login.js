@@ -4,27 +4,11 @@ import { hex_md5 } from '../../../utils/md5'
 import { setItem } from '../../../utils/util'
 Page({
 
-    /**
-     * 页面的初始数据
-     */
     data: {
         account: '',
         password: ''
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
     changeAccount(e) {
         this.setData({
             account: e.detail

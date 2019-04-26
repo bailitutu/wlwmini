@@ -1,2 +1,102 @@
-<!--pages/release/release-purchase/release-purchase.wxml-->
-<text>pages/release/release-purchase/release-purchase.wxml</text>
+<view class="body">
+    <van-cell-group  border='{{ false }}'>
+        <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>名称</view>
+        <van-field
+                type='text'
+                value="{{ value }}"
+                placeholder="请输入名称"
+                border="{{ true }}"
+                data-cell="WantBuyName"
+                bind:change="handleChangeInput"
+        />
+        <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>价格</view>
+        <van-field
+                type='number'
+                value="{{ value }}"
+                placeholder="请输入价格"
+                border="{{ true }}"
+                data-cell="WantBuyPrice"
+                bind:change="handleChangeInput"
+        />
+        <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>类型</view>
+        <van-cell
+                title="{{ Application.value }}"
+                is-link
+                custom-class="_picker-item"
+                title-class="g-tl"
+                data-id="{{ Application.id }}"
+                bind:click="handleApplicationList"
+        />
+        <van-cell
+                title="{{ DomainList.value }}"
+                is-link
+                custom-class="_picker-item"
+                title-class="g-tl"
+                bind:click="handleDomainListList"
+        />
+        <van-cell
+                title="{{ DomainCell.value }}"
+                is-link
+                custom-class="_picker-item"
+                title-class="g-tl"
+                bind:click="handleDomainCellList"
+        />
+
+        <view class="g-pd-lr-30">
+            <view class="g-c-666 g-fs-28 g-m-t-20">
+                图片
+                <text class="g-c-999">(大小不超过100KB)</text>
+            </view>
+            <view class=" g-m-t-20">
+                <img-picker multiple max="1" bind:upload="handleUploadImg" bind:removeImg="handleRemoveImg"></img-picker>
+            </view>
+        </view>
+        <view class="g-fs-28 g-c-black  g-pd-30">描述<text class="g-c-999">(500字以内)</text></view>
+        <view class="g-pd-lr-30 g-fs-28">
+            <textarea class="_complain-text" bindblur="bindTextAreaBlur" auto-height placeholder="请输入描述内容" />
+        </view>
+        <view class='g-pd-lr-30 g-m-t-40 g-m-b-60'>
+            <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bind:click='handlePersonRegister'>提交</van-button>
+        </view>
+
+    </van-cell-group>
+</view>
+
+
+<van-popup
+        show="{{ Application.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="应用领域"
+                columns="{{ Application.columnsData }}"
+                bind:confirm="handleApplicationConfirm"
+                bind:cancel="handleApplicationCancel"
+    />
+</van-popup>
+
+
+<van-popup
+        show="{{ DomainList.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="技术领域"
+                columns="{{ DomainList.columnsData }}"
+                bind:confirm="handleDomainListConfirm"
+                bind:cancel="handleDomainListCancel"
+    />
+</van-popup>
+
+
+<van-popup
+        show="{{ DomainCell.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="技术领域"
+                columns="{{ DomainCell.columnsData }}"
+                bind:confirm="handleDomainCellConfirm"
+                bind:cancel="handleDomainCellCancel"
+    />
+</van-popup>

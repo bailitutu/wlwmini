@@ -1,1 +1,1 @@
-/* pages/release/release-purchase/release-purchase.wxss */
+@import '../../main/complain/complain.wxss';
