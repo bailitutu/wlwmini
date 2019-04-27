@@ -9,9 +9,12 @@ Component({
             type: String,
             value: 1,
         },
+        imgList: {
+            type: Array,
+            value: [] // 图片列表
+        }
     },
     data: {
-        imgList: [], // 图片列表
         lock: false,
     },
 

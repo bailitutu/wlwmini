@@ -1,6 +1,7 @@
 import {goPage} from '../../../utils/common'
 import {getItem, setItem,} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
+import { isEmpty } from "../../../utils/validate";
 
 Page({
     data: {
@@ -27,11 +28,11 @@ Page({
             id: '',
             show: false
         },
+        WantBuyName:'',
+        WantBuyPrice:'',
         PicUrls: [],
         TxtContent:''
     },
-
-
     onLoad: function (opts) {
         if (opts.isEdit) {
             this.setData({
@@ -58,9 +59,60 @@ Page({
                 WantBuyId
             }
         }).then((res) => {
-            console.log(res, 'res1');
-            this.setData({
+            console.log(res);
+            let {
+                WantBuyName,
+                AppDominId,
+                TeachDominParentId,
+                TeachDominId,
+                WantBuyPrice,
+                PicUrls,
+                TxtContent,
 
+            } =  res.Data;
+
+            let ApplicationList = [ ...this.data.Application.list];
+            let DomainList = [...this.data.DomainList.list];
+            let DomainCell = [...this.data.DomainCell.list];
+            let ApplicationValue = '';
+            let DomainListValue = '';
+            let DomainCellValue = '';
+            ApplicationList.map(item => {
+                if(item.Id = AppDominId ){
+                    ApplicationValue = item.Name
+                    return;
+                }
+            });
+            DomainList.map(item => {
+                if(item.Id = TeachDominParentId ){
+                    DomainListValue = item.Name
+                    return;
+                }
+            });
+            DomainCell.map(item => {
+                if(item.Id = TeachDominId ){
+                    DomainCellValue = item.Name
+                    return;
+                }
+            });
+            let img_list = []
+            PicUrls.split(',').forEach(item => {
+                img_list.push({
+                    imgUrl: item
+                })
+            })
+            console.log(img_list)
+            this.setData({
+                WantBuyName,
+                WantBuyPrice,
+                PicUrls: img_list,
+                TxtContent,
+                ['Application.value']: ApplicationValue,
+                ['Application.id']: AppDominId,
+                ['DomainList.value']:DomainListValue,
+                ['DomainList.id']:TeachDominParentId,
+                ['DomainCell.value']:DomainCellValue,
+                ['DomainCell.id']:TeachDominId
             })
 
         }).catch((error) => {
@@ -76,7 +128,6 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                console.log(res)
                 let list = [...res.data];
                 let columnsData = list.map(item => {
                     return item.Name;
@@ -251,12 +302,130 @@ Page({
             PicUrls: list
         })
     },
-    bindTextAreaBlur(e){
+    //输入简介
+    bindTextAreaChange(e){
         this.setData({
             TxtContent: e.detail.value
         })
+    },
+    //发布/修改
+    handleSubmitPurchase() {
+        let {
+            isEdit,
+            WantBuyName,
+            WantBuyId,
+            WantBuyPrice,
+            PicUrls,
+            TxtContent,
+            Application,
+            DomainList,
+            DomainCell
+        } = this.data;
+        // 验证
+        if( isEmpty( WantBuyName) ){
+            wx.showToast({
+                title: '请输入求购名称',
+                icon:'none'
+            })
+            return;
+        }
+        if( isEmpty( WantBuyPrice) ){
+            wx.showToast({
+                title: '请输入求购价格',
+                icon:'none'
+            })
+            return;
+        }
+        if( isEmpty( Application.id) ){
+            wx.showToast({
+                title: '请选择应用领域',
+                icon:'none'
+            })
+            return;
+        }
 
-    }
+        if( isEmpty( DomainList.id) ||  isEmpty( DomainCell.id) ){
+            wx.showToast({
+                title: '请选择技术领域',
+                icon:'none'
+            })
+            return;
+        }
+        if( PicUrls.length == 0 ){
+            wx.showToast({
+                title: '请上传求购图片',
+                icon:'none'
+            })
+            return;
+        }
+        if( isEmpty( TxtContent) ){
+            wx.showToast({
+                title: '请输入描述内容',
+                icon:'none'
+            })
+            return;
+        }
+        let UserId = getItem('hd_userId') || '';
+        let Token = getItem('hd_token') || '';
+        if(!isEdit){
+            // 发布
+            ajax({
+                url: '/app/UserCenter/AddWantBuy',
+                method: 'POST',
+                data: {
+                    UserId,
+                    Token,
+                    AppDominId: Application.id,
+                    TeachDominParentId:DomainList.id ,
+                    TeachDominId: DomainCell.id,
+                    WantBuyPrice,
+                    PicUrls: PicUrls.join(',') ,
+                    TxtContent,
+                    WantBuyName
+                }
+            }).then((res) => {
+                wx.showToast({
+                    title:  '发布成功',
+                    icon: 'success',
+                    success:() =>{
+                        wx.navigateBack();
+                    }
+                })
+
+            }).catch((error) => {
+                console.log(error)
+            })
+
+        }else{
+            //编辑
+            ajax({
+                url: '/app/UserCenter/WantBuyEdit',
+                method: 'POST',
+                data: {
+                    UserId,
+                    Token,
+                    WantBuyId,
+                    AppDominId: Application.id,
+                    TeachDominParentId:DomainList.id ,
+                    TeachDominId: DomainCell.id,
+                    WantBuyPrice,
+                    WantBuyName,
+                    PicUrls: PicUrls.join(',') ,
+                    TxtContent
+                }
+            }).then((res) => {
+                wx.showToast({
+                    title:  '修改成功',
+                    icon: 'success',
+                    success:() =>{
+                       wx.navigateBack();
+                    }
+                })
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
+    },
 
 
 

@@ -1,7 +1,7 @@
 <view class='upload_item'>
     <view class='img_sec'>
         <view class='img_sec_cell' wx:for='{{ imgList }}' wx:key='image' wx:for-item='img' wx:for-index='imgIndex' bindtouchend='touchEnd' catchtap='previewImg'  catchlongtap='removeImg' data-index='{{imgIndex}}'  >
-            <image src='{{img.imgUrl}}'></image>
+            <image src='{{  img.imgUrl && img.imgUrl}}'></image>
         </view>
 
         <view class='img_sec_cell ' bindtap="_handleAddImg" hidden='{{imgList.length == max }}'>
