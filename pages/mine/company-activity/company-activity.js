@@ -168,7 +168,7 @@ Page({
     // 编辑活动
     handleEditActivity(e){
         let { id } = e.currentTarget.dataset;
-
+        goPage('发布活动',{ ActivityId: id,isEdit:1})
     },
     //退出活动
     handleQuitActivity(e){

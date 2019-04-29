@@ -1,5 +1,5 @@
 import {goPage} from '../../../utils/common'
-import {getItem, setItem,} from '../../../utils/util'
+import {getItem, setItem,formatDate} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
 import { isEmpty } from "../../../utils/validate";
 
@@ -31,6 +31,10 @@ Page({
         BeginTime:'',
         EndTime:'',
         Address:'',
+        mapAddress:'',
+        ProvinceId:'',
+        CityId:'',
+        AreaId: '',
         Longitude:'',
         Latitude:'',
         HostUnit:'',
@@ -53,12 +57,16 @@ Page({
         }
         this.getApplicationList();
         this.getDomainList();
+        let nowDate = formatDate(new Date());
+        this.setData({
+            nowDate
+        })
     },
     loadData(ActivityId) {
         let UserId = getItem('hd_userId') || '';
         let Token = getItem('hd_token') || '';
         ajax({
-            url: '/App/UserCenter/GetWantBuyInfo',
+            url: '/App/UserCenter/GetActivityInfo',
             method: 'POST',
             data: {
                 UserId,
@@ -67,8 +75,19 @@ Page({
             }
         }).then((res) => {
             console.log(res);
+
             let {
                 ActivityName,
+                BeginTimeTxt,
+                EndTimeTxt,
+                Latitude,
+                Longitude,
+                Organizer,
+                HostUnit,
+                ProvinceId,
+                CityId,
+                AreaId,
+                Address,
                 AppDominId,
                 TeachDominParentId,
                 TeachDominId,
@@ -110,9 +129,19 @@ Page({
             })
             this.setData({
                 ActivityName,
+                BeginTime: BeginTimeTxt,
+                EndTime: EndTimeTxt,
                 ScaleNum,
                 MainPicUrl: img_list,
                 TxtContent,
+                Latitude,
+                Longitude,
+                Organizer,
+                HostUnit,
+                ProvinceId,
+                CityId,
+                AreaId,
+                Address,
                 ['Application.value']: ApplicationValue,
                 ['Application.id']: AppDominId,
                 ['DomainList.value']:DomainListValue,
@@ -125,20 +154,16 @@ Page({
             console.log(error)
         })
     },
-
-
-
     bindStartDateChange(e){
-
+        this.setData({
+            BeginTime: e.detail.value
+        })
     },
-    bindEndDateChange(){
-
+    bindEndDateChange(e){
+        this.setData({
+            EndTime: e.detail.value
+        })
     },
-
-
-
-
-
 
     // 获取应用领域
     getApplicationList() {
@@ -303,6 +328,24 @@ Page({
             ['DomainCell.show']: false,
         })
     },
+
+    //地图选址
+    handleMapSelect(){
+        wx.chooseLocation({
+            success:res=>{
+                console.log(res);
+                if(res.errMsg == 'chooseLocation:ok'){
+                    let { address ,latitude, longitude, name} = res;
+                    this.setData({
+                        mapAddress: name,
+                        Longitude:longitude,
+                        Latitude:latitude,
+                        Address: address,
+                    })
+                }
+            }
+        })
+    },
     //输入
     handleChangeInput(e) {
         let { cell } = e.currentTarget.dataset;
@@ -338,6 +381,9 @@ Page({
             BeginTime,
             EndTime,
             Address,
+            ProvinceId,
+            CityId,
+            AreaId,
             Longitude,
             Latitude,
             HostUnit,
@@ -392,7 +438,6 @@ Page({
             })
             return;
         }
-
         if( isEmpty( Application.id) ){
             wx.showToast({
                 title: '请选择应用领域',
@@ -400,7 +445,6 @@ Page({
             })
             return;
         }
-
         if( isEmpty( DomainList.id) ||  isEmpty( DomainCell.id) ){
             wx.showToast({
                 title: '请选择技术领域',
@@ -437,6 +481,9 @@ Page({
                     TeachDominId: DomainCell.id,
                     MainPicUrl: MainPicUrl.join(',') ,
                     ActivityName,
+                    ProvinceId,
+                    CityId,
+                    AreaId,
                     ActivityId,
                     BeginTime,
                     EndTime,
@@ -470,6 +517,16 @@ Page({
                     UserId,
                     Token,
                     ActivityId,
+                    ProvinceId,
+                    CityId,
+                    AreaId,
+                    BeginTime,
+                    EndTime,
+                    Address,
+                    Longitude,
+                    Latitude,
+                    HostUnit,
+                    Organizer,
                     AppDominId: Application.id,
                     TeachDominParentId:DomainList.id ,
                     TeachDominId: DomainCell.id,

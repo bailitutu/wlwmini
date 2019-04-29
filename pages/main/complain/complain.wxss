@@ -11,12 +11,14 @@
     width:100%;
     background: #f4f4f4;
     min-height:300rpx;
-    padding: 10rpx;
+    padding: 10rpx 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+._complain-text .van-cell{
+    background: #f4f4f4!important;
+}
 ._img-upload-bg,._img-upload-file{
     width: 200rpx;
     height: 200rpx;

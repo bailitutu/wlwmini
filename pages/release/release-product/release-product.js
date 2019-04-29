@@ -42,22 +42,22 @@ Page({
             id: '',
             show: false
         },
-        Senior1:{
+        SeniorOne:{
             columnsData:[],
             list: [],
             value: '',
             id: '',
             show: false
         },
-        Senior2: {
+        SeniorTwo: {
             columnsData:[],
             list: [],
             value: '',
             id: '',
             show: false
         },
-        WantBuyName:'',
-        WantBuyPrice:'',
+        ProductName:'',
+        ProductPrice:'',
         PicUrls: [],
         TxtContent:''
     },
@@ -65,46 +65,73 @@ Page({
         if (opts.isEdit) {
             this.setData({
                 isEdit: true,
-                WantBuyId: opts.WantBuyId
+                ProductId: opts.ProductId
             })
             wx.setNavigationBarTitle({
-                title: '编辑求购'
+                title: '编辑产品'
             })
-            this.loadData(opts.WantBuyId);
+            this.loadData(opts.ProductId);
         }
         this.getApplicationList();
         this.getDomainList();
+        this.getMainClassList();
+        this.getSeniorList();
     },
-    loadData(WantBuyId) {
+    loadData(productId) {
         let UserId = getItem('hd_userId') || '';
         let Token = getItem('hd_token') || '';
         ajax({
-            url: '/App/UserCenter/GetWantBuyInfo',
+            url: '/App/Product/ProductInfo',
             method: 'POST',
             data: {
                 UserId,
                 Token,
-                WantBuyId
+                productId
             }
         }).then((res) => {
-            console.log(res);
+            console.log(res,'product')
             let {
-                WantBuyName,
+                ProductName,
+                ProudctPrice,
+                MainClassId,
+                SecondaryClassId,
+                Senior1,
+                Senior2,
                 AppDominId,
                 TeachDominParentId,
                 TeachDominId,
-                WantBuyPrice,
+                ProductPrice,
                 PicUrls,
                 TxtContent,
 
             } =  res.Data;
 
+            let MainClass = [ ...this.data.MainClass.list];
+            let SubClass = [ ...this.data.SubClass.list];
             let ApplicationList = [ ...this.data.Application.list];
             let DomainList = [...this.data.DomainList.list];
             let DomainCell = [...this.data.DomainCell.list];
+            let SeniorOne = [...this.data.SeniorOne.list];
+            let SeniorTwo = [...this.data.SeniorTwo.list];
+            let MainClassValue = '';
+            let SubClassValue = '';
             let ApplicationValue = '';
             let DomainListValue = '';
             let DomainCellValue = '';
+            let SeniorOneValue = '';
+            let SeniorTwoValue = '';
+            MainClass.map(item => {
+                if(item.Id = MainClassId ){
+                    MainClassValue = item.Name
+                    return;
+                }
+            });
+            SubClass.map(item => {
+                if(item.Id = SecondaryClassId ){
+                    SubClassValue = item.Name
+                    return;
+                }
+            });
             ApplicationList.map(item => {
                 if(item.Id = AppDominId ){
                     ApplicationValue = item.Name
@@ -123,24 +150,43 @@ Page({
                     return;
                 }
             });
+            SeniorOne.map(item => {
+                if(item.Id = Senior1 ){
+                    SeniorOneValue = item.Name
+                    return;
+                }
+            });
+            SeniorTwo.map(item => {
+                if(item.Id = Senior2 ){
+                    SeniorTwoValue = item.Name
+                    return;
+                }
+            });
             let img_list = []
             PicUrls.split(',').forEach(item => {
                 img_list.push({
                     imgUrl: item
                 })
             })
-            console.log(img_list)
             this.setData({
-                WantBuyName,
-                WantBuyPrice,
+                ProductName,
+                ProductPrice: ProudctPrice,
                 PicUrls: img_list,
                 TxtContent,
+                ['MainClass.value']: ApplicationValue,
+                ['MainClass.id']: AppDominId,
+                ['SubClass.value']: ApplicationValue,
+                ['SubClass.id']: AppDominId,
                 ['Application.value']: ApplicationValue,
                 ['Application.id']: AppDominId,
                 ['DomainList.value']:DomainListValue,
                 ['DomainList.id']:TeachDominParentId,
                 ['DomainCell.value']:DomainCellValue,
-                ['DomainCell.id']:TeachDominId
+                ['DomainCell.id']:TeachDominId,
+                ['SeniorOne.value']: ApplicationValue,
+                ['SeniorOne.id']: AppDominId,
+                ['SeniorTwo.value']: ApplicationValue,
+                ['SeniorTwo.id']: AppDominId,
             })
 
         }).catch((error) => {
@@ -205,6 +251,115 @@ Page({
         })
     },
 
+    // 获取产品分类父级
+    getMainClassList() {
+        let MainClass = getItem('MainClass') || false;
+        if (!MainClass) {
+            ajax({
+                url: '/app/Product/SubLevelClassList',
+                method: 'POST',
+                data: {
+                    classId: 0
+                }
+            }).then((res) => {
+                console.log(res,'res')
+                let list = [...res.Data];
+                let columnsData = list.map(item => {
+                    return item.ClassName;
+                })
+                setItem("MainClass", JSON.stringify(list));
+                this.setData({
+                    ['MainClass.list']: list,
+                    ['MainClass.columnsData']:columnsData,
+                    ['MainClass.value']:list[0].ClassName,
+                    ['MainClass.id']:list[0].ClassId,
+                })
+                this.getSubClass(list[0].ClassId);
+            }).catch((error) => {
+                console.log(error)
+            })
+        } else {
+            let list = [...JSON.parse(MainClass)];
+            let columnsData = list.map(item => {
+                return item.ClassName;
+            })
+            this.setData({
+                ['MainClass.list']: list,
+                ['MainClass.columnsData']:columnsData || [],
+                ['MainClass.value']:list[0].ClassName || '',
+                ['MainClass.id']:list[0].ClassId || '',
+            })
+            this.getSubClass(list[0].ClassId);
+        }
+    },
+    // 获取技术领域子级
+    getSubClass(ParentId) {
+        ajax({
+            url: '/app/Product/SubLevelClassList',
+            method: 'POST',
+            data: {
+                classId:ParentId
+            }
+        }).then((res) => {
+            console.log(res,'sub')
+            let list = [...res.Data];
+            let columnsData = [];
+            if(list.length){
+                columnsData = list.map(item => {
+                    return item.ClassName;
+                })
+            }
+            this.setData({
+                ['SubClass.list']: list || [],
+                ['SubClass.columnsData']:columnsData || [],
+                ['SubClass.value']:list[0].ClassName || '',
+                ['SubClass.id']:list[0].ClassId || '',
+            })
+        }).catch((error) => {
+            console.log(error)
+        })
+    },
+    // 一级选择
+    handleSelectMainClass(){
+        this.setData({
+            ['MainClass.show']: true,
+        })
+    },
+    handleMainClassConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.DomainList.list[index].Id;
+        this.setData({
+            ['MainClass.value']: value,
+            ['MainClass.id']: id,
+            ['MainClass.show']: false,
+        })
+        this.getSubClass(id)
+    },
+    handleMainClassCancel() {
+        this.setData({
+            ['MainClass.show']: false,
+        })
+    },
+    // 二级选择
+    handleSelectSubClass(){
+        this.setData({
+            ['SubClass.show']: true,
+        })
+    },
+    handleSubClassConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.SubClass.list[index].Id;
+        this.setData({
+            ['SubClass.value']: value,
+            ['SubClass.id']: id,
+            ['SubClass.show']: false,
+        })
+    },
+    handleSubClassCancel() {
+        this.setData({
+            ['SubClass.show']: false,
+        })
+    },
 
     // 获取技术领域父级
     getDomainList() {
@@ -310,6 +465,88 @@ Page({
             ['DomainCell.show']: false,
         })
     },
+
+    //获取高级选项：
+    getSeniorList(){
+        let UserId = getItem('hd_userId') || '';
+        let Token = getItem('hd_token') || '';
+        ajax({
+            url: '/App/Product/SeniorList',
+            method: 'POST',
+            data: {
+                UserId,
+                Token
+            }
+        }).then((res) => {
+            let list = [...res.Data];
+            let SeniorOne = [];
+            let SeniorTwo = [];
+            let SeniorOneData = [];
+            let SeniorTwoData = [];
+            list.forEach(item => {
+                if(item.Type == 1){
+                    SeniorOne.push(item.Name);
+                    SeniorOneData.push(item)
+                }else{
+                    SeniorTwo.push(item.Name);
+                    SeniorTwoData.push(item)
+                }
+            });
+            this.setData({
+                ['SeniorOne.list']: SeniorOneData,
+                ['SeniorOne.columnsData']:SeniorOne,
+                ['SeniorOne.value']:SeniorOneData[0].Name,
+                ['SeniorOne.id']:SeniorOneData[0].Id,
+                ['SeniorTwo.list']: SeniorTwoData,
+                ['SeniorTwo.columnsData']:SeniorTwo,
+                ['SeniorTwo.value']:SeniorTwoData[0].Name,
+                ['SeniorTwo.id']:SeniorTwoData[0].Id,
+            })
+        }).catch((error) => {
+            console.log(error)
+        })
+
+    },
+    // 高级选项选择
+    handleSeniorOneList(){
+        this.setData({
+            ['SeniorOne.show']: true,
+        })
+    },
+    handleSeniorOneConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.SeniorOne.list[index].Id;
+        this.setData({
+            ['SeniorOne.value']: value,
+            ['SeniorOne.id']: id,
+            ['SeniorOne.show']: false,
+        })
+    },
+    handleSeniorOneCancel() {
+        this.setData({
+            ['SeniorOne.show']: false,
+        })
+    },
+    // 二级选择
+    handleSeniorTwoList(){
+        this.setData({
+            ['SeniorTwo.show']: true,
+        })
+    },
+    handleSeniorTwoConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.SeniorTwo.list[index].Id;
+        this.setData({
+            ['SeniorTwo.value']: value,
+            ['SeniorTwo.id']: id,
+            ['SeniorTwo.show']: false,
+        })
+    },
+    handleSeniorTwoCancel() {
+        this.setData({
+            ['SeniorTwo.show']: false,
+        })
+    },
     //输入
     handleChangeInput(e) {
         let { cell } = e.currentTarget.dataset;
@@ -340,9 +577,13 @@ Page({
     handleSubmitPurchase() {
         let {
             isEdit,
-            WantBuyName,
-            WantBuyId,
-            WantBuyPrice,
+            ProductName,
+            ProductId,
+            MainClass,
+            SubClass,
+            SeniorOne,
+            SeniorTwo,
+            ProductPrice,
             PicUrls,
             TxtContent,
             Application,
@@ -350,16 +591,23 @@ Page({
             DomainCell
         } = this.data;
         // 验证
-        if( isEmpty( WantBuyName) ){
+        if( isEmpty( ProductName) ){
             wx.showToast({
-                title: '请输入求购名称',
+                title: '请输入产品名称',
                 icon:'none'
             })
             return;
         }
-        if( isEmpty( WantBuyPrice) ){
+        if( isEmpty( ProductPrice) ){
             wx.showToast({
-                title: '请输入求购价格',
+                title: '请输入产品价格',
+                icon:'none'
+            })
+            return;
+        }
+        if( isEmpty( MainClass.id)){
+            wx.showToast({
+                title: '请选择产品分类',
                 icon:'none'
             })
             return;
@@ -381,7 +629,7 @@ Page({
         }
         if( PicUrls.length == 0 ){
             wx.showToast({
-                title: '请上传求购图片',
+                title: '请上传产品图片',
                 icon:'none'
             })
             return;
@@ -398,18 +646,23 @@ Page({
         if(!isEdit){
             // 发布
             ajax({
-                url: '/app/UserCenter/AddWantBuy',
+                url: '/app/Product/AddProduct',
                 method: 'POST',
                 data: {
                     UserId,
                     Token,
+                    MainClassId: MainClass.id,
+                    SecondaryClassId: SubClass.id,
                     AppDominId: Application.id,
                     TeachDominParentId:DomainList.id ,
                     TeachDominId: DomainCell.id,
-                    WantBuyPrice,
+                    ProudctPrice:ProductPrice,
                     PicUrls,
+                    PicUrlsMagnifier: PicUrls,
+                    Senior1: SeniorOne.id,
+                    Senior2: SeniorTwo.id,
                     TxtContent,
-                    WantBuyName
+                    ProductName
                 }
             }).then((res) => {
                 wx.showToast({
@@ -427,17 +680,22 @@ Page({
         }else{
             //编辑
             ajax({
-                url: '/app/UserCenter/WantBuyEdit',
+                url: '/app/Product/ProductUpdate',
                 method: 'POST',
                 data: {
                     UserId,
                     Token,
-                    WantBuyId,
+                    productId:ProductId,
+                    MainClassId: MainClass.id,
+                    SecondaryClassId: SubClass.id,
                     AppDominId: Application.id,
                     TeachDominParentId:DomainList.id ,
                     TeachDominId: DomainCell.id,
-                    WantBuyPrice,
-                    WantBuyName,
+                    ProudctPrice:ProductPrice,
+                    ProductName,
+                    PicUrlsMagnifier: PicUrls,
+                    Senior1: SeniorOne.id,
+                    Senior2: SeniorTwo.id,
                     PicUrls,
                     TxtContent
                 }

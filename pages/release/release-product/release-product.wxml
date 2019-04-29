@@ -12,10 +12,10 @@
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>产品价格</view>
         <van-field
                 type='number'
-                value="{{ ProudctPrice }}"
+                value="{{ ProductPrice }}"
                 placeholder="请输入产品价格"
                 border="{{ true }}"
-                data-cell="ProudctPrice"
+                data-cell="ProductPrice"
                 bind:change="handleChangeInput"
         />
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>产品分类</view>
@@ -24,19 +24,15 @@
                 is-link
                 custom-class="_picker-item"
                 title-class="g-tl"
-                bind:click="handleMainClassList"
+                bind:click="handleSelectMainClass"
         />
         <van-cell
                 title="{{ SubClass.value }}"
                 is-link
                 custom-class="_picker-item"
                 title-class="g-tl"
-                bind:click="handleSubClassList"
+                bind:click="handleSelectSubClass"
         />
-
-
-
-
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>应用类型</view>
         <van-cell
                 title="{{ Application.value }}"
@@ -63,21 +59,21 @@
 
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>高级选项1</view>
         <van-cell
-                title="{{ Senior1.value }}"
+                title="{{ SeniorOne.value }}"
                 is-link
                 custom-class="_picker-item"
                 title-class="g-tl"
-                data-id="{{ Senior1.id }}"
-                bind:click="handleSenior1List"
+                data-id="{{ SeniorOne.id }}"
+                bind:click="handleSeniorOneList"
         />
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>高级选项2</view>
         <van-cell
-                title="{{ Senior2.value }}"
+                title="{{ SeniorTwo.value }}"
                 is-link
                 custom-class="_picker-item"
                 title-class="g-tl"
-                data-id="{{ Senior2.id }}"
-                bind:click="handleSenior2List"
+                data-id="{{ SeniorTwo.id }}"
+                bind:click="handleSeniorTwoList"
         />
 
         <view class="g-pd-lr-30">
@@ -99,7 +95,28 @@
 
     </van-cell-group>
 </view>
-
+<van-popup
+        show="{{ MainClass.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="产品分类"
+                columns="{{ MainClass.columnsData }}"
+                bind:confirm="handleMainClassConfirm"
+                bind:cancel="handleMainClassCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ SubClass.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="产品子分类"
+                columns="{{ SubClass.columnsData }}"
+                bind:confirm="handleSubClassConfirm"
+                bind:cancel="handleSubClassCancel"
+    />
+</van-popup>
 
 <van-popup
         show="{{ Application.show }}"
@@ -112,8 +129,6 @@
                 bind:cancel="handleApplicationCancel"
     />
 </van-popup>
-
-
 <van-popup
         show="{{ DomainList.show }}"
         position="bottom"
@@ -125,8 +140,6 @@
                 bind:cancel="handleDomainListCancel"
     />
 </van-popup>
-
-
 <van-popup
         show="{{ DomainCell.show }}"
         position="bottom"
@@ -136,5 +149,27 @@
                 columns="{{ DomainCell.columnsData }}"
                 bind:confirm="handleDomainCellConfirm"
                 bind:cancel="handleDomainCellCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ SeniorOne.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="技术领域"
+                columns="{{ SeniorOne.columnsData }}"
+                bind:confirm="handleSeniorOneConfirm"
+                bind:cancel="handleSeniorOneCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ SeniorTwo.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="技术领域"
+                columns="{{ SeniorTwo.columnsData }}"
+                bind:confirm="handleSeniorTwoConfirm"
+                bind:cancel="handleSeniorTwoCancel"
     />
 </van-popup>
