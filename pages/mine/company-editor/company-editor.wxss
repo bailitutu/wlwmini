@@ -1,1 +1,10 @@
-/* pages/mine/company-editor/company-editor.wxss */
+@import '../../other/find-pwd/find-pwd.wxss';
+
+._picker-item{
+    padding-right:0 !important;
+}
+._text-area{
+    height: 300rpx;
+    text-align: left;
+    padding: 10rpx;
+}

@@ -1,0 +1,19 @@
+<view class="c-text-area">
+    <textarea
+            name=""
+            cols="30"
+            rows="10"
+            class="c-text-area-text"
+            placeholder-class="{{ placeholder-class }}"
+            bindChange="handleChangeValue"
+    ></textarea>
+
+    <scroll-view
+            style="height:{{ height }} + 'px'"
+            class="c-text-area-scroll"
+            bindtap="handleTextClick"
+    >
+        {{ value }}
+    </scroll-view>
+
+</view>

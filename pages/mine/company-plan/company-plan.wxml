@@ -21,9 +21,7 @@
                 <view class='g-flex-cols  _list-right-item g-flex-c g-ai-c'>
                     <p class="g-fs-26 g-c-gray">{{ item.PlatformStatusName}}</p>
                     <van-button size='small' type='info' round custom-class='g-c-white g-b-none g-bg-blue'
-                                data-id="{{ item.SchemeId }}" bindtap="handleEdit" wx:if="{{true}}">编辑</van-button>
-                    <van-button size='small' type='info' round custom-class='g-c-white g-b-none g-bg-gray'
-                                data-id="{{ item.SchemeId }}" bindtap="handleDelete" wx:else>删除</van-button>
+                                data-id="{{ item.SchemeId }}" bindtap="handleEdit">编辑</van-button>
                 </view>
             </view>
         </view>

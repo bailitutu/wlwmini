@@ -1,0 +1,16 @@
+.c-text-area{
+    position: relative;
+    min-height: 600rpx;
+    background: #f4f4f4;
+    color: #333333;
+}
+.c-text-area-text{
+    visibility: hidden;
+    height:100%;
+}
+.c-text-area-scroll{
+    width:100%;
+    position: absolute;
+    top:0;
+    left: 0;
+}

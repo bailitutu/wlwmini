@@ -198,51 +198,58 @@ Page({
         wx.showModal({
             title:'提示',
             content: '确定删除该收藏吗？',
-            success:()=>{
-                let { id , index } = e.currentTarget.dataset;
-                let { UserId, Token, currentTab ,activityInfo,planInfo,purchaseInfo,productInfo } = this.data;
-                ajax({
-                    url:'/App/UserCenter/DelCollect',
-                    method: 'POST',
-                    data:{
-                        UserId,
-                        Token,
-                        Id: id
-                    }
-                }).then( ( res) => {
-                    switch (currentTab) {
-                        case 1:
-                            purchaseInfo.list.splice(index,1);
-                            this.setData({
-                                [ 'purchaseInfo.list'] : purchaseInfo.list
-                            })
-                            break;
-                        case 2:
-                            planInfo.list.splice(index,1);
-                            this.setData({
-                                [ 'planInfo.list'] : planInfo.list
-                            })
-                            break;
-                        case 3:
-                            productInfo.list.splice(index,1);
-                            this.setData({
-                                [ 'productInfo.list'] : productInfo.list
-                            })
-                            break;
-                        default:
-                            activityInfo.list.splice(index,1);
-                            this.setData({
-                                [ 'activityInfo.list'] : activityInfo.list
-                            })
-                            break;
-                    }
-                }).catch((error) =>{
-                    console.log(error)
-                    wx.showToast({
-                        title: '删除失败，请重试！',
-                        icon: 'none'
+            success:(res)=>{
+                if (res.confirm) {
+
+                    let { id , index } = e.currentTarget.dataset;
+                    let { UserId, Token, currentTab ,activityInfo,planInfo,purchaseInfo,productInfo } = this.data;
+                    ajax({
+                        url:'/App/UserCenter/DelCollect',
+                        method: 'POST',
+                        data:{
+                            UserId,
+                            Token,
+                            Id: id
+                        }
+                    }).then( ( res) => {
+                        switch (currentTab) {
+                            case 1:
+                                purchaseInfo.list.splice(index,1);
+                                this.setData({
+                                    [ 'purchaseInfo.list'] : purchaseInfo.list
+                                })
+                                break;
+                            case 2:
+                                planInfo.list.splice(index,1);
+                                this.setData({
+                                    [ 'planInfo.list'] : planInfo.list
+                                })
+                                break;
+                            case 3:
+                                productInfo.list.splice(index,1);
+                                this.setData({
+                                    [ 'productInfo.list'] : productInfo.list
+                                })
+                                break;
+                            default:
+                                activityInfo.list.splice(index,1);
+                                this.setData({
+                                    [ 'activityInfo.list'] : activityInfo.list
+                                })
+                                break;
+                        }
+                    }).catch((error) =>{
+                        console.log(error)
+                        wx.showToast({
+                            title: '删除失败，请重试！',
+                            icon: 'none'
+                        })
                     })
-                })
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+
+
             }
         })
     },

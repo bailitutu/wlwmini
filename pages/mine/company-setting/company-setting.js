@@ -24,7 +24,6 @@ Page({
             method: 'POST',
             data:personData
         }).then( ( res) => {
-            console.log(res.Data);
             this.setData({
                 detail:res.Data,
                 isReady:true

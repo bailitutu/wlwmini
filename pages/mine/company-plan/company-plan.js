@@ -53,9 +53,4 @@ Page({
         let { id } = e.currentTarget.dataset;
         goPage('发布方案',{ SchemeId: id, isEdit: 1})
     },
-    // 删除方案
-    handleDelete(e){
-        let { id } = e.currentTarget.dataset;
-
-    }
 })
