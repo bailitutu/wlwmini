@@ -49,10 +49,10 @@ Page({
         let { id } = e.currentTarget.dataset;
         goPage('发布产品',{ ProductId: id, isEdit: 1})
     },
-    handleDelete(e){
-        let { id } = e.currentTarget.dataset;
-
-    },
+    // handleDelete(e){
+    //     let { id } = e.currentTarget.dataset;
+    //
+    // },
     // 查看详情
     handleProductDetail(e){
         let { id } = e.currentTarget.dataset;

@@ -5,7 +5,6 @@
 
     <view class='_btn-cell g-m-t-60'>
         <van-button size="large" custom-class='g-bg-green g-c-white' type="info">
-            <van-icon name="close" custom-class='g-va-mid g-m-r-10'/>
             <text class='g-va-mid '>使用微信授权登录</text>
         </van-button>
     </view>

@@ -2,18 +2,18 @@ import { goPage } from '../../../utils/common'
 import { getItem,  } from '../../../utils/util'
 Page({
 
-  data: {
+    data: {
       isPerson: true,
       isShow: false,
-  },
+    },
 
-  onLoad: function (options) {
+    onLoad: function (options) {
       let hd_IsEnterprise = getItem('hd_IsEnterprise');
       this.setData({
           isPerson: !hd_IsEnterprise,
           isShow: true
       })
-  },
+    },
     onShow(){
         this.setData({
             isShow: true

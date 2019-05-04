@@ -93,7 +93,6 @@ Page({
                 Token
             }
         }).then( ( res) => {
-          console.log(res)
             let noData = !res.Data || res.Data.length == 0 ? true : false;
             this.setData({
                 publicInfo: {
@@ -117,7 +116,6 @@ Page({
                 Token
             }
         }).then( ( res) => {
-            console.log(res)
             let noData = !res.Data || res.Data.length == 0 ? true : false;
             this.setData({
                 signInfo: {
@@ -141,7 +139,6 @@ Page({
                 Token
             }
         }).then( ( res) => {
-            console.log(res)
             let noData = !res.Data || res.Data.length == 0 ? true : false;
             this.setData({
                 collectInfo: {

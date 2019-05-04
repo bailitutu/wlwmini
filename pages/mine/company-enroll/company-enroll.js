@@ -40,7 +40,6 @@ Page({
                     ActivityId
                 }
             }).then( ( res) => {
-                 console.log(res,'res1');
                  resolve( res);
              }).catch((error) =>{
                  console.log(error)
@@ -57,10 +56,8 @@ Page({
                     ActivityId
                 }
             }).then( ( res) => {
-                console.log(res,'res2');
                 resolve( res);
             }).catch((error) =>{
-                console.log(error)
                 reject(error)
             })
         })

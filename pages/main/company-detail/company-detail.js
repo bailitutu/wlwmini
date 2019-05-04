@@ -45,7 +45,6 @@ Page({
             method: 'POST',
             data:personData
         }).then( ( res) => {
-            console.log(res);
             let info = res.Data.UserEnterprise;
             let ProductNoData = !res.Data.Product || res.Data.Product.length == 0 ? true : false;
             let ActivityNoData = !res.Data.Activity || res.Data.Activity.length == 0 ? true : false;
@@ -82,12 +81,6 @@ Page({
 
     },
 
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    }
 
 
 })

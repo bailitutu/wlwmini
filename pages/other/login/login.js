@@ -18,13 +18,6 @@ Page({
         hasSend: false,
         leftTime: 60
     },
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-
-    },
-
     changePhone(e){
         this.setData({
             phone:e.detail
@@ -32,7 +25,7 @@ Page({
     },
     changePwdCode(e) {
         this.setData({
-            phone:e.detail
+            code:e.detail
         })
     },
     //验证码登录

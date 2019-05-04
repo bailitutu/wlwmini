@@ -5,19 +5,13 @@ import {goPage} from "../../../utils/common";
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
       list: [],
       noData:false,
       noMore:false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad: function () {
     this.loadData();
   },
     loadData(){
@@ -32,7 +26,6 @@ Page({
                 Token,
             }
         }).then( ( res) => {
-            console.log(res,'res1');
             let noData = !res.Data || res.Data.length == 0 ? true : false;
             this.setData({
                 list: res.Data || [],

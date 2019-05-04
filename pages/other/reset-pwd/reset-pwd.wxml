@@ -1,6 +1,6 @@
 <view class='body g-tc'>
 
-    <view class='g-pd-lr-60 g-m-t-80'>
+    <view class='g-pd-lr-30 g-m-t-80'>
         <van-cell-group  border='{{ false }}'>
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>设置新密码</view>
             <van-field
@@ -18,7 +18,7 @@
                 bind:change="handleChangePwdTwo"
                 type='password'
             />
-            <view class=' g-m-t-60 g-m-b-60'>
+            <view class='g-m-t-60 g-m-b-60 g-pd-lr-20'>
                 <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bindtap="handleSubmit">确定修改</van-button>
             </view>
 

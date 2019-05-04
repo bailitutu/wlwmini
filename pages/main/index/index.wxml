@@ -66,7 +66,7 @@
                 <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="5" bindtap="handleOrderBy">价格</view>
                 <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="7" bindtap="handleOrderBy">更新时间</view>
             </view>
-            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
                 <text>筛选</text>
             </view>
@@ -100,7 +100,7 @@
                 <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="5" bindtap="handleOrderBy">价格</view>
                 <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="7" bindtap="handleOrderBy">更新时间</view>
             </view>
-            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
                 <text>筛选</text>
             </view>
@@ -123,14 +123,14 @@
         <loading noData='{{ purchaseInfo.noData }}' noMore='{{ purchaseInfo.noMore }}'></loading>
     </view>
     <!--活动-->
-    <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 3 }}">
+    <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 3 }}" >
         <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
             <view class="g-flex-fs">
                 <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="1" bindtap="handleOrderBy">综合</view>
                 <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="3" bindtap="handleOrderBy">收藏</view>
                 <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="5" bindtap="handleOrderBy">活动时间</view>
             </view>
-            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
                 <text>筛选</text>
             </view>
@@ -166,7 +166,7 @@
             <view class="g-flex-fs">
                 <view class="g-c-black g-fs-28 _filter-cell" data-type="5" data-order="1" bindtap="handleOrderBy">综合</view>
             </view>
-            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell">
+            <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
                 <text>筛选</text>
             </view>

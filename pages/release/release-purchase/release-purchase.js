@@ -59,7 +59,6 @@ Page({
                 WantBuyId
             }
         }).then((res) => {
-            console.log(res);
             let {
                 WantBuyName,
                 AppDominId,
@@ -101,7 +100,6 @@ Page({
                     imgUrl: item
                 })
             })
-            console.log(img_list)
             this.setData({
                 WantBuyName,
                 WantBuyPrice,

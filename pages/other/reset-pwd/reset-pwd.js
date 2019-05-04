@@ -18,8 +18,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(options);
-        let {userName, code, isPhone} = options.query;
+        let {userName, code, isPhone} = options;
         this.setData({
             userName,
             code,
@@ -27,19 +26,6 @@ Page({
         })
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
     handleChangePwdOne(e) {
         this.setData({
             pwd_one: e.detail
@@ -53,7 +39,6 @@ Page({
 
     handleSubmit() {
         let {isPhone, code, userName, pwd_one, pwd_two} = this.data;
-
         if (pwd_one !== pwd_two) {
             wx.showToast({
                 title: '两次输入的密码不一致',
@@ -68,8 +53,7 @@ Page({
         let postData = {
             userName,
             code,
-            pwd_one,
-            isPhone
+            password:pwd_one,
         };
         let url = isPhone == '2' ? "/app/User/EmailForgetPassword" : '/app/User/PhoneForgetPassword'
         ajax({
@@ -81,7 +65,9 @@ Page({
                 title: '修改成功',
                 icon: 'none',
                 success: () => {
-                    goPage('登录');
+                   setTimeout(()=>{
+                       goPage('登录');
+                   },1500)
                 }
             })
         }).catch((error) => {

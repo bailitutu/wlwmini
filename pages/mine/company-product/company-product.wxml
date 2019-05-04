@@ -26,17 +26,15 @@
                                 catchtap="handleEdit"
                                 wx:if="{{true}}"
                     >编辑</van-button>
-                    <van-button size='small' type='info' custom-class='g-bg-white g-b-none g-c-gray'
-                                data-id="{{ item.ProductId}}"
-                                catchtap="handleDelete"
-                        wx:else
-                    >删除</van-button>
+                    <!--<van-button size='small' type='info' custom-class='g-bg-white g-b-none g-c-gray'-->
+                                <!--data-id="{{ item.ProductId}}"-->
+                                <!--catchtap="handleDelete"-->
+                        <!--wx:else-->
+                    <!--&gt;删除</van-button>-->
                 </view>
             </view>
         </view>
         <loading noData='{{ noData }}' noMore='{{ noMore }}'></loading>
-
-
     </view>
 
 

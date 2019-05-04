@@ -75,7 +75,6 @@
                 </view>
             </view>
             <loading noData='{{ Activity.noData }}'  noMore='{{ Activity.noMore }}'></loading>
-
         </van-tab>
     </van-tabs>
 

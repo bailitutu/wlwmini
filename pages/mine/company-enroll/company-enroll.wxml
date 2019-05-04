@@ -1,6 +1,6 @@
 <view class="body" wx:if="{{ isReady }}">
     <view class="g-pd-30 g-bg-f4">
-        <view class="g-pd-lr-20 g-bg-white g-c-black g-fs-28 " v-if="{{ SignInList }}">
+        <view class="g-pd-lr-20 g-bg-white g-c-black g-fs-28 " wx:if="{{ SignInList }}">
             <view class="g-bb g-pd-20 g-flex-lr _list-item"
                 wx:for="{{ SignInList}}"
                   wx:key="index"
@@ -10,17 +10,15 @@
                 <van-button size="small" type="info" round custom-class="g-bg-gray g-c-white g-fs-24">{{ item.StatusName }}</van-button>
             </view>
         </view>
-
-        <view class="g-pd-tb-10">
+        <view class="g-pd-tb-10" wx:if="{{ VisitorList.length > 0 }}">
             <view class="_visit-title g-fs-32 g-c-black">访客</view>
         </view>
-
-        <view class="_visit-list g-m-b-40">
+        <view class="_visit-list g-m-b-40" wx:if="{{ VisitorList }}">
             <view class="g-flex-fs g-fw-w">
-                <image wx:if="{{ VisitorList }}" wx:for="{{ VisitorList }}" wx:key="{{index}}" src="{{ item.HeadUrl}}"></image>
+                <image  wx:for="{{ VisitorList }}" wx:key="{{index}}" src="{{ item.HeadUrl}}"></image>
             </view>
         </view>
-
+        <loading noData='{{ !VisitorList.length && !SignInList.length }}'  noMore='{{ !VisitorList.length }}'></loading>
     </view>
 
 

@@ -42,7 +42,6 @@ Page({
             method: 'POST',
             data: personData
         }).then((res) => {
-            console.log(res);
             this.setData({
                 detail: res.Data,
                 isReady: true,
@@ -131,7 +130,7 @@ Page({
         })
     },
     handleConfirm() {
-        let {ActivityId, CallName, MobilePhone, Remarks} = this.data;
+        let { ActivityId, CallName, MobilePhone, Remarks } = this.data;
         let UserId = getItem('hd_userId') || '';
         let Token = getItem('hd_token') || '';
         let personData = {
@@ -157,7 +156,7 @@ Page({
             })
             return;
         }
-        if (isPhone(MobilePhone)) {
+        if (!isPhone(MobilePhone)) {
             wx.showToast({
                 title: '请输入正确的手机号',
                 icon: 'none'
@@ -184,5 +183,6 @@ Page({
         }).catch((error) => {
             console.log(error);
         })
+
     }
 })

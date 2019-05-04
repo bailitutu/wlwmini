@@ -3,10 +3,6 @@ import {ajax} from "../../../utils/api";
 import {goPage} from "../../../utils/common";
 
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         isReady: false,
         WantBuyId: '',
@@ -14,10 +10,6 @@ Page({
         UserId: '',
         Token: "",
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
         let UserId = getItem('hd_userId') || '';
         let Token = getItem('hd_token') || '';
@@ -41,7 +33,6 @@ Page({
             method: 'POST',
             data: personData
         }).then((res) => {
-            console.log(res);
             this.setData({
                 detail: res.Data,
                 isReady: true

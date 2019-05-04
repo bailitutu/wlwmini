@@ -12,9 +12,7 @@
             </van-button>
         </view>
     </view>
-
-
-    <view class='g-pd-lr-60 g-m-t-60' wx:if="{{ currentTab == '1'}}">
+    <view class='g-pd-lr-30 g-m-t-60' wx:if="{{ currentTab == '1'}}">
         <van-cell-group border='{{ false }}'>
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
@@ -171,7 +169,7 @@
                 <text class='g-c-red'>*</text>
                 公司简介
             </view>
-            <view >
+            <view class="g-pd-lr-20">
                 <textarea
                     value="{{ companyInfo.Abstract }}"
                     class="_text-area  g-fs-24 g-bg-f4 g-c-black"
@@ -211,7 +209,7 @@
                 设置密码
             </view>
             <van-field
-                    type='number'
+                    type='password'
                     value="{{ companyInfo.UserPwd }}"
                     placeholder="请输入密码"
                     border="{{ true }}"
@@ -224,7 +222,7 @@
                 确认密码
             </view>
             <van-field
-                    type='number'
+                    type='password'
                     value="{{ companyInfo.UserPwdTwo }}"
                     placeholder="请再次输入密码"
                     border="{{ true }}"
@@ -280,8 +278,26 @@
         </van-cell-group>
 
     </view>
-    <view class='g-pd-lr-60 g-m-t-60' wx:else>
+    <view class='g-pd-lr-30 g-m-t-60' wx:else>
         <van-cell-group border='{{ false }}'>
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
+                昵称
+            </view>
+            <van-field
+                    type='text'
+                    value="{{ personInfo.NickName }}"
+                    placeholder="请输入昵称"
+                    border="{{ true }}"
+                    data-type="1"
+                    data-cell="NickName"
+                    bind:change="handleChangeInput"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
+                <text class='g-c-red'>*</text>
+                头像（大小不超过100k）
+            </view>
+            <img-picker multiple max="1" bind:upload="handleUploadHeadUrl" bind:removeImg="handleRemoveHeadUrl"></img-picker>
+
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
                 所属企业
@@ -347,7 +363,7 @@
                 设置密码
             </view>
             <van-field
-                    type='number'
+                    type='password'
                     value="{{ personInfo.UserPwd }}"
                     placeholder="请输入密码"
                     border="{{ true }}"
@@ -360,7 +376,7 @@
                 确认密码
             </view>
             <van-field
-                    type='number'
+                    type='password'
                     value="{{ personInfo.UserPwdTwo }}"
                     placeholder="请再次输入密码"
                     border="{{ true }}"
@@ -377,6 +393,7 @@
                     value="{{ personInfo.UserName }}"
                     placeholder="请输入手机号"
                     border="{{ true }}"
+                    maxlength="11"
                     data-type="1"
                     data-cell="UserName"
                     bind:change="handleChangeInput"
@@ -390,6 +407,7 @@
                     placeholder="请输入验证码"
                     border="{{ true }}"
                     data-type="1"
+                    maxlength="6"
                     data-cell="Code"
                     bind:change="handleChangeInput"
                     use-button-slot

@@ -92,7 +92,6 @@ Page({
         },
         productList:[],
         productOrderBy:0,
-
         planList:[],
         planOrderBy:0,
         purchaseList:[],
@@ -122,9 +121,10 @@ Page({
         this.setData({
             headerBarActive: idx,
             headBarList: headBarList,
-            Keyword:''
+            Keyword:'',
+            AppDominId: 0,
+            TeachDominId: 0,
         })
-
         //处理页面切换
         switch(idx){
             case 1:
@@ -147,7 +147,6 @@ Page({
     },
     // 输入关键词
     handleChangeSearch(e){
-        console.log(e.detail)
         this.setData({
             Keyword: e.detail
         })
@@ -258,7 +257,6 @@ Page({
                 this.setData({
                     [ 'productInfo.page']: productPage,
                 })
-                console.log(this.data.productInfo.page);
                 this.getProductList();
                 break;
         }
@@ -339,7 +337,6 @@ Page({
     },
     // 获取方案列表信息
     getPlanList(){
-        console.log('plan')
         let { Keyword ,AppDominId, TeachDominId,planInfo } = this.data;
         let page = planInfo.page;
         let pageSize = 20;
@@ -537,7 +534,6 @@ Page({
                 method: 'POST',
                 data:{}
             }).then( ( res) => {
-                console.log(res.Data);
                 this.setData({
                     DomainApplicationList: res.data
                 })

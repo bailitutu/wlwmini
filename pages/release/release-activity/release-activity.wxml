@@ -135,7 +135,7 @@
             </view>
         </view>
         <view class='g-pd-lr-30 g-m-t-40 g-m-b-60'>
-            <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bind:click='handleSubmitPurchase'>{{ isEdit ? '提交' : '发布'}}</van-button>
+            <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bind:click='handleSubmit'>{{ isEdit ? '提交' : '发布'}}</van-button>
         </view>
 
     </van-cell-group>
@@ -152,9 +152,6 @@
                 bind:cancel="handleApplicationCancel"
     />
 </van-popup>
-
-
-
 <van-popup
         show="{{ DomainList.show }}"
         position="bottom"
@@ -166,8 +163,6 @@
                 bind:cancel="handleDomainListCancel"
     />
 </van-popup>
-
-
 <van-popup
         show="{{ DomainCell.show }}"
         position="bottom"

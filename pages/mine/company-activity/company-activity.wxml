@@ -78,6 +78,7 @@
         <van-tab title="已收藏" class="_company-tab-item">
             <view class="_section g-bg-f4">
                 <view class=' g-bg-white g-flex-lr g-pd-20 g-m-t-20'
+                      wx:if="{{ collectInfo.list && collectInfo.list.length > 0 }}"
                       wx:for="{{ collectInfo.list }}"
                       wx:key="{{index}}"
                 >

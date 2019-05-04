@@ -94,6 +94,7 @@
         <van-tab title="产品" class="_company-tab-item">
             <view class="_section g-bg-f4 ">
                 <view class='g-bg-white g-flex-lr g-bb g-pd-20 g-m-t-20'
+                      wx:if="{{ productInfo.list.length }}"
                       wx:for="{{ productInfo.list }}"
                       wx:key="{{ index }}"
                 >

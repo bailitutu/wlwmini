@@ -5,17 +5,17 @@
             找回方式
         </view>
         <view class='_find-type-content g-m-t-40'>
-            <van-button size="small" round type="info"   custom-class='g-bg-blue g-c-white _type-btn'  data-type="1"  bind:click='handleSelectType'>手机号</van-button>
-            <van-button size="small" round type="info"   custom-class='g-bg-gray g-c-white _type-btn'  data-type="2" bind:click='handleSelectType'>邮箱</van-button>
+            <van-button size="small" round type="info"   custom-class=" g-c-white _type-btn {{ findType == '1' ? 'g-bg-blue' : 'g-bg-gray' }}"  data-type="1"  bind:click='handleSelectType'>手机号</van-button>
+            <van-button size="small" round type="info"   custom-class=" g-c-white _type-btn {{ findType == '2' ? 'g-bg-blue' : 'g-bg-gray' }}"  data-type="2" bind:click='handleSelectType'>邮箱</van-button>
         </view>
     </view>
     <view class='g-pd-lr-60 g-m-t-80'>
        <van-cell-group  border='{{ false }}'>
-            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>手机号</view>
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>{{ findType == '1' ? '手机号' : '邮箱' }}</view>
             <van-field
-                type='number'
+                type='text'
                 value="{{ phone }}"
-                placeholder="请输入手机号"
+                placeholder="请输入{{ findType == '1' ? '手机号' : '邮箱' }}"
                 border="{{ true }}"
                 bind:change="changePhone"
             />

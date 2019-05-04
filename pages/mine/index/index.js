@@ -1,6 +1,5 @@
-import {delItem, getItem} from "../../../utils/util";
+import { getItem } from "../../../utils/util";
 import { goPage } from "../../../utils/common";
-import Toast from "../../../dist/toast/toast";
 import { ajax } from "../../../utils/api";
 Page({
 
@@ -40,16 +39,11 @@ Page({
             method: 'POST',
             data: personData,
         }).then((res) => {
-            console.log(res)
             this.setData({
                 info: res.Data
             })
         }).catch((error) => {
             console.log(error,'error')
         })
-
-
-
-
     }
 })

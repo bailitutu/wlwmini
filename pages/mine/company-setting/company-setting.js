@@ -47,8 +47,6 @@ Page({
                     delItem('hd_token');
                     delItem('hd_userId');
                     goPage('登录', { },4)
-                } else if (res.cancel) {
-                    console.log('用户点击取消')
                 }
             }
         })

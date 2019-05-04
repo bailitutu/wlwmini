@@ -1,9 +1,9 @@
-<view class="body">
+<view class="body" wx:if="{{isReady}}">
     <view class="_setting-logo ">
-        <image class="g-full" src="{{ detail.HeadUrl || '/images/companydetail_profile@2x.png'}}"></image>
+        <image class="g-full" src="{{ HeadUrl || '/images/companydetail_profile@2x.png'}}"></image>
     </view>
-    <view class="g-tc g-fs-30 g-c-black g-m-t-40" >{{ detail.NickName}}</view>
-    <view class="g-fs-26 g-c-gray g-tc g-m-t-20">手机号：{{ detail.Phone}}</view>
+    <view class="g-tc g-fs-30 g-c-black g-m-t-40" >{{ NickName || '未知'}}</view>
+    <view class="g-fs-26 g-c-gray g-tc g-m-t-20">手机号：{{ Phone || '未知'}}</view>
 
     <view class="g-tc g-m-t-60">
         <van-button type="info" size="small" custom-class="g-bg-gray g-c-white _setting-btn" round bindtap="loginOut">退出</van-button>

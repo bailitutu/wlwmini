@@ -51,7 +51,7 @@ Page({
                 ActivityId: opts.ActivityId
             })
             wx.setNavigationBarTitle({
-                title: '编辑求购'
+                title: '编辑活动'
             })
             this.loadData(opts.ActivityId);
         }
@@ -74,8 +74,7 @@ Page({
                 ActivityId
             }
         }).then((res) => {
-            console.log(res);
-
+            console.log(res,'activity');
             let {
                 ActivityName,
                 BeginTimeTxt,
@@ -333,7 +332,6 @@ Page({
     handleMapSelect(){
         wx.chooseLocation({
             success:res=>{
-                console.log(res);
                 if(res.errMsg == 'chooseLocation:ok'){
                     let { address ,latitude, longitude, name} = res;
                     this.setData({
@@ -373,7 +371,7 @@ Page({
         })
     },
     //发布/修改
-    handleSubmitPurchase() {
+    handleSubmit() {
         let {
             isEdit,
             ActivityName,
@@ -468,6 +466,11 @@ Page({
         }
         let UserId = getItem('hd_userId') || '';
         let Token = getItem('hd_token') || '';
+
+        let MainPic = MainPicUrl[0].imgUrl;
+
+
+
         if(!isEdit){
             // 发布
             ajax({
@@ -479,7 +482,7 @@ Page({
                     AppDominId: Application.id,
                     TeachDominParentId:DomainList.id ,
                     TeachDominId: DomainCell.id,
-                    MainPicUrl: MainPicUrl.join(',') ,
+                    MainPicUrl:MainPic ,
                     ActivityName,
                     ProvinceId,
                     CityId,
@@ -532,7 +535,7 @@ Page({
                     TeachDominId: DomainCell.id,
                     ScaleNum,
                     ActivityName,
-                    MainPicUrl: MainPicUrl.join(',') ,
+                    MainPicUrl: MainPic ,
                     TxtContent
                 }
             }).then((res) => {

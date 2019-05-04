@@ -114,7 +114,6 @@ Page({
             }
         }).then( ( res) => {
             let noData = !res.Data ||  res.Data.length == 0 ? true : false;
-            console.log(noData);
             this.setData({
                 activityInfo: {
                     list:res.Data,
@@ -122,7 +121,6 @@ Page({
                     noData,
                 }
             })
-            console.log(this.data)
         }).catch((error) =>{
             console.log(error)
         })
@@ -260,7 +258,6 @@ Page({
     },
     handleProductDetail(e){
         let { id } = e.currentTarget.dataset;
-        console.log(id)
         goPage('产品详情',{ ProductId: id})
     },
     handlePlanDetail(e){

@@ -80,7 +80,5 @@
         <view class="_text-cell">
             <textarea class="_text-area " placeholder-class="g-c-gray g-fs-28" bindinput="bindTextAreaBlur"  placeholder="请输入内容" />
         </view>
-
-
     </view>
 </van-dialog>

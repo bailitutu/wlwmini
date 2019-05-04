@@ -15,27 +15,6 @@ Page({
         phone:'',
         findType: '1',
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
-
-    },
     handleSelectType(e){
         let { type } = e.currentTarget.dataset;
         this.setData({
@@ -50,24 +29,25 @@ Page({
     // 输入验证码
     changePwdCode(e) {
         this.setData({
-            password:e.detail
+            code:e.detail
         })
     },
     //下一步
     handleNext(){
-        let { phone,code } = this.data;
+        let { phone,code ,findType} = this.data;
+        let  is_phone = findType == '1' ? true : false
         let postData = {
             userName: phone,
             code: code,
             SendType: 2,
-            isPhone: true
+            isPhone: is_phone
         };
         ajax({
             url:'/app/User/VerificationCode',
             method: 'POST',
             data:postData
         }).then( ( res) => {
-            app.goPage('重置密码',{ isPhone: true, code: code ,userName : phone })
+            goPage('重置密码',{ isPhone: findType, code: code ,userName: phone })
         }).catch((error) =>{
             console.log(error)
         })
@@ -77,28 +57,41 @@ Page({
 
     // 发送验证码
     handleSendCode() {
-        let phone = this.data.phone;
-        if(this.data.hasSend){
+        let { phone,findType,hasSend }= this.data;
+
+        let is_phone = false;
+        if(hasSend){
             return;
         }
-        if( phone == ''){
-            wx.showToast({
-                title: '请先输入手机号',
-                icon:'none'
-            })
-            return;
-        }
-        if(!isPhone(phone)){
-            wx.showToast({
-                title: '手机号格式错误',
-                icon:'none'
-            })
-            return;
+        if( findType == '1'){
+            is_phone = true ;
+            if( phone == ''){
+                wx.showToast({
+                    title: '请先输入手机号/邮箱',
+                    icon:'none'
+                })
+                return;
+            }
+            if(!isPhone(phone)){
+                wx.showToast({
+                    title: '手机号格式错误',
+                    icon:'none'
+                })
+                return;
+            }
+        }else{
+            if( phone == ''){
+                wx.showToast({
+                    title: '请先输入手机号/邮箱',
+                    icon:'none'
+                })
+                return;
+            }
         }
 
         let postData = {
             userName: phone,
-            isPhone: true,
+            isPhone: is_phone,
         }
         ajax({
             url:'/App/User/ForgetPasswordSendCode',

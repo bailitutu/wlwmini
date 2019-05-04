@@ -44,7 +44,6 @@ Page({
             method: 'POST',
             data:personData
         }).then( ( res) => {
-            console.log(res);
             this.setData({
                 detail:res.Data,
                 isReady:true
@@ -80,7 +79,6 @@ Page({
                 ['detail.IsCollection']: !collect_status
             })
         }).catch((error) =>{
-            console.log(error);
             if( collect_status ){
                 wx.showToast({
                     title: '取消收藏失败'

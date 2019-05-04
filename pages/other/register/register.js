@@ -1,5 +1,3 @@
-// pages/other/register/register.js
-import Toast from "../../../dist/toast/toast";
 import {isPhone, isEmpty} from "../../../utils/validate";
 import {ajax} from "../../../utils/api";
 import {getItem, setItem} from "../../../utils/util";
@@ -20,7 +18,7 @@ Page({
             Code: '',
             NickName: '',
             HeadUrl: '',
-            UserTypeId: '',
+            UserTypeId: 0,
             UniqueIdentification: '',
             EnterpriseName: '',
             Abbreviation: '',
@@ -53,11 +51,10 @@ Page({
             UserName: '',
             UserPwd: '',
             UserPwdTwo: '',
-            phone: '',
             Code: '',
             NickName: '',
             HeadUrl: '',
-            UserTypeId: '',
+            UserTypeId: 0,
             UniqueIdentification: '',
             RealName: '',
             EnterpriseName: '',
@@ -189,11 +186,9 @@ Page({
     },
     //上传logo
     handleUploadLogo(e){
-        console.log(e.detail);
         this.setData({
             ['companyInfo.EnterpriseLogo']: e.detail[0].imgUrl
         })
-        console.log(this.data.companyInfo)
     },
     // 移除logo
     handleRemoveLogo(list){
@@ -240,12 +235,18 @@ Page({
             return;
         }
         let phone = companyInfo.phone;
-        if (phone == '') {
-            Toast('请先输入手机号');
+        if (isEmpty(phone)) {
+            wx.showToast({
+                title: '请先输入手机号',
+                icon:'none'
+            })
             return;
         }
         if (!isPhone(phone)) {
-            Toast('手机号格式错误');
+            wx.showToast({
+                title: '手机号格式错误',
+                icon:'none'
+            })
             return;
         }
         let postData = {
@@ -259,7 +260,10 @@ Page({
             this.setData({
                 ['companyInfo.hasSend']: true
             })
-            Toast.success('验证码已发送');
+            wx.showToast({
+                title: '验证码已发送',
+                icon:'none'
+            })
             // 倒计时
             this.companyDownCount();
         }).catch((error) => {
@@ -415,7 +419,10 @@ Page({
             return;
         }
         if (!isPhone(UserName)) {
-            Toast('手机号格式错误');
+            wx.showToast({
+                title: '手机号格式错误',
+                icon: 'none'
+            })
             return;
         }
         if (isEmpty(Code)) {
@@ -468,10 +475,7 @@ Page({
             console.log(error)
         })
     },
-
-
     // 个人注册部分
-    // 企业名称
     handleChangeInput(e) {
         let {type, cell} = e.currentTarget.dataset;
         let changeString = type == 1 ? 'personInfo.' + cell : 'companyInfo.' + cell;
@@ -492,10 +496,8 @@ Page({
             ['personInfo.showDomainCell']: true
         })
     },
-
     handlePersonDomainListConfirm(event) {
         const { value, index} = event.detail;
-
         let parentId = this.data.DomainListData[index].Id;
         this.setData({
             ['personInfo.TeachDominParentId']: parentId,
@@ -529,21 +531,27 @@ Page({
     },
     // 发送个人手机号验证码
     handleSendPersonCode(e) {
-        let {personInfo} = this.data;
-        if (personInfo.hasSend) {
+        let { personInfo } = this.data;
+        if ( personInfo.hasSend ) {
             return;
         }
-        let phone = personInfo.phone;
-        if (phone == '') {
-            Toast('请先输入手机号');
+        let UserName = personInfo.UserName;
+        if (isEmpty(UserName)) {
+            wx.showToast({
+                title: '请先输入手机号',
+                icon:'none'
+            })
             return;
         }
-        if (!isPhone(phone)) {
-            Toast('手机号格式错误');
+        if (!isPhone(UserName)) {
+            wx.showToast({
+                title: '手机号格式错误',
+                icon:'none'
+            })
             return;
         }
         let postData = {
-            userName: phone,
+            userName: UserName,
         }
         ajax({
             url: '/App/User/RegisterSendCode',
@@ -553,7 +561,10 @@ Page({
             this.setData({
                 ['personInfo.hasSend']: true
             })
-            Toast.success('验证码已发送');
+            wx.showToast({
+                title: '验证码已发送',
+                icon:'none'
+            })
             // 倒计时
             this.personDownCount();
         }).catch((error) => {
@@ -578,6 +589,17 @@ Page({
         }, 1000)
     },
 
+    handleUploadHeadUrl(e){
+        this.setData({
+            ['personInfo.HeadUrl']: e.detail[0].imgUrl
+        })
+    },
+    handleRemoveHeadUrl(){
+        this.setData({
+            ['personInfo.HeadUrl']: ''
+        })
+    },
+
     // 个人注册
     handlePersonRegister() {
         let {
@@ -595,8 +617,14 @@ Page({
             TeachDominParentId,
             TeachDominId
         } = this.data.personInfo;
-        console.log(EnterpriseName)
 
+        if (isEmpty(HeadUrl)) {
+            wx.showToast({
+                title: '请上传头像',
+                icon: 'none'
+            })
+            return;
+        }
         if (isEmpty(EnterpriseName)) {
             wx.showToast({
                 title: '所属企业不能为空',
@@ -649,7 +677,10 @@ Page({
             return;
         }
         if (!isPhone(UserName)) {
-            Toast('手机号格式错误');
+            wx.showToast({
+                title: '手机号格式错误',
+                icon: 'none'
+            })
             return;
         }
         if (isEmpty(Code)) {
@@ -691,8 +722,4 @@ Page({
         })
 
     }
-    , onClose() {
-
-    }
-
 })
