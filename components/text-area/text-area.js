@@ -6,7 +6,7 @@ Component({
     properties: {
         height: {
             type: Number,
-            default: 300
+            default: 400
         },
         value: {
             type: String,
@@ -35,18 +35,20 @@ Component({
     },
     methods: {
         handleTextClick(){
-            console.log(1111)
             this.setData({
                 focus : true
             });
-            this.triggerEvent('handleTextArea');
+            setTimeout(()=>{
+                this.setData({
+                    showFocus: true
+                });
+            },200)
         },
         handleChangeValue(e){
-            console.log('change')
-            console.log(e);
             this.setData({
                 value: e.detail.value
             })
+            this.triggerEvent('w-input', e.detail.value)
         },
         handleBlur(){
             this.setData({
@@ -56,7 +58,5 @@ Component({
         handleTextAreaClick(){
             return false;
         }
-
-
     }
 })

@@ -123,15 +123,13 @@
         <view class="g-pd-lr-30 g-fs-28 ">
             <!--<textarea class=" value="{{ TxtContent }}" bindinput="bindTextAreaChange" auto-height placeholder="请输入描述内容" />-->
             <view class="_complain-text">
-                <van-field
+                <text-area
                         value="{{ TxtContent }}"
-                        type="textarea"
+                        maxlength="500"
                         placeholder="请输入描述内容"
-                        autosize
-                        input-class="g-bg-f4"
-                        border="{{ false }}"
-                        bind:change="bindTextAreaChange"
-                />
+                        bind:w-input="bindTextAreaChange"
+                ></text-area>
+
             </view>
         </view>
         <view class='g-pd-lr-30 g-m-t-40 g-m-b-60'>

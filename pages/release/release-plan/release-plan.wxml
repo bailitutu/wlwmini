@@ -11,6 +11,11 @@
         />
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>简介 <text class="g-fs-26" >(限150个字符)</text></view>
         <view class="g-pd-lr-30 g-fs-28">
+            <text-area
+                    value="{{ Abstract }}"
+                    placeholder="请输入方案简介"
+                    bind:w-input="bindAbstractChange"
+            ></text-area>
             <textarea class="_complain-text" maxlength="150" value="{{ Abstract }}" bindinput="bindAbstractChange" auto-height placeholder="请输入方案简介" />
         </view>
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>方案价格</view>
@@ -58,7 +63,12 @@
         </view>
         <view class="g-fs-28 g-c-black  g-pd-30">描述<text class="g-c-999">(500字以内)</text></view>
         <view class="g-pd-lr-30 g-fs-28">
-            <textarea class="_complain-text" maxlength="500"  value="{{ TxtContent }}" bindinput="bindTextAreaChange" auto-height placeholder="请输入描述内容" />
+            <text-area
+                    value="{{ TxtContent }}"
+                    placeholder="请输入描述内容"
+                    bind:w-input="bindTextAreaChange"
+                    maxlength="500"
+            ></text-area>
         </view>
         <view class='g-pd-lr-30 g-m-t-40 g-m-b-60'>
             <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' bind:click='handleSubmitPurchase'>{{ isEdit ? '提交' : '发布'}}</van-button>

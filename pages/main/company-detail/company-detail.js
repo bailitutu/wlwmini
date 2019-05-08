@@ -1,6 +1,7 @@
 // pages/main/company-detail/company-detail.js
 import {getItem} from "../../../utils/util";
 import {ajax} from "../../../utils/api";
+import {goPage} from "../../../utils/common";
 
 Page({
 
@@ -75,12 +76,18 @@ Page({
 
     },
 
-
-    onTabChange() {
-
-
+    handleProductDetail(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('产品详情',{ ProductId: id})
     },
-
-
+    handlePlanDetail(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('方案详情',{ SchemeId: id})
+    },
+    handleActivityDetail(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('活动详情',{ ActivityId: id})
+    },
+    onTabChange() { },
 
 })

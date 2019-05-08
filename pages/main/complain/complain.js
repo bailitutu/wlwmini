@@ -62,7 +62,7 @@ Page({
     // 举报内容
     bindTextAreaBlur(e){
         this.setData({
-            ReportContent: e.detail.value
+            ReportContent: e.detail
         })
     },
 

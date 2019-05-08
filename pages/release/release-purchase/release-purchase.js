@@ -303,7 +303,7 @@ Page({
     //输入简介
     bindTextAreaChange(e){
         this.setData({
-            TxtContent: e.detail.value
+            TxtContent: e.detail
         })
     },
     //发布/修改

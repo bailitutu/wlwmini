@@ -306,13 +306,13 @@ Page({
     //输入简介
     bindAbstractChange(e){
         this.setData({
-            Abstract: e.detail.value
+            Abstract: e.detail
         })
     },
     //输入描述
     bindTextAreaChange(e){
         this.setData({
-            TxtContent: e.detail.value
+            TxtContent: e.detail
         })
     },
     //发布/修改

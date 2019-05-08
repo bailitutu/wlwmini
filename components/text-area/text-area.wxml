@@ -5,7 +5,7 @@
             maxlength="{{ maxlength }}"
             placeholder-class="{{ placeholder-class }}"
             bindinput="handleChangeValue"
-            focus="{{ focus }}"
+            focus="{{ showFocus }}"
             hidden="{{ !focus }}"
             bindblur="handleBlur"
             catchtap="handleTextAreaClick"

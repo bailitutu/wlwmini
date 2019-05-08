@@ -222,9 +222,9 @@ Page({
         })
     },
     //企业简介
-    handleChangeAbstract(e){
+    handleChangeAbstract(val){
         this.setData({
-            [ 'companyInfo.Abstract' ] : e.detail.value
+            [ 'companyInfo.Abstract' ] : val.detail
         })
     },
 

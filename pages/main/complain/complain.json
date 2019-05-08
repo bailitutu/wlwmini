@@ -4,6 +4,6 @@
   "usingComponents": {
     "van-button": "/dist/button/index",
     "img-picker": "/components/img-picker/img-picker",
-    "van-toast": "/dist/toast/index"
+    "text-area": "/components/text-area/text-area"
   }
 }

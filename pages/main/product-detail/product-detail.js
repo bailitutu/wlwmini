@@ -41,8 +41,13 @@ Page({
             method: 'POST',
             data:personData
         }).then( ( res) => {
+            let content = res.Data.TxtContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto"');
+
             this.setData({
-                detail:res.Data,
+                detail: {
+                    ...res.Data,
+                    TxtContent: content
+                },
                 isReady:true
             })
         }).catch((error) =>{

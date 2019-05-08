@@ -21,7 +21,13 @@
         <van-tab title="公司产品" class="_company-tab-item g-bg-f4">
             <view class="_section g-bg-white">
                 <view class="_product-list g-pd-lr-30">
-                    <view class="g-flex g-bb g-ai-s g-pd-tb-30" wx:for="{{ Product.list }}" wx:key="{{index}}" >
+                    <view
+                            class="g-flex g-bb g-ai-s g-pd-tb-30"
+                            wx:for="{{ Product.list }}"
+                            wx:key="{{index}}"
+                            data-id="{{ item.ProductId }}"
+                            catchtap="handleProductDetail"
+                    >
                         <view class="_product-image g-bra g-m-r-20">
                             <image class="g-full" src="{{ item.MainPicUrl}}"></image>
                         </view>
@@ -42,7 +48,13 @@
         <van-tab title="解决方案" class="_company-tab-item">
             <view class="_section g-bg-white">
                 <view class="_product-list g-pd-lr-30">
-                    <view class="g-flex g-bb g-ai-s g-pd-tb-30" wx:for="{{ Scheme.list}}" wx:key="{{index}}">
+                    <view
+                            class="g-flex g-bb g-ai-s g-pd-tb-30"
+                            wx:for="{{ Scheme.list}}"
+                            wx:key="{{index}}"
+                            data-id="{{ item.SchemeId }}"
+                            catchtap="handlePlanDetail"
+                    >
                         <view class="_product-image g-bra g-m-r-20">
                             <image class="g-full" src="{{item.MainPicUrl}}"></image>
                         </view>
@@ -60,7 +72,13 @@
         <van-tab title="公司活动" class="_company-tab-item">
             <view class="_section g-bg-white">
                 <view class="_product-list g-pd-lr-30">
-                    <view class="g-flex-cols g-bb g-ai-s g-pd-t-30 g-pd-b-20" wx:for="{{ Activity.list}}" wx:key="{{index}}">
+                    <view
+                            class="g-flex-cols g-bb g-ai-s g-pd-t-30 g-pd-b-20"
+                            wx:for="{{ Activity.list}}"
+                            wx:key="{{index}}"
+                            data-id="{{ item.ActivityId }}"
+                            catchtap="handleActivityDetail"
+                    >
                         <view class="_activity-image g-bra">
                             <image class="g-full" src="{{ item.MainPicUrl }}"></image>
                         </view>
