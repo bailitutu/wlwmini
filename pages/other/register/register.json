@@ -9,6 +9,7 @@
         "van-popup": "/dist/popup/index",
         "van-picker": "/dist/picker/index",
         "img-picker": "/components/img-picker/img-picker",
+        "text-area": "/components/text-area/text-area",
         "van-cell-group": "/dist/cell-group/index"
     }
 }

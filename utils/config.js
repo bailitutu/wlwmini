@@ -24,6 +24,7 @@ const PageURL = {
 }
 
 const BASE_URL = 'http://iot.xf5920.cn'; //请求地址
+// const BASE_URL = 'https://www.iotwmall.com'; //请求地址
 
 
 module.exports = {

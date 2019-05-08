@@ -170,12 +170,17 @@
                 公司简介
             </view>
             <view class="g-pd-lr-20">
-                <textarea
-                    value="{{ companyInfo.Abstract }}"
-                    class="_text-area  g-fs-24 g-bg-f4 g-c-black"
-                    bindinput="handleChangeAbstract"
-                    placeholder="公司简介"
-                />
+                <!--<textarea-->
+                    <!--value="{{ companyInfo.Abstract }}"-->
+                    <!--class="_text-area  g-fs-24 g-bg-f4 g-c-black"-->
+                    <!--bindinput="handleChangeAbstract"-->
+                    <!--placeholder="公司简介"-->
+                <!--/>-->
+                <text-area
+                        value="{{ companyInfo.Abstract }}"
+                        placeholder="公司简介"
+                ></text-area>
+
             </view>
 
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>

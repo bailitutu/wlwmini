@@ -4,12 +4,12 @@
     </view>
 
     <view class='_btn-cell g-m-t-60'>
-        <van-button size="large" custom-class='g-bg-green g-c-white' type="info">
+        <van-button size="large" custom-class='g-bg-green g-c-white' type="info" open-type="getUserInfo" bind:getuserinfo="getUserInfo">
             <text class='g-va-mid '>使用微信授权登录</text>
         </van-button>
     </view>
     <view class='_btn-cell g-m-t-60'>
-        <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' catchtap='handleYzmLogin'>短信验证码登录</van-button>
+        <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' catchtap='handleYzmLogin' >短信验证码登录</van-button>
     </view>
     <view class='_btn-cell g-m-t-60'>
         <van-button size="large"  type="info"  custom-class='g-bg-yellow g-c-white' catchtap='handlePwdLogin'>密码登录</van-button>

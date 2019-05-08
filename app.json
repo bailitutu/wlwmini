@@ -2,6 +2,7 @@
   "pages": [
     "pages/other/login/login",
     "pages/main/index/index",
+    "pages/index/index",
     "pages/mine/person-collect/person-collect",
     "pages/mine/company-activity/company-activity",
     "pages/main/complain/complain",

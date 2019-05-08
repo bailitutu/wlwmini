@@ -1,22 +1,34 @@
 // pages/other/login/login.js
-import  Toast  from '../../../dist/toast/toast'
-const APP = getApp();
 import { goPage } from '../../../utils/common'
 import { ajax } from '../../../utils/api'
 import { isPhone } from '../../../utils/validate'
 import { setItem } from "../../../utils/util";
 
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         show: false,
         phone:'',
         code:'',
         hasSend: false,
         leftTime: 60
+    },
+    getUserInfo: function(e) {
+        wx.login({
+            success: res => {
+                ajax({
+                    url: '/App/User/AuthorizedLogin',
+                    method: 'POST',
+                    data: {
+                        appToken: res.code,
+                        userTypeId: 4
+                    }
+                }).then((data) => {
+                        console.log(data)
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+        })
     },
     changePhone(e){
         this.setData({
@@ -51,11 +63,17 @@ Page({
         }
         let phone = this.data.phone;
         if( phone == ''){
-            Toast('请先输入手机号');
+            wx.showToast({
+                title: '请先输入手机号',
+                icon:'none'
+            });
             return;
         }
         if(!isPhone(phone)){
-            Toast('手机号格式错误');
+            wx.showToast({
+                title: '手机号格式错误',
+                icon:'none'
+            });
             return;
         }
         let postData = {
@@ -70,7 +88,10 @@ Page({
             this.setData({
                 hasSend:true
             })
-            Toast.success('验证码已发送');
+            wx.showToast({
+                title: '验证码已发送',
+                icon:'none'
+            });
             // 倒计时
             this.downcount();
         }).catch((error) =>{

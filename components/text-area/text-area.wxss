@@ -1,16 +1,42 @@
 .c-text-area{
-    position: relative;
-    min-height: 600rpx;
+    width:100%;
+    min-height:400rpx;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     background: #f4f4f4;
     color: #333333;
+    text-align: left;
 }
 .c-text-area-text{
-    visibility: hidden;
+    width:100%;
     height:100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    min-height:400rpx;
+    background: #f4f4f4;
+    line-height: 36rpx;
+    font-size: 30rpx;
+    padding: 20rpx;
+    overflow-y:auto;
 }
 .c-text-area-scroll{
     width:100%;
-    position: absolute;
-    top:0;
-    left: 0;
+    background: #f4f4f4;
+    line-height: 36rpx;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 30rpx;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    padding: 20rpx;
+    overflow-y:auto;
+}
+.c_placeholder{
+    font-size: 28rpx;
+    color: #999999;
+    line-height: 36rpx;
 }

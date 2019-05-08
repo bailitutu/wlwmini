@@ -1,19 +1,26 @@
-<view class="c-text-area">
+<view class="c-text-area" style="height:{{ height || 400 }}rpx">
     <textarea
-            name=""
-            cols="30"
-            rows="10"
+            show-confirm-bar="{{ false }}"
             class="c-text-area-text"
+            maxlength="{{ maxlength }}"
             placeholder-class="{{ placeholder-class }}"
-            bindChange="handleChangeValue"
+            bindinput="handleChangeValue"
+            focus="{{ focus }}"
+            hidden="{{ !focus }}"
+            bindblur="handleBlur"
+            catchtap="handleTextAreaClick"
+            style="height:{{ height || 400}}rpx"
     ></textarea>
 
-    <scroll-view
-            style="height:{{ height }} + 'px'"
+    <view
+            hidden="{{ focus }}"
             class="c-text-area-scroll"
             bindtap="handleTextClick"
+            style="height:{{ height || 400}}rpx"
     >
         {{ value }}
-    </scroll-view>
+        <view  hidden="{{ value.length > 0 || focus }}" class="c_placeholder"> {{ placeholder }}</view>
+
+    </view>
 
 </view>
