@@ -23,8 +23,8 @@ const PageURL = {
         '企业编辑': '/pages/mine/company-editor/company-editor',
 }
 
-const BASE_URL = 'http://iot.xf5920.cn'; //请求地址
-// const BASE_URL = 'https://www.iotwmall.com'; //请求地址
+// const BASE_URL = 'http://iot.xf5920.cn'; //请求地址
+const BASE_URL = 'https://www.iotwmall.com'; //请求地址
 
 
 module.exports = {

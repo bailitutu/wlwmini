@@ -1,6 +1,6 @@
 import { goPage  } from '../../../utils/common'
 import { ajax } from '../../../utils/api'
-import { hex_md5 } from '../../../utils/md5'
+import MD5 from '../../../utils/new_md5'
 import { setItem } from '../../../utils/util'
 Page({
 
@@ -21,9 +21,16 @@ Page({
     },
 
     handleLogin() {
+        if( this.data.account == ''){
+            wx.showToast({
+                title: '请输入用户名',
+                icon: 'none'
+            })
+            return;
+        }
         let personData = {
             userName: this.data.account,
-            pwd: hex_md5(this.data.password)
+            pwd: MD5.md5(this.data.password)
         };
         ajax({
             url: '/app/User/Login',

@@ -20,7 +20,7 @@
         </view>
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>方案价格</view>
         <van-field
-                type='text'
+                type='number'
                 value="{{ SchemePrice }}"
                 placeholder="请输入方案价格"
                 border="{{ true }}"

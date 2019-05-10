@@ -1,4 +1,4 @@
-import { hex_md5 } from './md5'
+import MD5 from './new_md5'
 import { BASE_URL } from './config'
 import { goPage } from './common'
 import { delItem } from "./util";
@@ -26,7 +26,7 @@ function getSign(data) { //签名
         console.log()
         param += key + data[key]
     })
-    return { Text: param, Encrypt: hex_md5(param) };
+    return { Text: param, Encrypt: MD5.md5(param) };
 }
 
 const ajax = (options = {}) => {

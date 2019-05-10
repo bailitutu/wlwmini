@@ -45,19 +45,12 @@
                 bind:change="handleChangeInput"
         />
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>活动地点</view>
-        <view>
-
-
-        </view>
-
-
-
         <!--地图选址-->
-        <van-cell title="地图选址" value="{{ mapAddress || '请选择'}}" is-link bindtap="handleMapSelect"></van-cell>
+        <van-cell title="地图选址" value="{{ mapAddress || '请选择'}}" is-link bind:click="handleMapSelect"></van-cell>
         <!--地图结束-->
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>详细地点</view>
         <van-field
-                type='number'
+                type='text'
                 value="{{ Address }}"
                 placeholder="请输入活动详细地点"
                 border="{{ true }}"
@@ -68,7 +61,7 @@
 
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>主办单位</view>
         <van-field
-                type='number'
+                type='text'
                 value="{{ HostUnit }}"
                 placeholder="请输入主办单位"
                 border="{{ true }}"
@@ -78,7 +71,7 @@
 
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'>协办单位</view>
         <van-field
-                type='number'
+                type='text'
                 value="{{ Organizer }}"
                 placeholder="请输入协办单位"
                 border="{{ true }}"

@@ -330,6 +330,22 @@ Page({
 
     //地图选址
     handleMapSelect(){
+        wx.getSetting({
+            success:(res) => {
+                if (!res.authSetting['scope.userLocation']) {
+                    wx.authorize({
+                        scope: 'scope.userLocation',
+                        success:() => {
+                            this.chooseLocation();
+                        }
+                    })
+                }else{
+                    this.chooseLocation();
+                }
+            }
+        })
+    },
+    chooseLocation(){
         wx.chooseLocation({
             success:res=>{
                 if(res.errMsg == 'chooseLocation:ok'){

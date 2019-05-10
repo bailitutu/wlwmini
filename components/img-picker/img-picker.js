@@ -17,10 +17,6 @@ Component({
     data: {
         lock: false,
     },
-
-    /**
-     * 组件的方法列表
-     */
     methods: {
         // 添加款式图片
         _handleAddImg() {
@@ -52,8 +48,7 @@ Component({
         // 上传图片
 
         uploadImg(data) {
-            let that = this,
-                i = data.i ? data.i : 0,//当前上传的哪张图片
+            let i = data.i ? data.i : 0,//当前上传的哪张图片
                 success = data.success ? data.success : 0,//上传成功的个数
                 fail = data.fail ? data.fail : 0;//上传失败的个数
 
@@ -89,7 +84,7 @@ Component({
                         data.i = i;
                         data.success = success;
                         data.fail = fail;
-                        that.uploadImg(data);
+                        this.uploadImg(data);
                     }
 
                 }
@@ -101,7 +96,6 @@ Component({
             this.setData({lock: true});
             const {index} = e.currentTarget.dataset;
             let {imgList} = this.data;
-            const that = this;
             wx.showModal({
                 title: '提示',
                 content: '确定删除吗？',
