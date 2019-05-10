@@ -1,43 +1,125 @@
 // pages/other/login/login.js
-import { goPage } from '../../../utils/common'
-import { ajax } from '../../../utils/api'
-import { isPhone } from '../../../utils/validate'
-import { setItem } from "../../../utils/util";
+import {goPage} from '../../../utils/common'
+import {ajax} from '../../../utils/api'
+import {isPhone} from '../../../utils/validate'
+import {setItem} from "../../../utils/util";
 
 Page({
     data: {
         show: false,
-        phone:'',
-        code:'',
+        phone: '',
+        code: '',
         hasSend: false,
-        leftTime: 60
+        leftTime: 60,
+        nickName: '',
+        HeadUrl: ''
     },
-    getUserInfo: function(e) {
-        wx.login({
-            success: res => {
-                ajax({
-                    url: '/App/User/AuthorizedLogin',
-                    method: 'POST',
-                    data: {
-                        appToken: res.code,
-                        userTypeId: 4
-                    }
-                }).then((data) => {
-                        console.log(data)
-                }).catch((error) => {
-                    console.log(error)
+    getUserInfo: function (e) {
+        wx.getSetting({
+            success:(res) => {
+                if (!res.authSetting['scope.userInfo']) {
+                    wx.authorize({
+                        scope: 'scope.userInfo',
+                        success:(user) => {
+
+                            this.userInfo();
+                            // 授权登录
+                            this.userLogin();
+                        }
+                    })
+                }else{
+                    this.userInfo();
+                    // 授权登录
+                    this.userLogin();
+                }
+            }
+        })
+    },
+    userInfo(){
+        wx.getUserInfo({
+            withCredentials: false,
+            lang: 'zh_CN',
+            success:(res) => {
+                console.log(res,'userInfo');
+
+                if(res.errMsg == 'getUserInfo:ok'){
+                    let {
+                        nickName,
+                        avatarUrl
+                    } = res.userInfo
+
+                    this.setData({
+                        nickName,
+                        HeadUrl: avatarUrl
+                    })
+                }else{
+                    wx.showToast({
+                        title: '获取用户信息失败，请重试',
+                        icon: 'none'
+                    })
+                }
+            },
+            fail:()=>{
+                wx.showToast({
+                    title: '获取用户信息失败，请重试',
+                    icon: 'none'
                 })
             }
         })
     },
-    changePhone(e){
+    userLogin(){
+        wx.login({
+            success: res => {
+                ajax({
+                    url: '/App/Auth/AuthWeChat',
+                    method: 'GET',
+                    data: {
+                        Code: res.code,
+                    }
+                }).then((data) => {
+                    console.log(data, 'CODE DATE');
+                    this.AuthorizedLogin();
+                }).catch((error) => {
+                    console.log(error)
+                })
+
+            }
+        })
+    },
+
+    AuthorizedLogin(openId) {
+        ajax({
+            url: '/App/User/AuthorizedLogin',
+            method: 'POST',
+            data: {
+                appToken: openId,
+                userTypeId: 4
+            }
+        }).then((res) => {
+            console.log(res);
+            setItem('hd_token', res.Data.Token)
+            setItem('hd_userId', res.Data.UserId);
+            setItem('hd_IsEnterprise', res.Data.IsEnterprise);
+            goPage('首页',{},4)
+        }).catch((error) => {
+            console.log(error);
+            //  授权失败跳转注册；
+
+            let { nickName,HeadUrl } = this.data;
+            goPage('注册', { nickName, HeadUrl, openId })
+
+
+        })
+    },
+
+    changePhone(e) {
         this.setData({
-            phone:e.detail
+            phone: e.detail
         })
     },
     changePwdCode(e) {
         this.setData({
-            code:e.detail
+            code: e.detail
         })
     },
     //验证码登录
@@ -48,7 +130,7 @@ Page({
     },
     // 密码登录
     handlePwdLogin() {
-       goPage('密码登录')
+        goPage('密码登录')
     },
     // 关闭弹窗
     handleClosePopup() {
@@ -58,21 +140,21 @@ Page({
     },
     // 发送验证码
     handleSendCode() {
-        if(this.data.hasSend){
+        if (this.data.hasSend) {
             return;
         }
         let phone = this.data.phone;
-        if( phone == ''){
+        if (phone == '') {
             wx.showToast({
                 title: '请先输入手机号',
-                icon:'none'
+                icon: 'none'
             });
             return;
         }
-        if(!isPhone(phone)){
+        if (!isPhone(phone)) {
             wx.showToast({
                 title: '手机号格式错误',
-                icon:'none'
+                icon: 'none'
             });
             return;
         }
@@ -81,20 +163,20 @@ Page({
             isPhone: true,
         }
         ajax({
-            url:'/App/User/QuickLoginSendCode',
+            url: '/App/User/QuickLoginSendCode',
             method: 'POST',
-            data:postData
-        }).then( ( res) => {
+            data: postData
+        }).then((res) => {
             this.setData({
-                hasSend:true
+                hasSend: true
             })
             wx.showToast({
                 title: '验证码已发送',
-                icon:'none'
+                icon: 'none'
             });
             // 倒计时
             this.downcount();
-        }).catch((error) =>{
+        }).catch((error) => {
             console.log(error)
         })
     },
@@ -102,7 +184,7 @@ Page({
     downcount() {
         let left_time = 60;
         let timer = setInterval(() => {
-            if(left_time === 0){
+            if (left_time === 0) {
                 this.setData({
                     hasSend: false
                 })
@@ -113,23 +195,23 @@ Page({
             this.setData({
                 leftTime: left_time
             })
-        },1000)
+        }, 1000)
     },
     //登录
-    handleLogin(){
-        let postData={
+    handleLogin() {
+        let postData = {
             userName: this.data.phone,
             Code: this.data.code
         }
         ajax({
-            url:'/app/User/QuickLogin',
+            url: '/app/User/QuickLogin',
             method: 'POST',
-            data:postData
-        }).then(( res) => {
+            data: postData
+        }).then((res) => {
             setItem('hd_token', res.Data.Token)
             setItem('hd_userId', res.Data.UserId);
-            goPage('首页',{},4)
-        }).catch((error) =>{
+            goPage('首页', {}, 4)
+        }).catch((error) => {
             console.log(error)
         })
     },

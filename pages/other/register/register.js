@@ -70,10 +70,17 @@ Page({
         }
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
+    onLoad: function (opt) {
+
+        if(opt.nickName){
+            this.setData({
+                ['personInfo.NickName']: opt.nickName,
+                ['personInfo.HeadUrl']: opt.HeadUrl,
+                ['personInfo.UniqueIdentification']: opt.openId,
+                currentTab: 2
+            })
+        }
+
         this.getDomainList();
     },
     //切换
