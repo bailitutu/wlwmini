@@ -131,9 +131,13 @@ Page({
             }
         }).then((res) => {
             let noData = !res.Data || res.Data.length == 0 ? true : false;
+            let list =  res.Data.map(item => {
+                return item.Activity;
+            })
+
             this.setData({
                 collectInfo: {
-                    list: res.Data,
+                    list,
                     noMore: true,
                     noData,
                 }
@@ -143,6 +147,8 @@ Page({
         })
 
     },
+
+
     // 查看详情
     handleCheckDetail(e) {
         let {id} = e.currentTarget.dataset;

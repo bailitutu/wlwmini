@@ -15,7 +15,7 @@
             <image class="g-full"
                    src="{{ item.isActive ? '/images/hp_list_bg_hig@2x.png' : '/images/hp_list_bg_nor@2x.png'}}"></image>
             <view class="g-full  _header-bar-cell">
-                <image class="_header-bar-icon" src="{{ item.isActive ? item.iconActive : item.iconNormal }}"></image>
+                <image class="_header-bar-icon" src="{{ item.iconActive }}"></image>
                 <text class="g-c-white g-fs-30">{{ item.name }}</text>
             </view>
         </view>

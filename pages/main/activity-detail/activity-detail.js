@@ -1,6 +1,7 @@
 import {getItem} from "../../../utils/util";
 import {ajax} from "../../../utils/api";
 import { isEmpty,isPhone } from "../../../utils/validate";
+import {goPage} from "../../../utils/common";
 
 
 Page({
@@ -188,5 +189,10 @@ Page({
             console.log(error);
         })
 
+    },
+    // 投诉
+    handleComplain(){
+        let { ActivityId } = this.data;
+        goPage('投诉',{ OtherId: ActivityId,OtherTypeId:4})
     }
 })

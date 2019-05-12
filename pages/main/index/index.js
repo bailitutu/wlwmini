@@ -13,27 +13,22 @@ Page({
         headerBarActive: 0,
         headBarList: [{
             isActive: true,
-            iconNormal: '/images/hp_list_product_nor@2x.png',
             iconActive: '/images/hp_list_product_hig@2x.png',
             name: '产品'
         }, {
             isActive: false,
-            iconNormal: '/images/hp_list_plan_nor@2x.png',
             iconActive: '/images/hp_list_plan_hig@2x.png',
             name: '方案'
         }, {
             isActive: false,
-            iconNormal: '/images/hp_list_requirement_nor@2x.png',
             iconActive: '/images/hp_list_requirement_hig@2x.png',
             name: '求购'
         }, {
             isActive: false,
-            iconNormal: '/images/hp_list_activity_nor@2x.png',
             iconActive: '/images/hp_list_activity_hig@2x.png',
             name: '活动'
         }, {
             isActive: false,
-            iconNormal: '/images/hp_list_company_nor@2x.png',
             iconActive: '/images/hp_list_company_hig@2x.png',
             name: '企业'
         }],

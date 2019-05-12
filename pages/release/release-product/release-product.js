@@ -89,7 +89,6 @@ Page({
                 productId
             }
         }).then((res) => {
-            console.log(res,'product')
             let {
                 ProductName,
                 ProudctPrice,
@@ -202,7 +201,7 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                let list = [...res.data];
+                let list = [...res.Data];
                 let columnsData = list.map(item => {
                     return item.Name;
                 })
@@ -262,7 +261,6 @@ Page({
                     classId: 0
                 }
             }).then((res) => {
-                console.log(res,'res')
                 let list = [...res.Data];
                 let columnsData = list.map(item => {
                     return item.ClassName;
@@ -301,7 +299,6 @@ Page({
                 classId:ParentId
             }
         }).then((res) => {
-            console.log(res,'sub')
             let list = [...res.Data];
             let columnsData = [];
             if(list.length){
@@ -370,7 +367,7 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                let list = [...res.data];
+                let list = [...res.Data];
                 let columnsData = list.map(item => {
                     return item.Name;
                 })

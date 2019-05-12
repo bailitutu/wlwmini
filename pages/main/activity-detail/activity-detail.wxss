@@ -23,3 +23,11 @@
     padding: 10rpx;
     font-size: 24rpx;
 }
+._product-btn{
+    line-height: 46rpx;
+}
+._product-btn image{
+    width:46rpx;
+    height:46rpx;
+    margin-right: 18rpx;
+}

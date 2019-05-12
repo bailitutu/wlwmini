@@ -1,3 +1,4 @@
+<wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="body">
     <van-tabs sticky active="{{ tabActive }}"  color="#0d8df9" animated  bind:change="onTabChange" class="g-h-full">
         <van-tab title="已发布" class="_company-tab-item g-bg-f4 ">
@@ -16,8 +17,8 @@
                             <view class='g-fs-28 g-oneline _list-purchase-title'>
                                 {{ item.ActivityName }}
                             </view>
-                            <text class='g-fs-28 g-c-999'>
-                               {{ item.BeginTimeTxt }} - {{ item.EndTimeTxt }}
+                            <text class='g-fs-28 g-c-red'>
+                               {{ item.StatusName }}
                             </text>
                         </view>
                     </view>
@@ -93,7 +94,7 @@
                             {{item.ActivityName}}
                         </view>
                         <text class='g-fs-28 g-c-999'>
-                            {{ item.BeginTimeTxt }} - {{ item.EndTimeTxt }}
+                            {{ filter.formatTime(item.BeginTime)  }} - {{ filter.formatTime(item.EndTime) }}
                         </text>
                     </view>
                     <view class='g-flex-cols  _list-right-item g-flex-cr'>

@@ -16,7 +16,6 @@
                     placeholder="请输入方案简介"
                     bind:w-input="bindAbstractChange"
             ></text-area>
-            <textarea class="_complain-text" maxlength="150" value="{{ Abstract }}" bindinput="bindAbstractChange" auto-height placeholder="请输入方案简介" />
         </view>
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>方案价格</view>
         <van-field
