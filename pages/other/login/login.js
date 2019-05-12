@@ -89,7 +89,6 @@ Page({
                 userTypeId: 4
             }
         }).then((res) => {
-            console.log(res);
             setItem('hd_token', res.Data.Token)
             setItem('hd_userId', res.Data.UserId);
             setItem('hd_IsEnterprise', res.Data.IsEnterprise);

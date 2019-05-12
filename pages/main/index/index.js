@@ -289,7 +289,6 @@ Page({
                 this.setData({
                     [orderBy]:order
                 })
-                console.log(this.data)
                 break;
         }
         this.handleSearch();
@@ -542,7 +541,6 @@ Page({
             })
         }
         let DomainOutDto = getItem( 'DomainOutDto') || null;
-        console.log(DomainOutDto);
         if(!DomainOutDto){
             ajax({
                 url:'/App/Product/GetDomainOutDto',

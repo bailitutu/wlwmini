@@ -99,7 +99,6 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                console.log(res, 'res1');
                 let list = [ ...res.data ];
                 let listData = list.map(item => {
                     return item.Name;

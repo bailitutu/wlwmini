@@ -82,7 +82,6 @@ const  setRequestHeader = (data) => {
     if (data) { signObj = $.extend(signObj, data, headers); }
 
     headers.Sign = getSign(signObj).Encrypt;
-    console.log(headers)
     return headers;
 
 }
