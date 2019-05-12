@@ -7,7 +7,6 @@
         "van-button": "/dist/button/index",
         "van-popup": "/dist/popup/index",
         "van-field": "/dist/field/index",
-        "van-toast": "/dist/toast/index",
         "van-cell-group": "/dist/cell-group/index"
     }
 }

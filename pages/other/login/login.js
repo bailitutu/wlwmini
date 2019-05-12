@@ -21,16 +21,11 @@ Page({
                     wx.authorize({
                         scope: 'scope.userInfo',
                         success:(user) => {
-
                             this.userInfo();
-                            // 授权登录
-                            this.userLogin();
                         }
                     })
                 }else{
                     this.userInfo();
-                    // 授权登录
-                    this.userLogin();
                 }
             }
         })
@@ -40,8 +35,6 @@ Page({
             withCredentials: false,
             lang: 'zh_CN',
             success:(res) => {
-                console.log(res,'userInfo');
-
                 if(res.errMsg == 'getUserInfo:ok'){
                     let {
                         nickName,
@@ -52,6 +45,7 @@ Page({
                         nickName,
                         HeadUrl: avatarUrl
                     })
+                    this.userLogin();
                 }else{
                     wx.showToast({
                         title: '获取用户信息失败，请重试',
@@ -77,7 +71,6 @@ Page({
                         Code: res.code,
                     }
                 }).then((data) => {
-                    console.log(data, 'CODE DATE');
                     this.AuthorizedLogin();
                 }).catch((error) => {
                     console.log(error)

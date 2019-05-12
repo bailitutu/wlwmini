@@ -1,7 +1,6 @@
 import { ajax } from "../../../utils/api";
 import { goPage } from '../../../utils/common'
 import { getItem, setItem } from '../../../utils/util'
-import Toast from "../../../dist/toast/toast";
 Page({
 
     /**
@@ -516,9 +515,9 @@ Page({
     // 跳转发布
     handleTabBarChange(page){
         if(page.detail == 1 ){
-            goPage('发布')
+            goPage('发布');
         }else if(page.detail == 2){
-            goPage('个人中心')
+            goPage('个人中心');
         }
         this.setData({
             tabBarActive: page.detail
@@ -534,8 +533,9 @@ Page({
                 method: 'POST',
                 data:{}
             }).then( ( res) => {
+                console.log(res);
                 this.setData({
-                    DomainApplicationList: res.data
+                    DomainApplicationList: res.Data
                 })
                 setItem("DomainApplicationList", JSON.stringify(res.Data) );
             }).catch((error) =>{
@@ -547,12 +547,14 @@ Page({
             })
         }
         let DomainOutDto = getItem( 'DomainOutDto') || null;
+        console.log(DomainOutDto);
         if(!DomainOutDto){
             ajax({
                 url:'/App/Product/GetDomainOutDto',
                 method: 'POST',
                 data:{}
             }).then( ( res) => {
+                console.log(res);
                 this.setData({
                     DomainOutDto: res.Data
                 })

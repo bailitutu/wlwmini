@@ -34,7 +34,7 @@
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
-                <text>筛选</text>
+                <text class="{{ AppDominId  ? 'g-c-blue ': ''}}">筛选</text>
             </view>
         </view>
 
@@ -68,7 +68,7 @@
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
-                <text>筛选</text>
+                <text class="{{ AppDominId  ? 'g-c-blue ': ''}}">筛选</text>
             </view>
         </view>
         <view class="_product-list g-pd-lr-30">
@@ -102,7 +102,7 @@
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
-                <text>筛选</text>
+                <text class="{{ AppDominId  ? 'g-c-blue ': ''}}">筛选</text>
             </view>
         </view>
 
@@ -132,7 +132,7 @@
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
-                <text>筛选</text>
+                <text class="{{ AppDominId  ? 'g-c-blue ': ''}}">筛选</text>
             </view>
         </view>
 
@@ -168,7 +168,7 @@
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
-                <text>筛选</text>
+                <text class="{{ AppDominId  ? 'g-c-blue ': ''}}">筛选</text>
             </view>
         </view>
 
@@ -220,19 +220,28 @@
         </view>
 
         <view class="g-fs-32 g-c-black g-pd-t-30">技术领域</view>
-        <view class="g-fs-24 g-c-gray g-m-t-20">无线定位</view>
-        <view class="_filter-list g-flex g-jc-fs g-fw-w" v-if="{{ DomainOutDto }}">
-            <view
-                class="_filter-btn g-bg-gray g-c-white {{ TeachDominId == item.Id ? 'active': ''}} g-fs-28"
-                wx:for="{{ DomainOutDto }}"
-                wx:key="{{ index }}"
-                data-id="{{ item.Id }}"
-                catchtap="handleFilterTwo"
-            >
-                {{ item.Name }}
+        <view
+            v-if="{{ DomainOutDto }}"
+            wx:for="{{ DomainOutDto }}"
+            wx:key="{{ index }}"
+        >
+            <view class="g-fs-24 g-c-gray g-m-t-20">{{ item.Name }}</view>
+            <view class="_filter-list g-flex g-jc-fs g-fw-w" >
+                <view
+                        class="_filter-btn g-bg-gray g-c-white {{ TeachDominId == cell.Id ? 'active': ''}} g-fs-28"
+                        wx:for="{{ item.SublevelList }}"
+                        wx:for-index="idx"
+                        wx:for-item="cell"
+                        wx:key="{{ idx }}"
+                        data-id="{{ cell.Id }}"
+                        catchtap="handleFilterTwo"
+                >
+                    {{ cell.Name }}
+                </view>
             </view>
         </view>
-        <view class="_filter-list g-flex g-jc-fe g-fw-w g-m-t-20">
+        <view class="g-fs-32 g-c-black g-pd-t-30">操作</view>
+        <view class="_filter-list g-flex g-jc-fe g-fw-w g-m-t-20 g-m-b-20 g-pd-b-20">
             <view
                     class="_filter-btn g-c-white g-bg-red g-fs-28"
                     catchtap="handleResetFilter"

@@ -62,6 +62,15 @@ export const delItem = (key)  => {
     }
 };
 
+/**
+ * 删除所有缓存
+ * @param  {[String]} key 删除的键值
+ */
+export const clearAllItem = ()  => {
+    if (isAvailable) {
+        wx.clearStorageSync();
+    }
+};
 
 
 const  setRequestHeader = (data) => {
