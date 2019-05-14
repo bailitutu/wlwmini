@@ -40,7 +40,6 @@ Page({
                         nickName,
                         avatarUrl
                     } = res.userInfo
-
                     this.setData({
                         nickName,
                         HeadUrl: avatarUrl
@@ -65,10 +64,10 @@ Page({
         wx.login({
             success: res => {
                 ajax({
-                    url: '/App/Auth/AuthWeChat',
+                    url: '/app/auth/AuthWeChat',
                     method: 'GET',
                     data: {
-                        Code: res.code,
+                        code: res.code,
                     }
                 }).then((data) => {
                     this.AuthorizedLogin();

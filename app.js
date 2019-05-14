@@ -1,4 +1,3 @@
-import { PageURL } from './utils/config'
 import { getItem } from './utils/util'
 App({
     onLaunch: function() {
@@ -7,11 +6,11 @@ App({
         // 检测本地用户信息
         if( !hd_token || !hd_userId){
             wx.reLaunch({
-                url: PageURL['登录']
+                url: '/pages/other/login/login'
             })
         }else{
             wx.reLaunch({
-                url: PageURL['首页']
+                url: '/pages/main/index/index'
             })
         }
     }
