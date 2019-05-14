@@ -474,7 +474,7 @@
 >
     <van-picker show-toolbar
                 title="应用领域"
-                columns="{{ DomainList }}"
+                columns="{{ DomainCell }}"
                 bind:cancel="handleCompanyDomainCellCancel"
                 bind:confirm="handleCompanyDomainCellConfirm"
     />

@@ -193,7 +193,6 @@ Page({
                     return item.Name;
                 })
                 setItem("DomainList", JSON.stringify(list));
-
                 this.setData({
                     ['DomainList.list']: list,
                     ['DomainList.columnsData']:columnsData,
@@ -254,6 +253,8 @@ Page({
         this.setData({
             ['DomainList.value']: value,
             ['DomainList.id']: id,
+            ['DomainCell.value']: '',
+            ['DomainCell.id']: '',
             ['DomainList.show']: false,
         })
         this.getDomainCell(id)

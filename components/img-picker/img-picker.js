@@ -1,4 +1,29 @@
 import  {BASE_URL} from '../../utils/config'
+import MD5 from '../../utils/new_md5'
+function setRequestHeader(data) {
+    var headers = { IsJosn: "ok" };
+    headers.Timestamp = new Date().getTime(); //13位时间戳
+    headers.Nonce = Math.random(); //随机数
+    var signObj = {};
+    if (data) { signObj = Object.assign(signObj, data, headers); }
+    headers.Sign = getSign(signObj).Encrypt;
+    return headers;
+}
+
+function getSign(data) { //签名
+    let array = [];
+    let param = '';
+    for(let key in data){
+        array[array.length] = key;
+    }
+    array.sort(function (array, t) { var a = array.toLowerCase(); var b = t.toLowerCase(); if (a < b) return -1; if (a > b) return 1; return 0; });//排序
+    array.forEach((key,i)=>{
+        param += key + data[key]
+    })
+    return { Text: param, Encrypt: MD5.md5(param) };
+}
+
+
 Component({
     properties: {
         multiple: {
@@ -18,7 +43,7 @@ Component({
         lock: false,
     },
     methods: {
-        // 添加款式图片
+        // 添加图片
         _handleAddImg() {
             const that = this;
             let {imgList, max} = this.data;
@@ -35,7 +60,7 @@ Component({
                         mask: true
                     })
                     that.uploadImg({
-                        url: BASE_URL + '/Home/UpLoadFile',//这里是你图片上传的接口
+                        url: BASE_URL + '/App/Home/UpLoadFile',//这里是你图片上传的接口
                         path: imageSrc,//这里是选取的图片的地址数组
                     });
                 },
@@ -53,11 +78,17 @@ Component({
                 fail = data.fail ? data.fail : 0;//上传失败的个数
 
             let { imgList } = this.data;
+            let headers = setRequestHeader({});
+            let header = {
+                ...headers,
+                "Content-Type": "multipart/form-data"
+            };
             wx.uploadFile({
                 url: data.url,
                 filePath: data.path[i],
-                name: 'file',//这里根据自己的实际情况改
-                formData: null,//这里是上传图片时一起上传的数据
+                name: 'file'+ i,//这里根据自己的实际情况改
+                header: header,
+                formData: {},//这里是上传图片时一起上传的数据
                 success: (resp) => {
                     success++;//图片上传成功，图片上传成功的变量+1
                     var data = JSON.parse(resp.data);

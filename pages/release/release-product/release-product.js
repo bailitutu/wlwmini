@@ -328,6 +328,8 @@ Page({
         this.setData({
             ['MainClass.value']: value,
             ['MainClass.id']: id,
+            ['SubClass.value']: '',
+            ['SubClass.id']: '',
             ['MainClass.show']: false,
         })
         this.getSubClass(id)
@@ -433,6 +435,8 @@ Page({
         this.setData({
             ['DomainList.value']: value,
             ['DomainList.id']: id,
+            ['DomainCell.value']: '',
+            ['DomainCell.id']: '',
             ['DomainList.show']: false,
         })
         this.getDomainCell(id)
@@ -516,6 +520,8 @@ Page({
         this.setData({
             ['SeniorOne.value']: value,
             ['SeniorOne.id']: id,
+            ['SeniorTwo.value']: '',
+            ['SeniorTwo.id']: '',
             ['SeniorOne.show']: false,
         })
     },

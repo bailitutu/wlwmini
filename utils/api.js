@@ -12,7 +12,6 @@ function setRequestHeader(data) {
     if (data) { signObj = Object.assign(signObj, data, headers); }
     headers.Sign = getSign(signObj).Encrypt;
     return headers;
-
 }
 
 function getSign(data) { //签名
@@ -23,7 +22,6 @@ function getSign(data) { //签名
     }
     array.sort(function (array, t) { var a = array.toLowerCase(); var b = t.toLowerCase(); if (a < b) return -1; if (a > b) return 1; return 0; });//排序
     array.forEach((key,i)=>{
-        console.log()
         param += key + data[key]
     })
     return { Text: param, Encrypt: MD5.md5(param) };

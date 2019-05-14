@@ -251,6 +251,8 @@ Page({
         this.setData({
             ['DomainList.value']: value,
             ['DomainList.id']: id,
+            ['DomainCell.value']: '',
+            ['DomainCell.id']: '',
             ['DomainList.show']: false,
         })
         this.getDomainCell(id)

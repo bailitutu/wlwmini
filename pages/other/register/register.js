@@ -99,7 +99,7 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                let list = [ ...res.data ];
+                let list = [ ...res.Data ];
                 let listData = list.map(item => {
                     return item.Name;
                 })
@@ -163,6 +163,8 @@ Page({
         this.setData({
             ['companyInfo.TeachDominParentId']: parentId,
             ['companyInfo.TeachDominParentName']: value,
+            ['companyInfo.TeachDominId']: '',
+            ['companyInfo.TeachDominName']: '',
             ['companyInfo.showDomainList']: false
         })
         this.getDomainCell(parentId)
@@ -508,6 +510,8 @@ Page({
         this.setData({
             ['personInfo.TeachDominParentId']: parentId,
             ['personInfo.TeachDominParentName']: value,
+            ['personInfo.TeachDominId']: '',
+            ['personInfo.TeachDominName']: '',
             ['personInfo.showDomainList']: false
         })
         this.getDomainCell(parentId)

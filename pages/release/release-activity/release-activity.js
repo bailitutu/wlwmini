@@ -172,7 +172,7 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                let list = [...res.data];
+                let list = [...res.Data];
                 let columnsData = list.map(item => {
                     return item.Name;
                 })
@@ -297,6 +297,8 @@ Page({
         this.setData({
             ['DomainList.value']: value,
             ['DomainList.id']: id,
+            ['DomainCell.value']: '',
+            ['DomainCell.id']: '',
             ['DomainList.show']: false,
         })
         this.getDomainCell(id)
