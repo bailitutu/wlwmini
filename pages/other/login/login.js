@@ -63,6 +63,7 @@ Page({
     userLogin(){
         wx.login({
             success: res => {
+              console.log(res.code)
                 ajax({
                     url: '/app/auth/AuthWeChat',
                     method: 'GET',
@@ -70,11 +71,10 @@ Page({
                         code: res.code,
                     }
                 }).then((data) => {
-                    this.AuthorizedLogin();
+                  this.AuthorizedLogin(data.Data.openid);
                 }).catch((error) => {
-                    console.log(error)
+                    console.log(error,error)
                 })
-
             }
         })
     },
@@ -85,7 +85,7 @@ Page({
             method: 'POST',
             data: {
                 appToken: openId,
-                userTypeId: 4
+                userTypeId: 5
             }
         }).then((res) => {
             setItem('hd_token', res.Data.Token)
@@ -98,8 +98,6 @@ Page({
 
             let { nickName,HeadUrl } = this.data;
             goPage('注册', { nickName, HeadUrl, openId })
-
-
         })
     },
 
