@@ -18,7 +18,7 @@
                     <text class="g-c-gray">联系</text>
                 </view>
                 <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleCollect">
-                    <image src="/images/detail_icon_collect@2x.png"></image>
+                    <image src="{{ detail.IsCollection ? '/images/detail_icon_collect@2x.png' : '/images/detail_icon_@2x.png'}}"></image>
                     <text class="g-c-gray">{{ detail.IsCollection ? "已收藏" : "收藏"}}</text>
                 </view>
                 <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleComplain">

@@ -3,8 +3,6 @@ import {getItem} from "../../../utils/util";
 import {ajax} from "../../../utils/api";
 import {goPage} from "../../../utils/common";
 
-let UserId = getItem('hd_userId') || '';
-let Token = getItem('hd_token') || '';
 Page({
 
     /**
@@ -25,17 +23,21 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let UserId = getItem('hd_userId') || '';
+        let Token = getItem('hd_token') || '';
         this.setData({
             SchemeId: options.SchemeId
+            ,UserId,
+            Token
         })
         this.loadData();
     },
 
     loadData() {
-        let SchemeId = this.data.SchemeId
+        let { SchemeId ,UserId,Token  }= this.data;
         let personData = {
-            UserId: UserId,
-            Token: Token,
+            UserId,
+            Token,
             SchemeId
         };
         ajax({
@@ -59,6 +61,7 @@ Page({
     // 收藏
     handleCollect() {
         let collect_status = this.data.detail.IsCollection;
+        let { UserId,Token  }= this.data;
         let personData = {
             UserId,
             Token,
@@ -102,9 +105,7 @@ Page({
     },
     handleConfirmContact(e) {
         let contactText = e.detail;
-        let UserId = getItem('hd_userId');
-        let Token = getItem('hd_token');
-        let OtherId = this.data.SchemeId;
+        let { UserId,Token ,SchemeId }= this.data;
         if (contactText == '') {
             wx.showToast({
                 title: '请输入咨询内容',
@@ -116,7 +117,7 @@ Page({
             url: '/App/Home/AddMessage',
             method: 'POST',
             data: {
-                OtherId,
+                OtherId: SchemeId ,
                 OtherTypeId: 2,
                 Msg: contactText,
                 MsgType: 1,
@@ -128,11 +129,9 @@ Page({
                 title: '留言成功！',
                 icon: 'none',
                 success: () => {
-                    setTimeout(() => {
-                        this.setData({
-                            showContact: false
-                        })
-                    }, 1500)
+                    this.setData({
+                        showContact: false
+                    })
                 }
             })
         }).catch((error) => {

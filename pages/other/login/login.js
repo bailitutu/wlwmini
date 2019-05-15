@@ -16,26 +16,26 @@ Page({
     },
     getUserInfo: function (e) {
         wx.getSetting({
-            success:(res) => {
+            success: (res) => {
                 if (!res.authSetting['scope.userInfo']) {
                     wx.authorize({
                         scope: 'scope.userInfo',
-                        success:(user) => {
+                        success: (user) => {
                             this.userInfo();
                         }
                     })
-                }else{
+                } else {
                     this.userInfo();
                 }
             }
         })
     },
-    userInfo(){
+    userInfo() {
         wx.getUserInfo({
             withCredentials: false,
             lang: 'zh_CN',
-            success:(res) => {
-                if(res.errMsg == 'getUserInfo:ok'){
+            success: (res) => {
+                if (res.errMsg == 'getUserInfo:ok') {
                     let {
                         nickName,
                         avatarUrl
@@ -45,14 +45,14 @@ Page({
                         HeadUrl: avatarUrl
                     })
                     this.userLogin();
-                }else{
+                } else {
                     wx.showToast({
                         title: '获取用户信息失败，请重试',
                         icon: 'none'
                     })
                 }
             },
-            fail:()=>{
+            fail: () => {
                 wx.showToast({
                     title: '获取用户信息失败，请重试',
                     icon: 'none'
@@ -60,10 +60,9 @@ Page({
             }
         })
     },
-    userLogin(){
+    userLogin() {
         wx.login({
             success: res => {
-              console.log(res.code)
                 ajax({
                     url: '/app/auth/AuthWeChat',
                     method: 'GET',
@@ -71,9 +70,9 @@ Page({
                         code: res.code,
                     }
                 }).then((data) => {
-                  this.AuthorizedLogin(data.Data.openid);
+                    this.AuthorizedLogin(JSON.parse(data.Data).openid);
                 }).catch((error) => {
-                    console.log(error,error)
+                    console.log(error, error)
                 })
             }
         })
@@ -85,19 +84,18 @@ Page({
             method: 'POST',
             data: {
                 appToken: openId,
-                userTypeId: 5
+                userTypeId:4
             }
         }).then((res) => {
             setItem('hd_token', res.Data.Token)
             setItem('hd_userId', res.Data.UserId);
             setItem('hd_IsEnterprise', res.Data.IsEnterprise);
-            goPage('首页',{},4)
+            goPage('首页', {}, 4)
         }).catch((error) => {
             console.log(error);
             //  授权失败跳转注册；
-
-            let { nickName,HeadUrl } = this.data;
-            goPage('注册', { nickName, HeadUrl, openId })
+            let {nickName, HeadUrl} = this.data;
+            goPage('注册', {nickName, HeadUrl, openId})
         })
     },
 

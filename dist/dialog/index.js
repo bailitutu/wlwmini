@@ -8,6 +8,7 @@ VantComponent({
     message: String,
     useSlot: Boolean,
     asyncClose: Boolean,
+      autoClose: Boolean,
     messageAlign: String,
     showCancelButton: Boolean,
     closeOnClickOverlay: Boolean,
@@ -64,7 +65,6 @@ VantComponent({
           ["loading." + action]: true
         });
       }
-
       this.onClose(action);
     },
     close: function close() {
@@ -81,7 +81,7 @@ VantComponent({
       });
     },
     onClose: function onClose(action) {
-      if (!this.data.asyncClose) {
+      if (!this.data.asyncClose && action === 'cancel') {
         this.close();
       }
 

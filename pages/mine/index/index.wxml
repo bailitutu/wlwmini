@@ -1,6 +1,6 @@
 <view class='body'>
   <view class='_person-info g-flex-fs '>
-      <view class='_person-header g-m-r-20'>
+      <view class='_person-header g-m-r-20' bindtap="handleChangeHeader">
         <image src="{{ info.HeadUrl || '/images/companydetail_profile@2x.png' }}" class='g-full' />
       </view>
       <view class='_person-detail'>

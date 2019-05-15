@@ -117,11 +117,9 @@ Page({
                 title: '留言成功！',
                 icon: 'none',
                 success: () => {
-                    setTimeout(() => {
-                        this.setData({
-                            showContact: false
-                        })
-                    }, 1500)
+                    this.setData({
+                        showContact: false
+                    })
                 }
             })
         }).catch((error) => {

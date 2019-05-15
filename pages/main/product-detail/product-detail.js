@@ -17,10 +17,6 @@ Page({
         duration: 1000,
         showContact: false,
     },
-
-    /**
-    * 生命周期函数--监听页面加载
-    */
     onLoad: function (options) {
       this.setData({
           ProductId: options.ProductId
@@ -95,12 +91,7 @@ Page({
                 })
             }
         })
-
-
-
-
     },
-
     // 联系
     handleConnect(){
         this.setData({
@@ -135,11 +126,9 @@ Page({
                 title: '留言成功！',
                 icon:'none',
                 success: () => {
-                    setTimeout(()=>{
-                        this.setData({
-                            showContact:false
-                        })
-                    },1500)
+                    this.setData({
+                        showContact:false
+                    })
                 }
             })
         }).catch((error) =>{

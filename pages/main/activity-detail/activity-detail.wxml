@@ -9,7 +9,7 @@
         </view>
         <view class="g-pd-lr-30 g-flex-lr g-ai-fs g-pd-tb-10 g-fs-28">
             <text class="g-c-gray _label-left">时间:</text>
-            <text class="g-c-black g-flex-1 g-lh-42">{{ detail.BeginTimeTxt}}/ {{ detail.EndTimeTxt}}  </text>
+            <text class="g-c-black g-flex-1 g-lh-42">{{ detail.BeginTimeTxt}}/{{ detail.EndTimeTxt}}  </text>
         </view>
 
         <view class="g-pd-lr-30 g-flex-lr g-ai-fs g-pd-tb-10 g-fs-28">
@@ -33,7 +33,7 @@
             <view class="g-flex-fs">
                 <van-button type="info" size="small" custom-class="g-bg-blue g-c-white g-m-r-10" bindtap="handleSignUp">{{ hasSign ? '已报名' : '我要报名'}}</van-button>
                 <view class="_collect-btn g-flex g-ai-c g-jc-c g-pd-lr-30" bindtap="handleCollect">
-                    <image src="/images/activity_shoucang@2x.png" class="g-m-r-10"></image>
+                    <image src="{{ detail.IsCollection  ? '/images/purchase_product_icon_collect.png' : '/images/activity_shoucang@2x.png'}}" class="g-m-r-10"></image>
                     <text class="g-c-gray g-fs-28">{{ detail.IsCollection ? "已收藏" : "收藏"}}</text>
                 </view>
             </view>
