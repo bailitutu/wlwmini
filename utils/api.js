@@ -32,6 +32,7 @@ const ajax = (options = {}) => {
         url,
         data,
         header,
+        hideErr,
         method,
         dataType,
         responseType,
@@ -72,10 +73,15 @@ const ajax = (options = {}) => {
                             }
                         })
                     }else{
-                        wx.showToast({
-                            title: r.data.Msg || '',
-                            icon:'none'
-                        })
+                        if(!hideErr){
+                            wx.showToast({
+                                title: r.data.Msg || '',
+                                icon:'none'
+                            })
+                        }else{
+                            rej(r.data)
+                        }
+
                     }
                 }
             },

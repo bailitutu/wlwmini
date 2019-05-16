@@ -82,9 +82,10 @@ Page({
         ajax({
             url: '/App/User/AuthorizedLogin',
             method: 'POST',
+            hideErr: true,
             data: {
                 appToken: openId,
-                userTypeId:4
+                userTypeId:5
             }
         }).then((res) => {
             setItem('hd_token', res.Data.Token)
@@ -92,10 +93,10 @@ Page({
             setItem('hd_IsEnterprise', res.Data.IsEnterprise);
             goPage('首页', {}, 4)
         }).catch((error) => {
-            console.log(error);
+            console.log(error,'error');
             //  授权失败跳转注册；
             let {nickName, HeadUrl} = this.data;
-            goPage('注册', {nickName, HeadUrl, openId})
+            goPage('注册', {nickName, HeadUrl, openId,UserTypeId: 5})
         })
     },
 

@@ -3,10 +3,6 @@ import {ajax} from "../../../utils/api";
 import {getItem, setItem} from "../../../utils/util";
 
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         currentTab: 1,
         companyInfo: {
@@ -23,8 +19,12 @@ Page({
             EnterpriseName: '',
             Abbreviation: '',
             EnterpriseLogo: '',
+            TeachDominParentName: '',
             TeachDominParentId: '',
             TeachDominId: '',
+            TeachDominName: '',
+            DomainAppName: '',
+            DomainAppId: '',
             WebsiteUrl: '',
             Address: '',
             FixedTelephone: '',
@@ -37,16 +37,16 @@ Page({
             Email: '',
             QQ: '',
             RealName: '',
+            showApplication: false,
+            showDomainList: false,
+            showDomainCell: false,
         },
-        showDomainList: false,
+        Application: [],  //应用领域
+        ApplicationData: [],
         DomainListData: [],
         DomainList: [],
         DomainCellData: [],
         DomainCell: [],
-        TeachDominParentId: '',
-        TeachDominParentName: '',
-        TeachDominId: '',
-        TeachDominName: '',
         personInfo: {
             UserName: '',
             UserPwd: '',
@@ -59,12 +59,15 @@ Page({
             RealName: '',
             EnterpriseName: '',
             Occupation: '',
+            DomainAppName: '',
+            DomainAppId: '',
             TeachDominParentId: '',
             TeachDominParentName: '',
             TeachDominId: '',
             TeachDominName: '',
             leftTime: 60,
             hasSend: false,
+            showApplication: false,
             showDomainList: false,
             showDomainCell: false,
         }
@@ -76,12 +79,16 @@ Page({
             this.setData({
                 ['personInfo.NickName']: opt.nickName,
                 ['personInfo.HeadUrl']: opt.HeadUrl,
+                ['personInfo.UserTypeId']: opt.UserTypeId,
                 ['personInfo.UniqueIdentification']: opt.openId,
-                currentTab: 2
+                ['companyInfo.NickName']: opt.nickName,
+                ['companyInfo.HeadUrl']: opt.HeadUrl,
+                ['companyInfo.UserTypeId']: opt.UserTypeId,
+                ['companyInfo.UniqueIdentification']: opt.openId,
             })
         }
-
         this.getDomainList();
+        this.getApplicationList();
     },
     //切换
     handleType(e) {
@@ -90,6 +97,51 @@ Page({
             currentTab: type
         })
     },
+
+    // 获取应用领域
+    getApplicationList() {
+
+        let ApplicationList = getItem('DomainApplicationList') || null;
+        if (!ApplicationList) {
+            ajax({
+                url: '/App/Product/DomainApplicationList',
+                method: 'POST',
+                data: {}
+            }).then((res) => {
+                let list = [ ...res.Data ];
+                let columnsData = list.map(item => {
+                    return item.Name;
+                })
+                this.setData({
+                    ApplicationData: list,
+                    Application: columnsData,
+                    ['companyInfo.DomainAppName']: list[0].Name,
+                    ['companyInfo.DomainAppId']: list[0].Id,
+                    ['personInfo.DomainAppName']: list[0].Name,
+                    ['personInfo.DomainAppId']: list[0].Id,
+
+                })
+                setItem("DomainApplicationList", JSON.stringify(res.Data));
+
+            }).catch((error) => {
+                console.log(error)
+            })
+        } else {
+            let list = JSON.parse(ApplicationList);
+            let listData = list && list.map(item => {
+                return item.Name;
+            })
+            this.setData({
+                ApplicationData: list,
+                Application: listData,
+                ['companyInfo.DomainAppName']: list[0].Name,
+                ['companyInfo.DomainAppId']: list[0].Id,
+                ['personInfo.DomainAppName']: list[0].Name,
+                ['personInfo.DomainAppId']: list[0].Id,
+            })
+        }
+    },
+
     // 获取技术领域父级
     getDomainList() {
         let DomainList = getItem('DomainList') || null;
@@ -106,20 +158,31 @@ Page({
                 setItem("DomainList", JSON.stringify(list));
 
                 this.setData({
-                    DomainListData: res.Data,
-                    DomainList: listData
+                    DomainListData: list,
+                    DomainList: listData,
+                    ['companyInfo.TeachDominParentName']: list[0].Name,
+                    ['companyInfo.TeachDominParentId']: list[0].Id,
+                    ['personInfo.TeachDominParentName']: list[0].Name,
+                    ['personInfo.TeachDominParentId']: list[0].Id,
                 })
+                this.getDomainCell(list[0].Id);
             }).catch((error) => {
                 console.log(error)
             })
         } else {
-            let listData = JSON.parse(DomainList).map(item => {
+            let list = JSON.parse(DomainList)
+            let listData = list && list.map(item => {
                 return item.Name;
             })
             this.setData({
                 DomainListData: JSON.parse(DomainList),
-                DomainList:listData
+                DomainList:listData,
+                ['companyInfo.TeachDominParentName']: list[0].Name,
+                ['companyInfo.TeachDominParentId']: list[0].Id,
+                ['personInfo.TeachDominParentName']: list[0].Name,
+                ['personInfo.TeachDominParentId']: list[0].Id,
             })
+            this.getDomainCell(list[0].Id);
         }
     },
     // 获取技术领域子级
@@ -137,8 +200,12 @@ Page({
                 return item.Name;
             })
             this.setData({
-                DomainCellData: res.Data,
-                DomainCell:cellList
+                DomainCellData: list,
+                DomainCell:cellList,
+                ['companyInfo.TeachDominName']: list[0].Name,
+                ['companyInfo.TeachDominId']: list[0].Id,
+                ['personInfo.TeachDominName']: list[0].Name,
+                ['personInfo.TeachDominId']: list[0].Id,
             })
         }).catch((error) => {
             console.log(error)
@@ -146,6 +213,13 @@ Page({
     },
 
     // 企业注册部分
+
+    // 选择应用领域
+    handleCompanyApplicationList(){
+        this.setData({
+            ['companyInfo.showApplication']: true
+        })
+    },
     handleCompanyDomainList() {
         this.setData({
             ['companyInfo.showDomainList']: true
@@ -157,6 +231,20 @@ Page({
         })
     },
 
+    handleCompanyApplicationConfirm(event){
+        const { value, index} = event.detail;
+        let parentId = this.data.ApplicationData[index].Id;
+        this.setData({
+            ['companyInfo.DomainAppId']: parentId,
+            ['companyInfo.DomainAppName']: value,
+            ['companyInfo.showApplication']: false
+        })
+    },
+    handleCompanyApplicationCancel(){
+        this.setData({
+            ['companyInfo.showApplication']: false
+        })
+    },
     handleCompanyDomainListConfirm(event) {
         const { value, index} = event.detail;
         let parentId = this.data.DomainListData[index].Id;
@@ -312,6 +400,7 @@ Page({
             EnterpriseLogo,
             TeachDominParentId,
             TeachDominId,
+            DomainAppId,
             WebsiteUrl,
             Address,
             FixedTelephone,
@@ -340,9 +429,16 @@ Page({
             })
             return;
         }
+        if (isEmpty(DomainAppId)) {
+            wx.showToast({
+                title: '请选择应用领域',
+                icon: 'none'
+            })
+            return;
+        }
         if (TeachDominParentId == '' || TeachDominId == '') {
             wx.showToast({
-                title: '请选择主营领域',
+                title: '请选择技术领域',
                 icon: 'none'
             })
             return;
@@ -358,6 +454,20 @@ Page({
         if (isEmpty(FixedTelephone)) {
             wx.showToast({
                 title: '固定电话必填',
+                icon: 'none'
+            })
+            return;
+        }
+        if (isEmpty(Email)) {
+            wx.showToast({
+                title: '邮箱必填',
+                icon: 'none'
+            })
+            return;
+        }
+        if (isEmpty(QQ)) {
+            wx.showToast({
+                title: 'QQ必填',
                 icon: 'none'
             })
             return;
@@ -456,6 +566,7 @@ Page({
                 EnterpriseLogo,
                 TeachDominParentId,
                 TeachDominId,
+                DomainAppId,
                 WebsiteUrl,
                 Address,
                 FixedTelephone,
@@ -493,6 +604,11 @@ Page({
     },
 
     //主营领域
+    handlePersonApplicationList() {
+        this.setData({
+            ['personInfo.showApplication']: true
+        })
+    },
 
     handlePersonDomainList() {
         this.setData({
@@ -504,6 +620,22 @@ Page({
             ['personInfo.showDomainCell']: true
         })
     },
+
+    handlePersonApplicationConfirm(event){
+        const { value, index} = event.detail;
+        let parentId = this.data.ApplicationData[index].Id;
+        this.setData({
+            ['personInfo.DomainAppId']: parentId,
+            ['personInfo.DomainAppName']: value,
+            ['personInfo.showApplication']: false
+        })
+    },
+    handlePersonApplicationCancel(){
+        this.setData({
+            ['personInfo.showApplication']: false
+        })
+    },
+
     handlePersonDomainListConfirm(event) {
         const { value, index} = event.detail;
         let parentId = this.data.DomainListData[index].Id;
@@ -599,17 +731,6 @@ Page({
         }, 1000)
     },
 
-    handleUploadHeadUrl(e){
-        this.setData({
-            ['personInfo.HeadUrl']: e.detail[0].imgUrl
-        })
-    },
-    handleRemoveHeadUrl(){
-        this.setData({
-            ['personInfo.HeadUrl']: ''
-        })
-    },
-
     // 个人注册
     handlePersonRegister() {
         let {
@@ -625,7 +746,8 @@ Page({
             Occupation,
             RealName,
             TeachDominParentId,
-            TeachDominId
+            TeachDominId,
+            DomainAppId
         } = this.data.personInfo;
 
         if (isEmpty(HeadUrl)) {
@@ -649,14 +771,20 @@ Page({
             })
             return;
         }
-        if (TeachDominParentId == '' || TeachDominId == '') {
+        if (isEmpty(DomainAppId)) {
             wx.showToast({
-                title: '请选择主营领域',
+                title: '请选择应用领域',
                 icon: 'none'
             })
             return;
         }
-
+        if (TeachDominParentId == '' || TeachDominId == '') {
+            wx.showToast({
+                title: '请选择技术领域',
+                icon: 'none'
+            })
+            return;
+        }
         if (isEmpty(RealName)) {
             wx.showToast({
                 title: '真实姓名必填',
@@ -664,7 +792,6 @@ Page({
             })
             return;
         }
-
         if (isEmpty(UserPwd)) {
             wx.showToast({
                 title: '请先设置密码',
@@ -715,7 +842,8 @@ Page({
                 Occupation,
                 RealName,
                 TeachDominParentId,
-                TeachDominId
+                TeachDominId,
+                DomainAppId
             }
         }).then((res) => {
             wx.showToast({

@@ -41,25 +41,34 @@
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                主营领域
+                应用领域
             </view>
             <van-cell
-                    title="技术领域"
-                    value="{{ companyInfo.TeachDominParentName || ''}}"
+                    title="{{ companyInfo.DomainAppName   }}"
+                    is-link
+                    custom-class="_picker-item"
+                    title-class="g-tl"
+                    bind:click="handleCompanyApplicationList"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
+                <text class='g-c-red'>*</text>
+                技术领域
+            </view>
+            <van-cell
+                    title="{{ companyInfo.TeachDominParentName }}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
                     bind:click="handleCompanyDomainList"
             />
             <van-cell
-                    wx:if="{{ companyInfo.TeachDominParentName }}"
-                    title="应用领域"
-                    value="{{ companyInfo.TeachDominName || ''}}"
+                    title="{{ companyInfo.TeachDominName }}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
                     bind:click="handleCompanyDomainCell"
             />
+
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
                 logo
@@ -67,7 +76,7 @@
             <img-picker multiple max="1" bind:upload="handleUploadLogo" bind:removeImg="handleRemoveLogo"></img-picker>
 
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                网址
+                公司网址
             </view>
             <van-field
                     type='text'
@@ -117,6 +126,7 @@
                     bind:change="handleChangeInput"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
+                <text class='g-c-red'>*</text>
                 邮箱
             </view>
             <van-field
@@ -129,6 +139,7 @@
                     bind:change="handleChangeInput"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
+                <text class='g-c-red'>*</text>
                 QQ
             </view>
             <van-field
@@ -280,24 +291,6 @@
     <view class='g-pd-lr-30 g-m-t-60' wx:else>
         <van-cell-group border='{{ false }}'>
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                昵称
-            </view>
-            <van-field
-                    type='text'
-                    value="{{ personInfo.NickName }}"
-                    placeholder="请输入昵称"
-                    border="{{ true }}"
-                    data-type="1"
-                    data-cell="NickName"
-                    bind:change="handleChangeInput"
-            />
-            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
-                <text class='g-c-red'>*</text>
-                头像（大小不超过100k）
-            </view>
-            <img-picker multiple max="1" bind:upload="handleUploadHeadUrl" bind:removeImg="handleRemoveHeadUrl"></img-picker>
-
-            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
                 所属企业
             </view>
@@ -325,20 +318,29 @@
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                主营领域
+                应用领域
+            </view>
+
+            <van-cell
+                    title="{{ personInfo.DomainAppName   }}"
+                    is-link
+                    custom-class="_picker-item"
+                    title-class="g-tl"
+                    bind:click="handlePersonApplicationList"
+            />
+            <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
+                <text class='g-c-red'>*</text>
+                技术领域
             </view>
             <van-cell
-                    title="技术领域"
-                    value="{{ personInfo.TeachDominParentName || ''}}"
+                    title="{{ personInfo.TeachDominParentName }}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
                     bind:click="handlePersonDomainList"
             />
             <van-cell
-                    wx:if="{{ personInfo.TeachDominParentName }}"
-                    title="应用领域"
-                    value="{{ personInfo.TeachDominName || ''}}"
+                    title="{{ personInfo.TeachDominName }}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
@@ -434,6 +436,56 @@
 
     </view>
 </view>
+
+
+
+<!--企业-->
+<van-popup
+        show="{{ companyInfo.showApplication }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="应用领域"
+                columns="{{ Application }}"
+                bind:confirm="handleApplicationConfirm"
+                bind:cancel="handleApplicationCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ companyInfo.showDomainList }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="技术领域"
+                columns="{{ DomainList }}"
+                bind:confirm="handleCompanyDomainListConfirm"
+                bind:cancel="handleCompanyDomainListCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ companyInfo.showDomainCell }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="技术领域"
+                columns="{{ DomainCell }}"
+                bind:cancel="handleCompanyDomainCellCancel"
+                bind:confirm="handleCompanyDomainCellConfirm"
+    />
+</van-popup>
+
+<!--个人-->
+<van-popup
+        show="{{personInfo.showApplication }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="应用领域"
+                columns="{{ Application }}"
+                bind:confirm="handlePersonApplicationConfirm"
+                bind:cancel="handlePersonApplicationCancel"
+    />
+</van-popup>
 <van-popup
         show="{{ personInfo.showDomainList }}"
         position="bottom"
@@ -457,25 +509,5 @@
     />
 </van-popup>
 
-<van-popup
-        show="{{ companyInfo.showDomainList }}"
-        position="bottom"
->
-    <van-picker show-toolbar
-                title="技术领域"
-                columns="{{ DomainList }}"
-                bind:confirm="handleCompanyDomainListConfirm"
-                bind:cancel="handleCompanyDomainListCancel"
-    />
-</van-popup>
-<van-popup
-        show="{{ companyInfo.showDomainCell }}"
-        position="bottom"
->
-    <van-picker show-toolbar
-                title="应用领域"
-                columns="{{ DomainCell }}"
-                bind:cancel="handleCompanyDomainCellCancel"
-                bind:confirm="handleCompanyDomainCellConfirm"
-    />
-</van-popup>
+
+
