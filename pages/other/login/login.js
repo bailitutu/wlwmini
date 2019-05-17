@@ -15,6 +15,10 @@ Page({
         HeadUrl: ''
     },
     getUserInfo: function (e) {
+        wx.showLoading({
+            mask:true,
+            title: ''
+        });
         wx.getSetting({
             success: (res) => {
                 if (!res.authSetting['scope.userInfo']) {
@@ -88,12 +92,14 @@ Page({
                 userTypeId:5
             }
         }).then((res) => {
+            wx.hideLoading();
             setItem('hd_token', res.Data.Token)
             setItem('hd_userId', res.Data.UserId);
             setItem('hd_IsEnterprise', res.Data.IsEnterprise);
             goPage('首页', {}, 4)
         }).catch((error) => {
             console.log(error,'error');
+            wx.hideLoading();
             //  授权失败跳转注册；
             let {nickName, HeadUrl} = this.data;
             goPage('注册', {nickName, HeadUrl, openId,UserTypeId: 5})

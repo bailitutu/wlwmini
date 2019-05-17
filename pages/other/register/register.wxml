@@ -447,8 +447,8 @@
     <van-picker show-toolbar
                 title="应用领域"
                 columns="{{ Application }}"
-                bind:confirm="handleApplicationConfirm"
-                bind:cancel="handleApplicationCancel"
+                bind:confirm="handleCompanyApplicationConfirm"
+                bind:cancel="handleCompanyApplicationCancel"
     />
 </van-popup>
 <van-popup
