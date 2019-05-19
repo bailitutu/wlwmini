@@ -85,9 +85,13 @@ Page({
             }
         }).then((res) => {
             let noData = !res.Data || res.Data.length == 0 ? true : false;
+            let nowTime = +(new Date());
+            let list = res.Data && res.Data.filter((item)=>{
+                return +(new Date(item.EndTime)) > nowTime;
+            })
             this.setData({
                 publicInfo: {
-                    list: res.Data,
+                    list:res.Data,
                     noMore: true,
                     noData,
                 }
@@ -108,9 +112,13 @@ Page({
             }
         }).then((res) => {
             let noData = !res.Data || res.Data.length == 0 ? true : false;
+            let nowTime = +(new Date());
+            let list = res.Data && res.Data.filter((item)=>{
+                return +(new Date(item.EndTime)) > nowTime;
+            })
             this.setData({
                 signInfo: {
-                    list: res.Data,
+                    list:res.Data,
                     noMore: true,
                     noData,
                 }
@@ -145,9 +153,39 @@ Page({
         }).catch((error) => {
             console.log(error)
         })
-
     },
 
+    // 扫一扫
+    handleScanCode(e){
+        let { id } = e.currentTarget.dataset;
+        let {UserId, Token} = this.data;
+        wx.scanCode({
+            success: (res) => {
+                console.log(res);
+                let { ActivityId,SigneId } = JSON.parse(res);
+
+                ajax({
+                    url: '/App/UserCenter/ConfirmActivitySignature',
+                    method: 'POST',
+                    data: {
+                        ActivityId ,
+                        SignId: SigneId,
+                        UserId,
+                        Token
+                    }
+                }).then((res) => {
+                    wx.showToast({
+                        title: '签到成功',
+                        icon:'none'
+                    })
+                }).catch((error) => {
+                    console.log(error)
+                })
+
+
+            }
+        })
+    },
 
     // 查看详情
     handleCheckDetail(e) {
@@ -163,6 +201,12 @@ Page({
     handleEditActivity(e) {
         let {id} = e.currentTarget.dataset;
         goPage('发布活动', {ActivityId: id, isEdit: 1})
+    },
+    // 查看签到二维码
+    handleCheckSignCode(e){
+        let { signeid,activityid } = e.currentTarget.dataset;
+        goPage('签到二维码', {SigneId: signeid,ActivityId: activityid})
+
     },
     //退出活动
     handleQuitActivity(e) {

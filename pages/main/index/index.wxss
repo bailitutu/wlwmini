@@ -4,14 +4,14 @@
 
 ._header-bar{
     width: 100%;
-    height:170rpx;
+    height:140rpx;
     padding:10rpx 15rpx ;
     white-space: nowrap;
 }
 ._header-bar-item{
-    width:236rpx;
-    height:120rpx;
-    margin:15rpx;
+    width:160rpx;
+    height:90rpx;
+    margin:15rpx 10rpx;
     position: relative;
     display: inline-block;
 }
@@ -19,14 +19,14 @@
     width:50rpx;
     height:50rpx;
     vertical-align: middle;
-    margin-right:45rpx;
+    margin-right:16rpx;
 }
 ._header-bar-cell{
     position: absolute;
     top:0;
     left:0;
     z-index: 1;
-    line-height: 120rpx;
+    line-height: 90rpx;
     text-align: center;
 }
 

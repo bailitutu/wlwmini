@@ -21,6 +21,7 @@ const PageURL = {
         '企业信息': '/pages/other/register/register',
         '报名情况': '/pages/mine/company-enroll/company-enroll',
         '企业编辑': '/pages/mine/company-editor/company-editor',
+        '签到二维码': '/pages/mine/activity-qrcode/activity-qrcode',
 }
 
 // const BASE_URL = 'http://iot.xf5920.cn'; //请求地址

@@ -27,7 +27,8 @@
     "pages/release/release-purchase/release-purchase",
     "pages/release/release-product/release-product",
     "pages/release/release-plan/release-plan",
-    "pages/release/release-activity/release-activity"
+    "pages/release/release-activity/release-activity",
+    "pages/mine/activity-qrcode/activity-qrcode"
   ],
   "window": {
     "backgroundTextStyle": "light",

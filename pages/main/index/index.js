@@ -47,6 +47,7 @@ Page({
             title: '我的'
         }],
         Keyword:'', //搜索关键词
+        MainClassId: '', //
         AppDominId:0, //应用领域
         TeachDominId: 0, //技术领域
         productInfo: {
@@ -197,6 +198,14 @@ Page({
                 break;
         }
     },
+    handleFilterClass(e){
+        let { id } = e.currentTarget.dataset;
+        this.setData({
+            MainClassId: id
+        })
+        this.handleSearch();
+    },
+
     // 加载更多
     loadMore(){
         let { headerBarActive, productInfo,planInfo,purchaseInfo,activityInfo,companyInfo } = this.data;
@@ -295,7 +304,7 @@ Page({
     },
     // 获取产品列表信息
     getProductList( ) {
-        let { Keyword ,AppDominId, TeachDominId, productInfo } = this.data;
+        let { Keyword ,AppDominId, TeachDominId, productInfo, MainClassId } = this.data;
         let page = productInfo.page;
         let pageSize = 20;
         let personData = {
@@ -305,6 +314,7 @@ Page({
             AppDominId ,
             TeachDominId,
             Keyword,
+            MainClassId
         };
         ajax({
             url:'/App/Product/ProductList',
@@ -591,6 +601,7 @@ Page({
         this.setData({
             AppDominId: 0,
             TeachDominId: 0,
+            MainClassId: '',
             show: false
         })
         this.handleSearch();

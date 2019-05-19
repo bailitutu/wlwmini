@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "navigationBarTitleText": "签到二维码",
+  "usingComponents": {
+    "van-button": "/dist/button/index"
+  }
+}
