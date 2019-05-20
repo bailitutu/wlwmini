@@ -1,6 +1,6 @@
 <view class="body">
 
-    <view class="g-fs-26 g-c-33 g-tc g-m-t-80">此二维码只提供签到使用</view>
+    <view class="g-fs-32 g-c-33 g-tc g-m-t-80">此二维码只提供签到使用</view>
     <view wx:if="{{ !hasSign }}" class="container_box g-tc g-m-t-40">
         <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image>
     </view>
@@ -9,7 +9,7 @@
     </view>
 
     <view wx:if="{{ hasSign }}" class="g-tc g-m-t-40">您已经签过到啦！</view>
-    <view class='g-pd-lr-40 g-m-t-60'>
+    <view class='g-pd-lr-60 g-m-t-60 g-tc'>
         <van-button size="large"  type="info"  custom-class='g-bg-yellow g-c-white' catchtap='handleBackPage'>返回上一页</van-button>
     </view>
 </view>

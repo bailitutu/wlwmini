@@ -162,8 +162,7 @@ Page({
         wx.scanCode({
             success: (res) => {
                 console.log(res);
-                let { ActivityId,SigneId } = JSON.parse(res);
-
+                let { ActivityId,SigneId } = JSON.parse(res.result);
                 ajax({
                     url: '/App/UserCenter/ConfirmActivitySignature',
                     method: 'POST',
@@ -174,9 +173,11 @@ Page({
                         Token
                     }
                 }).then((res) => {
-                    wx.showToast({
-                        title: '签到成功',
-                        icon:'none'
+                    wx.showModal({
+                        title: '提示',
+                        content: '您已签到成功！',
+                        showCancel: false,
+                        success:()=>{}
                     })
                 }).catch((error) => {
                     console.log(error)
