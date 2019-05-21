@@ -1,11 +1,14 @@
-import  {BASE_URL} from '../../utils/config'
+import {BASE_URL} from '../../utils/config'
 import MD5 from '../../utils/new_md5'
+
 function setRequestHeader(data) {
-    var headers = { IsJosn: "ok" };
+    var headers = {IsJosn: "ok"};
     headers.Timestamp = new Date().getTime(); //13位时间戳
     headers.Nonce = Math.random(); //随机数
     var signObj = {};
-    if (data) { signObj = Object.assign(signObj, data, headers); }
+    if (data) {
+        signObj = Object.assign(signObj, data, headers);
+    }
     headers.Sign = getSign(signObj).Encrypt;
     return headers;
 }
@@ -13,14 +16,20 @@ function setRequestHeader(data) {
 function getSign(data) { //签名
     let array = [];
     let param = '';
-    for(let key in data){
+    for (let key in data) {
         array[array.length] = key;
     }
-    array.sort(function (array, t) { var a = array.toLowerCase(); var b = t.toLowerCase(); if (a < b) return -1; if (a > b) return 1; return 0; });//排序
-    array.forEach((key,i)=>{
+    array.sort(function (array, t) {
+        var a = array.toLowerCase();
+        var b = t.toLowerCase();
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+    });//排序
+    array.forEach((key, i) => {
         param += key + data[key]
     })
-    return { Text: param, Encrypt: MD5.md5(param) };
+    return {Text: param, Encrypt: MD5.md5(param)};
 }
 
 
@@ -73,10 +82,9 @@ Component({
         // 上传图片
 
         uploadImg(data) {
-            let i = data.i ? data.i : 0,//当前上传的哪张图片
-                success = data.success ? data.success : 0,//上传成功的个数
-                fail = data.fail ? data.fail : 0;//上传失败的个数
-
+            let i = data.i ? data.i : 0;//当前上传的哪张图片
+            let success = data.success ? data.success : 0;//上传成功的个数
+            let fail = data.fail ? data.fail : 0;//上传失败的个数
             let { imgList } = this.data;
             let headers = setRequestHeader({});
             let header = {
@@ -86,20 +94,21 @@ Component({
             wx.uploadFile({
                 url: data.url,
                 filePath: data.path[i],
-                name: 'file'+ i,//这里根据自己的实际情况改
+                name: 'file' + i,//这里根据自己的实际情况改
                 header: header,
                 formData: {},//这里是上传图片时一起上传的数据
                 success: (resp) => {
+                    console.log(resp.data)
                     success++;//图片上传成功，图片上传成功的变量+1
                     var data = JSON.parse(resp.data);
-                    if (data.Status ) {
+                    if (data.Status) {
                         imgList.push({
                             imgUrl: data.Data
                         });
                         this.setData({
                             imgList
                         })
-                       this.triggerEvent('upload', imgList)
+                        this.triggerEvent('upload', imgList)
                     }
 
                 },
@@ -108,9 +117,10 @@ Component({
                 },
                 complete: () => {
                     i++;//这个图片执行完上传后，开始上传下一张
+                    console.log(i)
                     if (i == data.path.length) {   //当图片传完时，停止调用
                         wx.hideLoading();
-                        return false;
+                        return;
                     } else {//若图片还没有传完，则继续调用函数
                         data.i = i;
                         data.success = success;

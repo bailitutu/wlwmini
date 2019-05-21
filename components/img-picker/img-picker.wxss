@@ -12,16 +12,16 @@
     align-content: stretch;
 }
 .img_sec_cell{
-    width:25%;
-    height:auto;
-    margin-bottom:20rpx;
+    width:200rpx;
+    height:200rpx;
+    margin-bottom:10rpx;
+    margin-right:10rpx;
     position: relative;
 }
 
 .img_sec_cell>image{
     width:200rpx;
     height:200rpx;
-    margin-left:10rpx;
 }
 .del_btn{
     width:100%;

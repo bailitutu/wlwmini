@@ -82,7 +82,7 @@
                 <text class="g-c-999">(大小不超过100KB)</text>
             </view>
             <view class=" g-m-t-20">
-                <img-picker multiple max="1" imgList="{{ PicUrls }}"   bind:upload="handleUploadImg" bind:removeImg="handleRemoveImg"></img-picker>
+                <img-picker multiple max="5" imgList="{{ PicUrls }}"   bind:upload="handleUploadImg" bind:removeImg="handleRemoveImg"></img-picker>
             </view>
         </view>
         <view class="g-fs-28 g-c-black  g-pd-30">描述<text class="g-c-999">(500字以内)</text></view>

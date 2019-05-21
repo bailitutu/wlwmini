@@ -1,65 +1,65 @@
 import {goPage} from '../../../utils/common'
 import {getItem, setItem,} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
-import { isEmpty } from "../../../utils/validate";
+import {isEmpty} from "../../../utils/validate";
 
 Page({
     data: {
         isReady: false,
         isEdit: false,
         MainClass: {
-            columnsData:[],
+            columnsData: [],
             list: [],
             value: '',
             id: '',
             show: false
         },
         SubClass: {
-            columnsData:[],
+            columnsData: [],
             list: [],
             value: '',
             id: '',
             show: false
         },
         Application: {
-            columnsData:[],
+            columnsData: [],
             list: [],
             value: '',
             id: '',
             show: false
         },
-        DomainList:{
-            columnsData:[],
+        DomainList: {
+            columnsData: [],
             list: [],
             value: '',
             id: '',
             show: false
         },
         DomainCell: {
-            columnsData:[],
+            columnsData: [],
             list: [],
             value: '',
             id: '',
             show: false
         },
-        SeniorOne:{
-            columnsData:[],
+        SeniorOne: {
+            columnsData: [],
             list: [],
             value: '',
             id: '',
             show: false
         },
         SeniorTwo: {
-            columnsData:[],
+            columnsData: [],
             list: [],
             value: '',
             id: '',
             show: false
         },
-        ProductName:'',
-        ProductPrice:'',
-        PicUrls: [],
-        TxtContent:''
+        ProductName: '',
+        ProductPrice: '',
+        PicUrls: [], //图片列表
+        TxtContent: ''
     },
     onLoad: function (opts) {
         if (opts.isEdit) {
@@ -103,11 +103,11 @@ Page({
                 PicUrls,
                 TxtContent,
 
-            } =  res.Data;
+            } = res.Data;
 
-            let MainClass = [ ...this.data.MainClass.list];
-            let SubClass = [ ...this.data.SubClass.list];
-            let ApplicationList = [ ...this.data.Application.list];
+            let MainClass = [...this.data.MainClass.list];
+            let SubClass = [...this.data.SubClass.list];
+            let ApplicationList = [...this.data.Application.list];
             let DomainList = [...this.data.DomainList.list];
             let DomainCell = [...this.data.DomainCell.list];
             let SeniorOne = [...this.data.SeniorOne.list];
@@ -120,43 +120,43 @@ Page({
             let SeniorOneValue = '';
             let SeniorTwoValue = '';
             MainClass.map(item => {
-                if(item.Id = MainClassId ){
+                if (item.Id = MainClassId) {
                     MainClassValue = item.Name
                     return;
                 }
             });
             SubClass.map(item => {
-                if(item.Id = SecondaryClassId ){
+                if (item.Id = SecondaryClassId) {
                     SubClassValue = item.Name
                     return;
                 }
             });
             ApplicationList.map(item => {
-                if(item.Id = AppDominId ){
+                if (item.Id = AppDominId) {
                     ApplicationValue = item.Name
                     return;
                 }
             });
             DomainList.map(item => {
-                if(item.Id = TeachDominParentId ){
+                if (item.Id = TeachDominParentId) {
                     DomainListValue = item.Name
                     return;
                 }
             });
             DomainCell.map(item => {
-                if(item.Id = TeachDominId ){
+                if (item.Id = TeachDominId) {
                     DomainCellValue = item.Name
                     return;
                 }
             });
             SeniorOne.map(item => {
-                if(item.Id = Senior1 ){
+                if (item.Id = Senior1) {
                     SeniorOneValue = item.Name
                     return;
                 }
             });
             SeniorTwo.map(item => {
-                if(item.Id = Senior2 ){
+                if (item.Id = Senior2) {
                     SeniorTwoValue = item.Name
                     return;
                 }
@@ -178,10 +178,10 @@ Page({
                 ['SubClass.id']: AppDominId,
                 ['Application.value']: ApplicationValue,
                 ['Application.id']: AppDominId,
-                ['DomainList.value']:DomainListValue,
-                ['DomainList.id']:TeachDominParentId,
-                ['DomainCell.value']:DomainCellValue,
-                ['DomainCell.id']:TeachDominId,
+                ['DomainList.value']: DomainListValue,
+                ['DomainList.id']: TeachDominParentId,
+                ['DomainCell.value']: DomainCellValue,
+                ['DomainCell.id']: TeachDominId,
                 ['SeniorOne.value']: ApplicationValue,
                 ['SeniorOne.id']: AppDominId,
                 ['SeniorTwo.value']: ApplicationValue,
@@ -216,7 +216,7 @@ Page({
                 console.log(error)
             });
         } else {
-            let list = [ ...JSON.parse(DomainApplicationList) ] ;
+            let list = [...JSON.parse(DomainApplicationList)];
             let columnsData = list.map(item => {
                 return item.Name;
             })
@@ -230,13 +230,13 @@ Page({
     },
 
     // 选择应用领域
-    handleApplicationList(){
+    handleApplicationList() {
         this.setData({
             ['Application.show']: true,
         })
     },
     handleApplicationConfirm(event) {
-        const { value,index } = event.detail;
+        const {value, index} = event.detail;
         let id = this.data.Application.list[index].Id;
         this.setData({
             ['Application.value']: value,
@@ -268,9 +268,9 @@ Page({
                 setItem("MainClass", JSON.stringify(list));
                 this.setData({
                     ['MainClass.list']: list,
-                    ['MainClass.columnsData']:columnsData,
-                    ['MainClass.value']:list[0].ClassName,
-                    ['MainClass.id']:list[0].ClassId,
+                    ['MainClass.columnsData']: columnsData,
+                    ['MainClass.value']: list[0].ClassName,
+                    ['MainClass.id']: list[0].ClassId,
                 })
                 this.getSubClass(list[0].ClassId);
             }).catch((error) => {
@@ -283,9 +283,9 @@ Page({
             })
             this.setData({
                 ['MainClass.list']: list,
-                ['MainClass.columnsData']:columnsData || [],
-                ['MainClass.value']:list[0].ClassName || '',
-                ['MainClass.id']:list[0].ClassId || '',
+                ['MainClass.columnsData']: columnsData || [],
+                ['MainClass.value']: list[0].ClassName || '',
+                ['MainClass.id']: list[0].ClassId || '',
             })
             this.getSubClass(list[0].ClassId);
         }
@@ -296,34 +296,34 @@ Page({
             url: '/app/Product/SubLevelClassList',
             method: 'POST',
             data: {
-                classId:ParentId
+                classId: ParentId
             }
         }).then((res) => {
             let list = [...res.Data];
             let columnsData = [];
-            if(list.length){
+            if (list.length) {
                 columnsData = list.map(item => {
                     return item.ClassName;
                 })
             }
             this.setData({
                 ['SubClass.list']: list || [],
-                ['SubClass.columnsData']:columnsData || [],
-                ['SubClass.value']:list[0].ClassName || '',
-                ['SubClass.id']:list[0].ClassId || '',
+                ['SubClass.columnsData']: columnsData || [],
+                ['SubClass.value']: list[0].ClassName || '',
+                ['SubClass.id']: list[0].ClassId || '',
             })
         }).catch((error) => {
             console.log(error)
         })
     },
     // 一级选择
-    handleSelectMainClass(){
+    handleSelectMainClass() {
         this.setData({
             ['MainClass.show']: true,
         })
     },
     handleMainClassConfirm(event) {
-        const { value,index } = event.detail;
+        const {value, index} = event.detail;
         let id = this.data.DomainList.list[index].Id;
         this.setData({
             ['MainClass.value']: value,
@@ -340,13 +340,13 @@ Page({
         })
     },
     // 二级选择
-    handleSelectSubClass(){
+    handleSelectSubClass() {
         this.setData({
             ['SubClass.show']: true,
         })
     },
     handleSubClassConfirm(event) {
-        const { value,index } = event.detail;
+        const {value, index} = event.detail;
         let id = this.data.SubClass.list[index].Id;
         this.setData({
             ['SubClass.value']: value,
@@ -377,9 +377,9 @@ Page({
 
                 this.setData({
                     ['DomainList.list']: list,
-                    ['DomainList.columnsData']:columnsData,
-                    ['DomainList.value']:list[0].Name,
-                    ['DomainList.id']:list[0].Id,
+                    ['DomainList.columnsData']: columnsData,
+                    ['DomainList.value']: list[0].Name,
+                    ['DomainList.id']: list[0].Id,
                 })
                 this.getDomainCell(list[0].Id);
             }).catch((error) => {
@@ -392,9 +392,9 @@ Page({
             })
             this.setData({
                 ['DomainList.list']: list,
-                ['DomainList.columnsData']:columnsData,
-                ['DomainList.value']:list[0].Name,
-                ['DomainList.id']:list[0].Id,
+                ['DomainList.columnsData']: columnsData,
+                ['DomainList.value']: list[0].Name,
+                ['DomainList.id']: list[0].Id,
             })
             this.getDomainCell(list[0].Id);
         }
@@ -415,22 +415,22 @@ Page({
             })
             this.setData({
                 ['DomainCell.list']: list,
-                ['DomainCell.columnsData']:columnsData,
-                ['DomainCell.value']:list[0].Name,
-                ['DomainCell.id']:list[0].Id,
+                ['DomainCell.columnsData']: columnsData,
+                ['DomainCell.value']: list[0].Name,
+                ['DomainCell.id']: list[0].Id,
             })
         }).catch((error) => {
             console.log(error)
         })
     },
     // 一级选择
-    handleDomainListList(){
+    handleDomainListList() {
         this.setData({
             ['DomainList.show']: true,
         })
     },
     handleDomainListConfirm(event) {
-        const { value,index } = event.detail;
+        const {value, index} = event.detail;
         let id = this.data.DomainList.list[index].Id;
         this.setData({
             ['DomainList.value']: value,
@@ -447,13 +447,13 @@ Page({
         })
     },
     // 二级选择
-    handleDomainCellList(){
+    handleDomainCellList() {
         this.setData({
             ['DomainCell.show']: true,
         })
     },
     handleDomainCellConfirm(event) {
-        const { value,index } = event.detail;
+        const {value, index} = event.detail;
         let id = this.data.DomainCell.list[index].Id;
         this.setData({
             ['DomainCell.value']: value,
@@ -468,7 +468,7 @@ Page({
     },
 
     //获取高级选项：
-    getSeniorList(){
+    getSeniorList() {
         let UserId = getItem('hd_userId') || '';
         let Token = getItem('hd_token') || '';
         ajax({
@@ -485,23 +485,23 @@ Page({
             let SeniorOneData = [];
             let SeniorTwoData = [];
             list.forEach(item => {
-                if(item.Type == 1){
+                if (item.Type == 1) {
                     SeniorOne.push(item.Name);
                     SeniorOneData.push(item)
-                }else{
+                } else {
                     SeniorTwo.push(item.Name);
                     SeniorTwoData.push(item)
                 }
             });
             this.setData({
                 ['SeniorOne.list']: SeniorOneData,
-                ['SeniorOne.columnsData']:SeniorOne,
-                ['SeniorOne.value']:SeniorOneData[0].Name,
-                ['SeniorOne.id']:SeniorOneData[0].Id,
+                ['SeniorOne.columnsData']: SeniorOne,
+                ['SeniorOne.value']: SeniorOneData[0].Name,
+                ['SeniorOne.id']: SeniorOneData[0].Id,
                 ['SeniorTwo.list']: SeniorTwoData,
-                ['SeniorTwo.columnsData']:SeniorTwo,
-                ['SeniorTwo.value']:SeniorTwoData[0].Name,
-                ['SeniorTwo.id']:SeniorTwoData[0].Id,
+                ['SeniorTwo.columnsData']: SeniorTwo,
+                ['SeniorTwo.value']: SeniorTwoData[0].Name,
+                ['SeniorTwo.id']: SeniorTwoData[0].Id,
             })
         }).catch((error) => {
             console.log(error)
@@ -509,13 +509,13 @@ Page({
 
     },
     // 高级选项选择
-    handleSeniorOneList(){
+    handleSeniorOneList() {
         this.setData({
             ['SeniorOne.show']: true,
         })
     },
     handleSeniorOneConfirm(event) {
-        const { value,index } = event.detail;
+        const {value, index} = event.detail;
         let id = this.data.SeniorOne.list[index].Id;
         this.setData({
             ['SeniorOne.value']: value,
@@ -531,13 +531,13 @@ Page({
         })
     },
     // 二级选择
-    handleSeniorTwoList(){
+    handleSeniorTwoList() {
         this.setData({
             ['SeniorTwo.show']: true,
         })
     },
     handleSeniorTwoConfirm(event) {
-        const { value,index } = event.detail;
+        const {value, index} = event.detail;
         let id = this.data.SeniorTwo.list[index].Id;
         this.setData({
             ['SeniorTwo.value']: value,
@@ -552,26 +552,30 @@ Page({
     },
     //输入
     handleChangeInput(e) {
-        let { cell } = e.currentTarget.dataset;
+        let {cell} = e.currentTarget.dataset;
         this.setData({
-            [ cell ]: e.detail
+            [cell]: e.detail
         })
     },
 
     //上传图片
-    handleUploadImg(e){
+    handleUploadImg(e) {
+        let {PicUrls} = this.data;
+        PicUrls.push({
+            imgUrl: e.detail[0].imgUrl
+        });
         this.setData({
-            PicUrls: e.detail[0].imgUrl
+            PicUrls
         })
     },
     // 移除图片
-    handleRemoveImg(list){
+    handleRemoveImg(e) {
         this.setData({
-            PicUrls: list
+            PicUrls: e.detail
         })
     },
     //输入简介
-    bindTextAreaChange(e){
+    bindTextAreaChange(e) {
         this.setData({
             TxtContent: e.detail
         })
@@ -594,59 +598,61 @@ Page({
             DomainCell
         } = this.data;
         // 验证
-        if( isEmpty( ProductName) ){
+        if (isEmpty(ProductName)) {
             wx.showToast({
                 title: '请输入产品名称',
-                icon:'none'
+                icon: 'none'
             })
             return;
         }
-        if( isEmpty( ProductPrice) ){
+        if (isEmpty(ProductPrice)) {
             wx.showToast({
                 title: '请输入产品价格',
-                icon:'none'
+                icon: 'none'
             })
             return;
         }
-        if( isEmpty( MainClass.id)){
+        if (isEmpty(MainClass.id)) {
             wx.showToast({
                 title: '请选择产品分类',
-                icon:'none'
+                icon: 'none'
             })
             return;
         }
-        if( isEmpty( Application.id) ){
+        if (isEmpty(Application.id)) {
             wx.showToast({
                 title: '请选择应用领域',
-                icon:'none'
+                icon: 'none'
             })
             return;
         }
 
-        if( isEmpty( DomainList.id) ||  isEmpty( DomainCell.id) ){
+        if (isEmpty(DomainList.id) || isEmpty(DomainCell.id)) {
             wx.showToast({
                 title: '请选择技术领域',
-                icon:'none'
+                icon: 'none'
             })
             return;
         }
-        if( PicUrls.length == 0 ){
+        if (PicUrls.length == 0) {
             wx.showToast({
                 title: '请上传产品图片',
-                icon:'none'
+                icon: 'none'
             })
             return;
         }
-        if( isEmpty( TxtContent) ){
+
+        if (isEmpty(TxtContent)) {
             wx.showToast({
                 title: '请输入描述内容',
-                icon:'none'
+                icon: 'none'
             })
             return;
         }
         let UserId = getItem('hd_userId') || '';
         let Token = getItem('hd_token') || '';
-        if(!isEdit){
+        let PicUrlsList = PicUrls.map(item => { return item.imgUrl });
+        if (!isEdit) {
             // 发布
             ajax({
                 url: '/app/Product/AddProduct',
@@ -657,11 +663,11 @@ Page({
                     MainClassId: MainClass.id,
                     SecondaryClassId: SubClass.id,
                     AppDominId: Application.id,
-                    TeachDominParentId:DomainList.id ,
+                    TeachDominParentId: DomainList.id,
                     TeachDominId: DomainCell.id,
-                    ProudctPrice:ProductPrice,
-                    PicUrls,
-                    PicUrlsMagnifier: PicUrls,
+                    ProudctPrice: ProductPrice,
+                    PicUrls:PicUrlsList,
+                    PicUrlsMagnifier: PicUrlsList,
                     Senior1: SeniorOne.id,
                     Senior2: SeniorTwo.id,
                     TxtContent,
@@ -669,9 +675,9 @@ Page({
                 }
             }).then((res) => {
                 wx.showToast({
-                    title:  '发布成功',
+                    title: '发布成功',
                     icon: 'success',
-                    success:() =>{
+                    success: () => {
                         wx.navigateBack();
                     }
                 })
@@ -680,7 +686,7 @@ Page({
                 console.log(error)
             })
 
-        }else{
+        } else {
             //编辑
             ajax({
                 url: '/app/Product/ProductUpdate',
@@ -688,13 +694,13 @@ Page({
                 data: {
                     UserId,
                     Token,
-                    productId:ProductId,
+                    productId: ProductId,
                     MainClassId: MainClass.id,
                     SecondaryClassId: SubClass.id,
                     AppDominId: Application.id,
-                    TeachDominParentId:DomainList.id ,
+                    TeachDominParentId: DomainList.id,
                     TeachDominId: DomainCell.id,
-                    ProudctPrice:ProductPrice,
+                    ProudctPrice: ProductPrice,
                     ProductName,
                     PicUrlsMagnifier: PicUrls,
                     Senior1: SeniorOne.id,
@@ -704,9 +710,9 @@ Page({
                 }
             }).then((res) => {
                 wx.showToast({
-                    title:  '修改成功',
+                    title: '修改成功',
                     icon: 'success',
-                    success:() =>{
+                    success: () => {
                         wx.navigateBack();
                     }
                 })
@@ -715,7 +721,6 @@ Page({
             })
         }
     },
-
 
 
 })
