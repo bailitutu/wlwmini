@@ -31,7 +31,11 @@
 }
 
 /*列表*/
-
+._icon-up-down{
+    width: 32rpx;
+    height: 32rpx;
+    vertical-align: middle;
+}
 ._section{
     border-top:20rpx solid #f4f4f4;
 }
@@ -41,7 +45,7 @@
 }
 
 ._filter-cell{
-    padding: 25rpx 30rpx;
+    padding: 25rpx 10rpx;
     min-width:120rpx;
 }
 

@@ -30,7 +30,7 @@ Page({
         },
         Abstract:'',
         SchemeName:'',
-        SchemePrice:'',
+        SchemePrice: 0,
         PicUrls: [],
         TxtContent:''
     },
@@ -345,13 +345,6 @@ Page({
             })
             return;
         }
-        if( isEmpty( SchemePrice) ){
-            wx.showToast({
-                title: '请输入方案价格',
-                icon:'none'
-            })
-            return;
-        }
         if( isEmpty( Application.id) ){
             wx.showToast({
                 title: '请选择应用领域',
@@ -404,7 +397,9 @@ Page({
                     title:  '发布成功',
                     icon: 'success',
                     success:() =>{
-                        wx.navigateBack();
+                        setTimeout(()=>{
+                            wx.navigateBack();
+                        },1000)
                     }
                 })
 
@@ -435,7 +430,9 @@ Page({
                     title:  '修改成功',
                     icon: 'success',
                     success:() =>{
-                        wx.navigateBack();
+                        setTimeout(()=>{
+                            wx.navigateBack();
+                        },1000)
                     }
                 })
             }).catch((error) => {

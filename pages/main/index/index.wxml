@@ -25,11 +25,25 @@
     <view class="_section g-bg-white" wx:if="{{ headerBarActive == 0 }}">
         <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
             <view class="g-flex-fs">
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="1" bindtap="handleOrderBy">综合
+                <view
+                        class="g-c-black g-fs-28 _filter-cell"
+                        data-type="1"
+                        data-order="1"
+                        bindtap="handleOrderBy"
+                >
+                    综合
+                    <image wx:if="{{ productInfo.orderBy != 1 && productInfo.orderBy != 2 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ productInfo.orderBy == 1 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
                 </view>
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="2" bindtap="handleOrderBy">收藏
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="3" bindtap="handleOrderBy">
+                    收藏
+                    <image wx:if="{{productInfo.orderBy != 3 && productInfo.orderBy != 4 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ productInfo.orderBy == 3 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
                 </view>
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="3" bindtap="handleOrderBy">价格
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="1" data-order="5" bindtap="handleOrderBy">
+                    价格
+                    <image wx:if="{{ productInfo.orderBy != 5 && productInfo.orderBy != 6 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ productInfo.orderBy == 5 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
                 </view>
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
@@ -45,7 +59,7 @@
                     <image class="g-full" lazy-load src="{{ item.MainPicUrl}}"></image>
                 </view>
                 <view class="_product-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
-                    <view class="g-oneline g-fs-26">{{ item.ProductName }}</view>
+                    <view class="g-twoline g-fs-26">{{ item.ProductName }}</view>
                     <view class="g-c-red g-fs-28">￥{{ item.ProudctPrice }}</view>
                     <view class="g-oneline g-fs-26 g-c-999" catchtap="handleCompanyDetail" data-id="{{ item.ProductId }}"  > {{ item.EnterpriseName }}</view>
                 </view>
@@ -61,10 +75,26 @@
     <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 1 }}">
         <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
             <view class="g-flex-fs">
-                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="1" bindtap="handleOrderBy">综合</view>
-                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="3" bindtap="handleOrderBy">收藏</view>
-                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="5" bindtap="handleOrderBy">价格</view>
-                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="7" bindtap="handleOrderBy">更新时间</view>
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="1" bindtap="handleOrderBy">
+                    综合
+                    <image wx:if="{{ planInfo.orderBy != 1 && planInfo.orderBy != 2 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ planInfo.orderBy == 1 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="3" bindtap="handleOrderBy">
+                    收藏
+                    <image wx:if="{{planInfo.orderBy != 3 && planInfo.orderBy != 4 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ planInfo.orderBy == 3 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="5" bindtap="handleOrderBy">
+                    价格
+                    <image wx:if="{{ planInfo.orderBy != 5 && planInfo.orderBy != 6 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ planInfo.orderBy == 5 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell"  data-type="2" data-order="7" bindtap="handleOrderBy">
+                    更新时间
+                    <image wx:if="{{ planInfo.orderBy != 7 && planInfo.orderBy != 8 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ planInfo.orderBy == 7 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
@@ -82,7 +112,7 @@
                     <image class="g-full" lazy-load src="{{ item.MainPicUrl}}" ></image>
                 </view>
                 <view class="_plan-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
-                    <view class="g-oneline g-fs-26">{{ item.SchemeName }}</view>
+                    <view class="g-twoline g-fs-26">{{ item.SchemeName }}</view>
                     <view class="g-c-red g-fs-28">￥{{ item.SchemePriceTxt }}</view>
                     <view class="g-oneline g-fs-26 g-c-999">{{ item.Abstract }}</view>
                 </view>
@@ -96,10 +126,26 @@
     <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 2 }}">
         <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
             <view class="g-flex-fs">
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="1" bindtap="handleOrderBy">综合</view>
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="3" bindtap="handleOrderBy">收藏</view>
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="5" bindtap="handleOrderBy">价格</view>
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="7" bindtap="handleOrderBy">更新时间</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="1" bindtap="handleOrderBy">
+                    综合
+                    <image wx:if="{{ purchaseInfo.orderBy != 1 && purchaseInfo.orderBy != 2 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ purchaseInfo.orderBy == 1 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="3" bindtap="handleOrderBy">
+                    收藏
+                    <image wx:if="{{purchaseInfo.orderBy != 3 && purchaseInfo.orderBy != 4 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ purchaseInfo.orderBy == 3 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="5" bindtap="handleOrderBy">
+                    价格
+                    <image wx:if="{{ purchaseInfo.orderBy != 5 && purchaseInfo.orderBy != 6 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ purchaseInfo.orderBy == 5 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="3" data-order="7" bindtap="handleOrderBy">
+                    更新时间
+                    <image wx:if="{{ purchaseInfo.orderBy != 7 && purchaseInfo.orderBy != 8 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ purchaseInfo.orderBy == 7 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
@@ -127,9 +173,21 @@
     <view class="_section g-bg-white" wx:elif="{{ headerBarActive == 3 }}" >
         <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
             <view class="g-flex-fs">
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="1" bindtap="handleOrderBy">综合</view>
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="3" bindtap="handleOrderBy">收藏</view>
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="5" bindtap="handleOrderBy">活动时间</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="1" bindtap="handleOrderBy">
+                    综合
+                    <image wx:if="{{ activityInfo.orderBy != 1 && activityInfo.orderBy != 2 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ activityInfo.orderBy == 1 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="3" bindtap="handleOrderBy">
+                    收藏
+                    <image wx:if="{{activityInfo.orderBy != 3 && activityInfo.orderBy != 4 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ activityInfo.orderBy == 3 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="4" data-order="5" bindtap="handleOrderBy">
+                    活动时间
+                    <image wx:if="{{ activityInfo.orderBy != 5 && activityInfo.orderBy != 6 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ activityInfo.orderBy == 5 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>
@@ -145,11 +203,11 @@
                  data-id="{{ item.ActivityId }}"
                  catchtap="handleActivityDetail"
             >
-                <view class="_activity-image g-bra">
+                <view class="_activity-image g-bra g-w-full">
                     <image class="g-full" src="{{ item.MainPicUrl }}"></image>
                 </view>
                 <view>
-                    <view class="g-fs-28 g-c-black g-pd-tb-10 g-oneline">
+                    <view class="g-fs-28 g-c-black g-pd-tb-10 g-twoline">
                         {{ item.ActivityName }}
                     </view>
                     <view class="g-flex-lr">
@@ -165,7 +223,11 @@
     <view class="_section g-bg-white" wx:else>
         <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
             <view class="g-flex-fs">
-                <view class="g-c-black g-fs-28 _filter-cell" data-type="5" data-order="1" bindtap="handleOrderBy">综合</view>
+                <view class="g-c-black g-fs-28 _filter-cell" data-type="5" data-order="1" bindtap="handleOrderBy">
+                    综合
+                    <image wx:if="{{ companyInfo.orderBy != 1 && companyInfo.orderBy != 2 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
+                    <image wx:else class="g-m-r-10 _icon-up-down" src="{{ companyInfo.orderBy == 1 ? '/images/heisexiangxiajiantou.png' : '/images/heisexiangshangjiantou.png' }}"></image>
+                </view>
             </view>
             <view class="g-c-black g-fs-28 g-flex g-ai-c _filter-cell" bindtap="handleFilter">
                 <image class="g-m-r-10 _icon-select" src="/images/hp_icon_select@2x.png"></image>

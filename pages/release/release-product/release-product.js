@@ -678,7 +678,9 @@ Page({
                     title: '发布成功',
                     icon: 'success',
                     success: () => {
-                        wx.navigateBack();
+                        setTimeout(()=>{
+                            wx.navigateBack();
+                        },1000)
                     }
                 })
 
@@ -713,7 +715,9 @@ Page({
                     title: '修改成功',
                     icon: 'success',
                     success: () => {
-                        wx.navigateBack();
+                        setTimeout(()=>{
+                            wx.navigateBack();
+                        },1000)
                     }
                 })
             }).catch((error) => {

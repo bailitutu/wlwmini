@@ -11,8 +11,8 @@
     line-height: 46rpx;
 }
 ._collect-btn image{
-    width:29rpx;
-    height: 27rpx;
+    width:46rpx;
+    height:46rpx;
 }
 ._text-cell{
     border: 1rpx solid #e2e2e2;
@@ -30,4 +30,11 @@
     width:46rpx;
     height:46rpx;
     margin-right: 18rpx;
+}
+._dot{
+    width:10rpx;
+    height:10rpx;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
 }

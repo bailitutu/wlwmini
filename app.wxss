@@ -300,8 +300,11 @@ button::after{
 }
 
 .g-twoline{
-  text-overflow: ellipsis;
+  display: -webkit-box;
   overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
@@ -397,11 +400,15 @@ button::after{
   width: 100%;
   height:100%;
 }
-
+.g-w-full{
+  width: 100%;
+}
 .g-w-90{
   width: 180rpx;
 }
-
+.g-w-full{
+  width: 100%;
+}
 
 .footer-full-btn{
   height:88rpx;

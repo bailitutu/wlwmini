@@ -4,6 +4,7 @@
         <van-field
                 type='text'
                 value="{{ ProductName }}"
+                maxlength="40"
                 placeholder="请输入产品名称"
                 border="{{ true }}"
                 data-cell="ProductName"

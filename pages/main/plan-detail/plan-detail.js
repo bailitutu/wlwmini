@@ -17,6 +17,7 @@ Page({
         interval: 5000,
         duration: 1000,
         showContact: false,
+        recommendList: []
     },
 
     /**
@@ -31,6 +32,7 @@ Page({
             Token
         })
         this.loadData();
+        this.loadRecommendData();
     },
 
     loadData() {
@@ -143,5 +145,24 @@ Page({
     handleComplain() {
         let {SchemeId} = this.data;
         goPage('投诉', {OtherId: SchemeId, OtherTypeId: 2})
+    },
+    // 获取推荐内容
+    loadRecommendData(){
+        ajax({
+            url:'/App/UserCenter/SchemeIsRecommend',
+            method: 'POST',
+            data:{}
+        }).then( ( res) => {
+            this.setData({
+                recommendList: res.Data || []
+            })
+        }).catch((error) =>{
+            console.log(error,'error');
+        })
+    },
+    // 查看推荐内容
+    handleCheckRecommend(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('方案详情',{ SchemeId: id})
     }
 })

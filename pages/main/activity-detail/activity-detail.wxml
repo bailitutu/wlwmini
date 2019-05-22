@@ -33,7 +33,7 @@
             <view class="g-flex-fs">
                 <van-button type="info" size="small" custom-class="g-bg-blue g-c-white g-m-r-10" bindtap="handleSignUp">{{ hasSign ? '已报名' : '我要报名'}}</van-button>
                 <view class="_collect-btn g-flex g-ai-c g-jc-c g-pd-lr-30" bindtap="handleCollect">
-                    <image src="{{ detail.IsCollection  ? '/images/purchase_product_icon_collect.png' : '/images/activity_shoucang@2x.png'}}" class="g-m-r-10"></image>
+                    <image src="{{ detail.IsCollection  ? '/images/detail_icon_collect@2x.png' : '/images/detail_icon_@2x.png'}}" class="g-m-r-10"></image>
                     <text class="g-c-gray g-fs-28">{{ detail.IsCollection ? "已收藏" : "收藏"}}</text>
                 </view>
             </view>
@@ -44,13 +44,28 @@
         </view>
 
     </view>
-    <view class="g-pd-30 g-bg-white g-m-t-20">
+    <view class="g-pd-lr-30 g-pd-b-20 g-bg-white g-m-t-20">
         <view class="g-fs-28 g-c-black">活动详情</view>
         <view class="g-fs-24 g-c-black  g-m-t-20 g-lh-42">
             <rich-text nodes="{{ detail.TxtContent }}" ></rich-text>
+            <view class="g-pd-tb-10 g-fs-26 g-c-33">物联网商城世界</view>
         </view>
     </view>
-
+    <view class="g-bg-white g-m-t-20 g-pd-30">
+        <view class="g-fs-28 g-c-black">相关推荐</view>
+        <view class="g-m-t-10">
+            <view
+                    wx:for="{{ recommendList }}"
+                    wx:key="index"
+                    bindtap="handleCheckRecommend"
+                    data-id="{{ item.ActivityId }}"
+                    class="g-flex g-jc-fs g-ai-c g-pd-tb-10"
+            >
+                <text class="_dot g-bg-blue g-m-r-10 g-m-l-40"></text>
+                <text class="g-dp-b g-fs-26 g-oneline g-c-blue g-flex-1">{{ item.ActivityName }}</text>
+            </view>
+        </view>
+    </view>
 </view>
 <van-dialog
         use-slot

@@ -41,12 +41,27 @@
             </view>
         </view>
     </view>
-    <view class="g-pd-30 g-bg-white g-m-t-20">
+    <view class="g-pd-lr-30 g-pd-b-20 g-bg-white g-m-t-20">
         <view class="g-fs-28 g-c-black">方案详情</view>
         <view class="g-fs-24 g-c-black g-m-t-20 g-lh-42">
             <rich-text nodes="{{ detail.TxtContent }}" ></rich-text>
+            <view class="g-pd-tb-10 g-fs-26 g-c-33">物联网商城世界</view>
         </view>
     </view>
-
+    <view class="g-bg-white g-m-t-20 g-pd-30">
+        <view class="g-fs-28 g-c-black">相关推荐</view>
+        <view class="g-m-t-10">
+            <view
+                    wx:for="{{ recommendList }}"
+                    wx:key="index"
+                    bindtap="handleCheckRecommend"
+                    data-id="{{ item.SchemeId }}"
+                    class="g-flex g-jc-fs g-ai-c g-pd-tb-10"
+            >
+                <text class="_dot g-bg-blue g-m-r-10 g-m-l-40"></text>
+                <text class="g-dp-b g-fs-26 g-oneline g-c-blue g-flex-1">{{ item.SchemeName }}</text>
+            </view>
+        </view>
+    </view>
 </view>
 <contact-dialog show="{{ showContact }}" bind:confirm="handleConfirmContact"  ></contact-dialog>

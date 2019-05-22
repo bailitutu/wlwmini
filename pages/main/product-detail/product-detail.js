@@ -16,12 +16,14 @@ Page({
         interval: 5000,
         duration: 1000,
         showContact: false,
+        recommendList:[]
     },
     onLoad: function (options) {
       this.setData({
           ProductId: options.ProductId
       })
       this.loadData();
+      this.loadRecommendData();
     },
     loadData(){
         let UserId = getItem('hd_userId');
@@ -38,7 +40,6 @@ Page({
             data:personData
         }).then( ( res) => {
             let content = res.Data.TxtContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto"');
-
             this.setData({
                 detail: {
                     ...res.Data,
@@ -98,6 +99,7 @@ Page({
             showContact: true
         })
     },
+    // 提交咨询
     handleConfirmContact(e){
         let  contactText =  e.detail;
         let UserId = getItem('hd_userId');
@@ -139,6 +141,26 @@ Page({
     handleComplain(){
         let { ProductId } = this.data;
         goPage('投诉',{ OtherId: ProductId,OtherTypeId:1})
+    },
+    // 获取推荐内容
+    loadRecommendData(){
+        ajax({
+            url:'/App/Product/ProductDetailIsRecommend',
+            method: 'POST',
+            data:{}
+        }).then( ( res) => {
+            this.setData({
+                recommendList: res.Data || []
+            })
+        }).catch((error) =>{
+            console.log(error,'error');
+        })
+    },
+    // 查看推荐内容
+    handleCheckRecommend(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('产品详情',{ ProductId: id})
     }
+
 
 })

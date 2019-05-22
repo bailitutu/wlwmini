@@ -5,6 +5,7 @@
                 type='text'
                 value="{{ SchemeName }}"
                 placeholder="请输入方案名称"
+                maxlength="40"
                 border="{{ true }}"
                 data-cell="SchemeName"
                 bind:change="handleChangeInput"
@@ -17,16 +18,6 @@
                     bind:w-input="bindAbstractChange"
             ></text-area>
         </view>
-        <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>方案价格</view>
-        <van-field
-                type='number'
-                value="{{ SchemePrice }}"
-                placeholder="请输入方案价格"
-                border="{{ true }}"
-                data-cell="SchemePrice"
-                bind:change="handleChangeInput"
-        />
-
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>类型</view>
         <van-cell
                 title="{{ Application.value }}"

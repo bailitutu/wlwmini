@@ -4,6 +4,7 @@
         <van-field
                 type='text'
                 value="{{ ActivityName }}"
+                maxlength="40"
                 placeholder="请输入活动名称"
                 border="{{ true }}"
                 data-cell="ActivityName"

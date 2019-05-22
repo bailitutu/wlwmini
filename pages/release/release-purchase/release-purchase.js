@@ -29,7 +29,7 @@ Page({
             show: false
         },
         WantBuyName:'',
-        WantBuyPrice:'',
+        WantBuyPrice: 0,
         PicUrls: [],
         TxtContent:''
     },
@@ -329,13 +329,6 @@ Page({
             })
             return;
         }
-        if( isEmpty( WantBuyPrice) ){
-            wx.showToast({
-                title: '请输入求购价格',
-                icon:'none'
-            })
-            return;
-        }
         if( isEmpty( Application.id) ){
             wx.showToast({
                 title: '请选择应用领域',
@@ -347,13 +340,6 @@ Page({
         if( isEmpty( DomainList.id) ||  isEmpty( DomainCell.id) ){
             wx.showToast({
                 title: '请选择技术领域',
-                icon:'none'
-            })
-            return;
-        }
-        if( PicUrls.length == 0 ){
-            wx.showToast({
-                title: '请上传求购图片',
                 icon:'none'
             })
             return;
@@ -388,7 +374,9 @@ Page({
                     title:  '发布成功',
                     icon: 'success',
                     success:() =>{
-                        wx.navigateBack();
+                       setTimeout(()=>{
+                           wx.navigateBack();
+                       },1000)
                     }
                 })
 
@@ -418,7 +406,9 @@ Page({
                     title:  '修改成功',
                     icon: 'success',
                     success:() =>{
-                       wx.navigateBack();
+                        setTimeout(()=>{
+                            wx.navigateBack();
+                        },1000)
                     }
                 })
             }).catch((error) => {

@@ -3,13 +3,14 @@
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>名称</view>
         <van-field
                 type='text'
+                maxlength="40"
                 value="{{ WantBuyName }}"
                 placeholder="请输入名称"
                 border="{{ true }}"
                 data-cell="WantBuyName"
                 bind:change="handleChangeInput"
         />
-        <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>价格</view>
+        <view class='g-fs-28 g-c-gray g-tl g-pd-20'>价格</view>
         <van-field
                 type='number'
                 value="{{ WantBuyPrice }}"

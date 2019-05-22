@@ -9,6 +9,7 @@ Page({
         detail: {},
         UserId: '',
         Token: "",
+        recommendList: []
     },
     onLoad: function (options) {
         let UserId = getItem('hd_userId') || '';
@@ -19,6 +20,7 @@ Page({
             WantBuyId: options.WantBuyId
         })
         this.loadData();
+        this.loadRecommendData();
     },
     loadData() {
         let {UserId, Token, WantBuyId} = this.data
@@ -131,5 +133,24 @@ Page({
     handleComplain() {
         let {WantBuyId} = this.data;
         goPage('投诉', {OtherId: WantBuyId, OtherTypeId: 3})
+    },
+    // 获取推荐内容
+    loadRecommendData(){
+        ajax({
+            url:'/App/UserCenter/WantBuyIsRecommend',
+            method: 'POST',
+            data:{}
+        }).then( ( res) => {
+            this.setData({
+                recommendList: res.Data || []
+            })
+        }).catch((error) =>{
+            console.log(error,'error');
+        })
+    },
+    // 查看推荐内容
+    handleCheckRecommend(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('求购详情',{ WantBuyId: id})
     }
 })

@@ -350,6 +350,7 @@ Page({
         wx.chooseLocation({
             success:res=>{
                 if(res.errMsg == 'chooseLocation:ok'){
+                    console.log(res,'res')
                     let { address ,latitude, longitude, name} = res;
                     this.setData({
                         mapAddress: name,
@@ -469,7 +470,7 @@ Page({
         }
         if( MainPicUrl.length == 0 ){
             wx.showToast({
-                title: '请上传求购图片',
+                title: '请上传活动图片',
                 icon:'none'
             })
             return;
@@ -485,13 +486,10 @@ Page({
         let Token = getItem('hd_token') || '';
 
         let MainPic = MainPicUrl[0].imgUrl;
-
-
-
         if(!isEdit){
             // 发布
             ajax({
-                url: '/app/UserCenter/AddWantBuy',
+                url: '/app/UserCenter/AddActivity',
                 method: 'POST',
                 data: {
                     UserId,
@@ -520,7 +518,9 @@ Page({
                     title:  '发布成功',
                     icon: 'success',
                     success:() =>{
-                        wx.navigateBack();
+                        setTimeout(()=>{
+                            wx.navigateBack();
+                        },1000)
                     }
                 })
 
@@ -560,7 +560,9 @@ Page({
                     title:  '修改成功',
                     icon: 'success',
                     success:() =>{
-                        wx.navigateBack();
+                        setTimeout(()=>{
+                            wx.navigateBack();
+                        },1000)
                     }
                 })
             }).catch((error) => {

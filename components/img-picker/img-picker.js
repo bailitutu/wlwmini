@@ -98,7 +98,6 @@ Component({
                 header: header,
                 formData: {},//这里是上传图片时一起上传的数据
                 success: (resp) => {
-                    console.log(resp.data)
                     success++;//图片上传成功，图片上传成功的变量+1
                     var data = JSON.parse(resp.data);
                     if (data.Status) {
@@ -117,7 +116,6 @@ Component({
                 },
                 complete: () => {
                     i++;//这个图片执行完上传后，开始上传下一张
-                    console.log(i)
                     if (i == data.path.length) {   //当图片传完时，停止调用
                         wx.hideLoading();
                         return;

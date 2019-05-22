@@ -16,3 +16,10 @@
     height:46rpx;
     margin-right: 18rpx;
 }
+._dot{
+    width:10rpx;
+    height:10rpx;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}

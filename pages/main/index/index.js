@@ -53,7 +53,7 @@ Page({
         productInfo: {
             list: [],
             page:1,
-            orderBy:1,
+            orderBy:0,
             noData:false,
             noMore:false,
         },
@@ -123,18 +123,33 @@ Page({
         //处理页面切换
         switch(idx){
             case 1:
-                this.getPlanList()
+                this.setData({
+                    ['planInfo.orderBy']: 0
+                })
+                this.getPlanList();
                 break;
             case 2:
+                this.setData({
+                    ['purchaseInfo.orderBy']: 0
+                })
                 this.getPurchaseList()
                 break;
             case 3:
+                this.setData({
+                    ['activityInfo.orderBy']: 0
+                })
                 this.getActivityList()
                 break;
             case 4:
+                this.setData({
+                    ['companyInfo.orderBy']: 0
+                })
                 this.getCompanyList();
                 break;
             default:
+                this.setData({
+                    ['productInfo.orderBy']: 0
+                })
                 // 默认产品页面
                 this.getProductList();
                 break;
@@ -268,38 +283,40 @@ Page({
     handleOrderBy(e){
         let { order,type } = e.currentTarget.dataset;
         let orderBy;
+        let orderVal;
+        let currentOrder;
         switch (type) {
             case '2':
                 orderBy = 'planInfo.orderBy'
-                this.setData({
-                    [orderBy]:order
-                })
+                currentOrder = this.data.planInfo.orderBy;
                 break;
             case '3':
                 orderBy = 'purchaseInfo.orderBy'
-                this.setData({
-                    [orderBy]:order
-                })
+                currentOrder = this.data.purchaseInfo.orderBy;
                 break;
             case '4':
                 orderBy = 'activityInfo.orderBy'
-                this.setData({
-                    [orderBy]:order
-                })
+                currentOrder = this.data.activityInfo.orderBy;
                 break;
             case '5':
                 orderBy = 'companyInfo.orderBy'
-                this.setData({
-                    [orderBy]:order
-                })
+                currentOrder = this.data.companyInfo.orderBy;
                 break;
             default:
-                orderBy = 'productInfo.orderBy'
-                this.setData({
-                    [orderBy]:order
-                })
+                orderBy = 'productInfo.orderBy';
+                currentOrder = this.data.productInfo.orderBy;
                 break;
         }
+        if( currentOrder == Number(order)){
+            orderVal =  Number(order) + 1
+        }else if( currentOrder == Number(order) + 1 ){
+            orderVal = currentOrder - 1
+        }else{
+            orderVal = Number(order)
+        }
+        this.setData({
+            [orderBy]:orderVal
+        })
         this.handleSearch();
     },
     // 获取产品列表信息

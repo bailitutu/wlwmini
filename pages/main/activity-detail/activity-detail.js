@@ -18,6 +18,7 @@ Page({
         MobilePhone: '',
         CallName: '',
         hasSign: false, //是否报名
+        recommendList: []
     },
 
     /**
@@ -28,6 +29,7 @@ Page({
             ActivityId: options.ActivityId
         })
         this.loadData();
+        this.loadRecommendData();
     },
     loadData() {
         let {ActivityId} = this.data;
@@ -194,5 +196,24 @@ Page({
     handleComplain(){
         let { ActivityId } = this.data;
         goPage('投诉',{ OtherId: ActivityId,OtherTypeId:4})
+    },
+    // 获取推荐内容
+    loadRecommendData(){
+        ajax({
+            url:'/App/UserCenter/ActivityIsRecommend',
+            method: 'POST',
+            data:{}
+        }).then( ( res) => {
+            this.setData({
+                recommendList: res.Data || []
+            })
+        }).catch((error) =>{
+            console.log(error,'error');
+        })
+    },
+    // 查看推荐内容
+    handleCheckRecommend(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('活动详情',{ ActivityId: id})
     }
 })
