@@ -43,7 +43,6 @@ Page({
             wx.setNavigationBarTitle({
                 title: '编辑方案'
             })
-            this.loadData(opts.SchemeId);
         }
         this.getApplicationList();
         this.getDomainList();
@@ -70,48 +69,26 @@ Page({
                 PicUrls,
                 TxtContent,
             } =  res.Data;
-
             let ApplicationList = [ ...this.data.Application.list];
             let DomainList = [...this.data.DomainList.list];
             let DomainCell = [...this.data.DomainCell.list];
-            let ApplicationValue = '';
-            let DomainListValue = '';
-            let DomainCellValue = '';
-            ApplicationList.map(item => {
-                if(item.Id = AppDominId ){
-                    ApplicationValue = item.Name
-                    return;
-                }
-            });
-            DomainList.map(item => {
-                if(item.Id = TeachDominParentId ){
-                    DomainListValue = item.Name
-                    return;
-                }
-            });
-            DomainCell.map(item => {
-                if(item.Id = TeachDominId ){
-                    DomainCellValue = item.Name
-                    return;
-                }
-            });
-            let img_list = []
-            PicUrls.split(',').forEach(item => {
-                img_list.push({
-                    imgUrl: item
-                })
-            })
+            console.log(DomainCell);
+            let ApplicationValue = ApplicationList && ApplicationList.find((item) => { return item.Id == AppDominId });
+            let DomainListValue = DomainList && DomainList.find((item) => { return item.Id == TeachDominParentId });
+            let DomainCellValue = DomainCell && DomainCell.find((item) => { return item.Id == TeachDominId });
+            console.log(DomainCellValue)
+            let img_list =  PicUrls != '' ? [{ imgUrl: PicUrls }] : [];
             this.setData({
                 SchemeName,
                 Abstract,
                 SchemePrice,
                 PicUrls: img_list,
                 TxtContent,
-                ['Application.value']: ApplicationValue,
+                ['Application.value']: ApplicationValue ?  ApplicationValue.Name : '其他',
                 ['Application.id']: AppDominId,
-                ['DomainList.value']:DomainListValue,
+                ['DomainList.value']:DomainListValue ? DomainListValue.Name : '',
                 ['DomainList.id']:TeachDominParentId,
-                ['DomainCell.value']:DomainCellValue,
+                ['DomainCell.value']:DomainCellValue ? DomainCellValue.Name : '',
                 ['DomainCell.id']:TeachDominId
             })
 
@@ -188,7 +165,6 @@ Page({
                 data: {}
             }).then((res) => {
                 let list = [...res.Data];
-
                 let columnsData = list.map(item => {
                     return item.Name;
                 })
@@ -237,6 +213,8 @@ Page({
                 ['DomainCell.value']:list[0].Name,
                 ['DomainCell.id']:list[0].Id,
             })
+            this.data.isEdit && this.loadData(this.data.SchemeId);
+
         }).catch((error) => {
             console.log(error)
         })

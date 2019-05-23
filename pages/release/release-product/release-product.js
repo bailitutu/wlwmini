@@ -89,6 +89,7 @@ Page({
                 productId
             }
         }).then((res) => {
+            console.log(res);
             let {
                 ProductName,
                 ProudctPrice,
@@ -102,7 +103,6 @@ Page({
                 ProductPrice,
                 PicUrls,
                 TxtContent,
-
             } = res.Data;
 
             let MainClass = [...this.data.MainClass.list];
@@ -112,80 +112,38 @@ Page({
             let DomainCell = [...this.data.DomainCell.list];
             let SeniorOne = [...this.data.SeniorOne.list];
             let SeniorTwo = [...this.data.SeniorTwo.list];
-            let MainClassValue = '';
-            let SubClassValue = '';
-            let ApplicationValue = '';
-            let DomainListValue = '';
-            let DomainCellValue = '';
-            let SeniorOneValue = '';
-            let SeniorTwoValue = '';
-            MainClass.map(item => {
-                if (item.Id = MainClassId) {
-                    MainClassValue = item.Name
-                    return;
-                }
-            });
-            SubClass.map(item => {
-                if (item.Id = SecondaryClassId) {
-                    SubClassValue = item.Name
-                    return;
-                }
-            });
-            ApplicationList.map(item => {
-                if (item.Id = AppDominId) {
-                    ApplicationValue = item.Name
-                    return;
-                }
-            });
-            DomainList.map(item => {
-                if (item.Id = TeachDominParentId) {
-                    DomainListValue = item.Name
-                    return;
-                }
-            });
-            DomainCell.map(item => {
-                if (item.Id = TeachDominId) {
-                    DomainCellValue = item.Name
-                    return;
-                }
-            });
-            SeniorOne.map(item => {
-                if (item.Id = Senior1) {
-                    SeniorOneValue = item.Name
-                    return;
-                }
-            });
-            SeniorTwo.map(item => {
-                if (item.Id = Senior2) {
-                    SeniorTwoValue = item.Name
-                    return;
-                }
-            });
             let img_list = []
             PicUrls.split(',').forEach(item => {
                 img_list.push({
                     imgUrl: item
                 })
             })
+            let mainCell = MainClass.find((item)=> { return item.Id = MainClassId});
+            let SubClassItem = SubClass.find((item)=> { return item.Id = SecondaryClassId});
+            let ApplicationItem = ApplicationList.find((item)=> { return item.Id = AppDominId});
+            let DomainListItem = DomainList.find((item)=> { return item.Id = TeachDominParentId});
+            let DomainCellItem = DomainCell.find((item)=> { return item.Id = TeachDominId});
+            let SeniorOneItem = SeniorOne.find((item)=> { return item.Id = Senior1});
+            let SeniorTwoItem = SeniorTwo.find((item)=> { return item.Id = Senior2});
             this.setData({
                 ProductName,
                 ProductPrice: ProudctPrice,
                 PicUrls: img_list,
                 TxtContent,
-                ['MainClass.value']: ApplicationValue,
-                ['MainClass.id']: AppDominId,
-                ['SubClass.value']: ApplicationValue,
-                ['SubClass.id']: AppDominId,
-                ['Application.value']: ApplicationValue,
-                ['Application.id']: AppDominId,
-                ['DomainList.value']: DomainListValue,
-                ['DomainList.id']: TeachDominParentId,
-                ['DomainCell.value']: DomainCellValue,
-                ['DomainCell.id']: TeachDominId,
-                ['SeniorOne.value']: ApplicationValue,
-                ['SeniorOne.id']: AppDominId,
-                ['SeniorTwo.value']: ApplicationValue,
-                ['SeniorTwo.id']: AppDominId,
+                ['MainClass.value']: mainCell.Name,
+                ['MainClass.id']: mainCell.Id,
+                ['SubClass.value']: SubClassItem.Name,
+                ['SubClass.id']: SubClassItem.Id,
+                ['Application.value']: ApplicationItem.Name,
+                ['Application.id']: ApplicationItem.Id,
+                ['DomainList.value']: DomainListItem.Name,
+                ['DomainList.id']: DomainListItem.Id,
+                ['DomainCell.value']: DomainCellItem.Name,
+                ['DomainCell.id']: DomainCellItem.Id,
+                ['SeniorOne.value']: SeniorOneItem.Name,
+                ['SeniorOne.id']: SeniorOneItem.Id,
+                ['SeniorTwo.value']: SeniorTwoItem.Name,
+                ['SeniorTwo.id']: SeniorOneItem.Id,
             })
 
         }).catch((error) => {
@@ -560,12 +518,8 @@ Page({
 
     //上传图片
     handleUploadImg(e) {
-        let {PicUrls} = this.data;
-        PicUrls.push({
-            imgUrl: e.detail[0].imgUrl
-        });
         this.setData({
-            PicUrls
+            PicUrls: e.detail
         })
     },
     // 移除图片

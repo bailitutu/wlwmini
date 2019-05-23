@@ -7,6 +7,28 @@ Page({
     data: {
         isReady: false,
         isEdit: false,
+
+        Province: {
+            columnsData:[],
+            list: [],
+            value: '',
+            id: '',
+            show: false
+        },
+        City:{
+            columnsData:[],
+            list: [],
+            value: '',
+            id: '',
+            show: false
+        },
+        Area: {
+            columnsData:[],
+            list: [],
+            value: '',
+            id: '',
+            show: false
+        },
         Application: {
             columnsData:[],
             list: [],
@@ -162,6 +184,20 @@ Page({
             EndTime: e.detail.value
         })
     },
+
+    // 获取省市区
+    loadProvince(){
+
+
+    },
+    loadCity(){
+
+
+    },
+    loadArea(){
+
+    },
+
 
     // 获取应用领域
     getApplicationList() {

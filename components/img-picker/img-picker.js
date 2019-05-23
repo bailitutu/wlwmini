@@ -82,39 +82,41 @@ Component({
         // 上传图片
 
         uploadImg(data) {
-            let i = data.i ? data.i : 0;//当前上传的哪张图片
-            let success = data.success ? data.success : 0;//上传成功的个数
-            let fail = data.fail ? data.fail : 0;//上传失败的个数
-            let { imgList } = this.data;
-            let headers = setRequestHeader({});
+            var that = this;
+            var i = data.i ? data.i : 0;//当前上传的哪张图片
+            var success = data.success ? data.success : 0;//上传成功的个数
+            var fail = data.fail ? data.fail : 0;//上传失败的个数
+            var  imgList  = this.data.imgList;
+            var headers = setRequestHeader({});
             let header = {
                 ...headers,
                 "Content-Type": "multipart/form-data"
             };
+            var pathUrl =  data.path[i];
             wx.uploadFile({
                 url: data.url,
-                filePath: data.path[i],
-                name: 'file' + i,//这里根据自己的实际情况改
+                filePath: pathUrl,
+                name: 'file' + i,
                 header: header,
-                formData: {},//这里是上传图片时一起上传的数据
-                success: (resp) => {
+                formData: {},
+                success: function(resp) {
                     success++;//图片上传成功，图片上传成功的变量+1
-                    var data = JSON.parse(resp.data);
-                    if (data.Status) {
+                    let img = JSON.parse(resp.data);
+                    if (img.Status) {
                         imgList.push({
-                            imgUrl: data.Data
+                            imgUrl: img.Data
                         });
-                        this.setData({
+                        that.setData({
                             imgList
                         })
-                        this.triggerEvent('upload', imgList)
+                        that.triggerEvent('upload', imgList)
                     }
 
                 },
-                fail: (res) => {
+                fail: function(err) {
                     fail++;
                 },
-                complete: () => {
+                complete: function() {
                     i++;//这个图片执行完上传后，开始上传下一张
                     if (i == data.path.length) {   //当图片传完时，停止调用
                         wx.hideLoading();
@@ -123,7 +125,7 @@ Component({
                         data.i = i;
                         data.success = success;
                         data.fail = fail;
-                        this.uploadImg(data);
+                        that.uploadImg(data);
                     }
 
                 }

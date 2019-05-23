@@ -94,12 +94,10 @@ Page({
                     return;
                 }
             });
-            let img_list = []
-            PicUrls.split(',').forEach(item => {
-                img_list.push({
-                    imgUrl: item
-                })
-            })
+
+
+            let img_list =  PicUrls != '' ? [{ imgUrl: PicUrls }] : [];
+
             this.setData({
                 WantBuyName,
                 WantBuyPrice,
@@ -292,6 +290,8 @@ Page({
 
     //上传图片
     handleUploadImg(e){
+
+
         this.setData({
             PicUrls: e.detail
         })
