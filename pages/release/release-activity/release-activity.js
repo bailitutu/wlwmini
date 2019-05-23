@@ -187,7 +187,25 @@ Page({
 
     // 获取省市区
     loadProvince(){
+        ajax({
+            url: '/Home/GetProvince',
+            method: 'POST',
+            data: {}
+        }).then((res) => {
+            let list = res.Data;
+            let columnsData = list.map(item => {
+                return item.Name;
+            })
 
+            this.setData({
+                ['Province.columnsData']: columnsData,
+                ['Province.list']: list,
+                ['Province.value']: list[0].name,
+                ['Province.id']: list[0].Id,
+            })
+        }).catch((error) => {
+            console.log(error)
+        });
 
     },
     loadCity(){

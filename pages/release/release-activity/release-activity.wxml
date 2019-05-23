@@ -46,16 +46,13 @@
                 bind:change="handleChangeInput"
         />
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>活动地点</view>
-        <!--<van-cell-->
-                <!--title="{{ Province.value }}"-->
-                <!--is-link-->
-                <!--custom-class="_picker-item"-->
-                <!--title-class="g-tl"-->
-                <!--bind:click="handleProvinceList"-->
-        <!--/>-->
-
-
-
+        <van-cell
+                title="{{ Province.value }}"
+                is-link
+                custom-class="_picker-item"
+                title-class="g-tl"
+                bind:click="handleProvinceList"
+        />
 
         <!--地图选址-->
         <van-cell title="地图选址" value="{{ mapAddress || '请选择'}}" is-link bind:click="handleMapSelect"></van-cell>
