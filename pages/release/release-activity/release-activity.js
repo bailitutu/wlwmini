@@ -195,8 +195,7 @@ Page({
             let list = res.Data;
             let columnsData = list.map(item => {
                 return item.Name;
-            })
-
+            });
             this.setData({
                 ['Province.columnsData']: columnsData,
                 ['Province.list']: list,
