@@ -53,6 +53,20 @@
                 title-class="g-tl"
                 bind:click="handleProvinceList"
         />
+        <van-cell
+                title="{{ City.value }}"
+                is-link
+                custom-class="_picker-item"
+                title-class="g-tl"
+                bind:click="handleCityList"
+        />
+        <van-cell
+                title="{{ Area.value }}"
+                is-link
+                custom-class="_picker-item"
+                title-class="g-tl"
+                bind:click="handleAreaList"
+        />
 
         <!--地图选址-->
         <van-cell title="地图选址" value="{{ mapAddress || '请选择'}}" is-link bind:click="handleMapSelect"></van-cell>
@@ -174,3 +188,42 @@
                 bind:cancel="handleDomainCellCancel"
     />
 </van-popup>
+
+
+<van-popup
+        show="{{ Province.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="选择省"
+                columns="{{ Province.columnsData }}"
+                bind:confirm="handleProvinceConfirm"
+                bind:cancel="handleProvinceCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ City.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="选择市"
+                columns="{{ City.columnsData }}"
+                bind:confirm="handleCityConfirm"
+                bind:cancel="handleCityCancel"
+    />
+</van-popup>
+<van-popup
+        show="{{ Area.show }}"
+        position="bottom"
+>
+    <van-picker show-toolbar
+                title="选择区"
+                columns="{{ Area.columnsData }}"
+                bind:confirm="handleAreaConfirm"
+                bind:cancel="handleAreaCancel"
+    />
+</van-popup>
+
+
+
+

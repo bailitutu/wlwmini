@@ -94,10 +94,7 @@ Page({
                     return;
                 }
             });
-
-
             let img_list =  PicUrls != '' ? [{ imgUrl: PicUrls }] : [];
-
             this.setData({
                 WantBuyName,
                 WantBuyPrice,
@@ -118,31 +115,43 @@ Page({
     // 获取应用领域
     getApplicationList() {
         let DomainApplicationList = getItem('DomainApplicationList') || null;
+        console.log(DomainApplicationList);
         if (!DomainApplicationList) {
             ajax({
                 url: '/App/Product/DomainApplicationList',
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                let list = [...res.Data];
-                let columnsData = list.map(item => {
-                    return item.Name;
-                })
+                let list = res.Data;
+                console.log(res.Data)
+                let columnsData = []
+                for( let i=0 ;i< list.length ;i++){
+                    columnsData.push(list[i].Name);
+                }
+
+                // let columnsData = res.Data.map(item => {
+                //     return item.Name;
+                // })
+                console.log(list);
+                // return;
                 this.setData({
                     ['Application.columnsData']: columnsData,
                     ['Application.list']: list,
                     ['Application.value']: list[0].name,
                     ['Application.id']: list[0].Id,
                 })
-                setItem("DomainApplicationList", JSON.stringify(res.Data));
+                setItem("DomainApplicationList", JSON.stringify(list));
             }).catch((error) => {
                 console.log(error)
             });
         } else {
-            let list = [ ...JSON.parse(DomainApplicationList) ] ;
-            let columnsData = list.map(item => {
-                return item.Name;
-            })
+            var list = JSON.parse(DomainApplicationList);
+            console.log(list);
+            let columnsData = [];
+            for( let i=0 ;i< list.length ;i++){
+                columnsData.push(list[i].Name);
+            }
+            console.log(list);
             this.setData({
                 ['Application.columnsData']: columnsData,
                 ['Application.list']: list,
@@ -183,34 +192,34 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                let list = [...res.Data];
+                let [...list] = res.Data;
                 let columnsData = list.map(item => {
                     return item.Name;
                 })
-                setItem("DomainList", JSON.stringify(list));
+                setItem("DomainList", JSON.stringify(res.Data));
 
                 this.setData({
-                    ['DomainList.list']: list,
+                    ['DomainList.list']: res.Data,
                     ['DomainList.columnsData']:columnsData,
-                    ['DomainList.value']:list[0].Name,
-                    ['DomainList.id']:list[0].Id,
+                    ['DomainList.value']:res.Data[0].Name,
+                    ['DomainList.id']:res.Data[0].Id,
                 })
                 this.getDomainCell(list[0].Id);
             }).catch((error) => {
                 console.log(error)
             })
         } else {
-            let list = [...JSON.parse(DomainList)];
+            let  [...list] = JSON.parse(DomainList);
             let columnsData = list.map(item => {
                 return item.Name;
             })
             this.setData({
-                ['DomainList.list']: list,
+                ['DomainList.list']: JSON.parse(DomainList),
                 ['DomainList.columnsData']:columnsData,
-                ['DomainList.value']:list[0].Name,
-                ['DomainList.id']:list[0].Id,
+                ['DomainList.value']:JSON.parse(DomainList)[0].Name,
+                ['DomainList.id']:JSON.parse(DomainList)[0].Id,
             })
-            this.getDomainCell(list[0].Id);
+            this.getDomainCell(JSON.parse(DomainList)[0].Id);
         }
     },
     // 获取技术领域子级
@@ -223,15 +232,15 @@ Page({
                 ParentId
             }
         }).then((res) => {
-            let list = [...res.Data];
+            let [...list] = res.Data;
             let columnsData = list.map(item => {
                 return item.Name;
             })
             this.setData({
-                ['DomainCell.list']: list,
+                ['DomainCell.list']: res.Data,
                 ['DomainCell.columnsData']:columnsData,
-                ['DomainCell.value']:list[0].Name,
-                ['DomainCell.id']:list[0].Id,
+                ['DomainCell.value']:res.Data[0].Name,
+                ['DomainCell.id']:res.Data[0].Id,
             })
         }).catch((error) => {
             console.log(error)
@@ -365,7 +374,7 @@ Page({
                     TeachDominParentId:DomainList.id ,
                     TeachDominId: DomainCell.id,
                     WantBuyPrice,
-                    PicUrls: PicUrls.join(',') ,
+                    PicUrls: PicUrls[0].imgUrl ,
                     TxtContent,
                     WantBuyName
                 }
@@ -398,7 +407,7 @@ Page({
                     TeachDominId: DomainCell.id,
                     WantBuyPrice,
                     WantBuyName,
-                    PicUrls: PicUrls.join(',') ,
+                    PicUrls:PicUrls[0].imgUrl ,
                     TxtContent
                 }
             }).then((res) => {

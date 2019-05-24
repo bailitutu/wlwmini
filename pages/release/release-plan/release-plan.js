@@ -366,7 +366,7 @@ Page({
                     TeachDominParentId:DomainList.id ,
                     TeachDominId: DomainCell.id,
                     SchemePrice,
-                    PicUrls: PicUrls.join(',') ,
+                    PicUrls: PicUrls[0].imgUrl ,
                     TxtContent,
                     SchemeName
                 }
@@ -400,7 +400,7 @@ Page({
                     SchemePrice,
                     Abstract,
                     SchemeName,
-                    PicUrls: PicUrls.join(',') ,
+                    PicUrls:PicUrls[0].imgUrl ,
                     TxtContent
                 }
             }).then((res) => {

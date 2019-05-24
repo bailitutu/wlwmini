@@ -79,6 +79,8 @@ Page({
         }
         this.getApplicationList();
         this.getDomainList();
+        this.loadProvince()
+
         let nowDate = formatDate(new Date());
         this.setData({
             nowDate
@@ -117,9 +119,9 @@ Page({
 
             } =  res.Data;
 
-            let ApplicationList = [ ...this.data.Application.list];
-            let DomainList = [...this.data.DomainList.list];
-            let DomainCell = [...this.data.DomainCell.list];
+            let [ ...ApplicationList] = this.data.Application.list;
+            let [...DomainList] = this.data.DomainList.list;
+            let [...DomainCell ]= this.data.DomainCell.list;
             let ApplicationValue = '';
             let DomainListValue = '';
             let DomainCellValue = '';
@@ -158,10 +160,10 @@ Page({
                 Longitude,
                 Organizer,
                 HostUnit,
-                ProvinceId,
-                CityId,
-                AreaId,
                 Address,
+                ['Province.id']: ProvinceId,
+                ['City.id']: CityId,
+                ['Area.id']: AreaId,
                 ['Application.value']: ApplicationValue,
                 ['Application.id']: AppDominId,
                 ['DomainList.value']:DomainListValue,
@@ -169,7 +171,7 @@ Page({
                 ['DomainCell.value']:DomainCellValue,
                 ['DomainCell.id']:TeachDominId
             })
-
+            this.loadProvince()
         }).catch((error) => {
             console.log(error)
         })
@@ -192,29 +194,170 @@ Page({
             method: 'POST',
             data: {}
         }).then((res) => {
-            let list = res.Data;
+            let [ ...list ] = res.Data;
             let columnsData = list.map(item => {
-                return item.Name;
+                return item.ProvinceName;
             });
             this.setData({
                 ['Province.columnsData']: columnsData,
-                ['Province.list']: list,
-                ['Province.value']: list[0].name,
-                ['Province.id']: list[0].Id,
+                ['Province.list']: res.Data,
             })
+            this.fillProvince();
         }).catch((error) => {
             console.log(error)
         });
+    },
+    fillProvince(){
+        let { Province } = this.data;
+        let proId = Province.id || Province.list[0].ProvinceId;
+        if( proId ){
+            let pro = Province.list.find((item)=>{
+                return proId == item.ProvinceId
+            })
+            this.setData({
+                ['Province.value'] : pro.ProvinceName,
+                ['Province.id'] : proId
+            })
+            this.loadCity(proId);
+        }
+    },
+    loadCity(ProvinceId){
+        ajax({
+            url: '/Home/GetCity',
+            method: 'POST',
+            data: {
+                ProvinceId
+            }
+        }).then((res) => {
+
+            let [ ...list ] = res.Data;
+            let columnsData = list.map(item => {
+                return item.CityName;
+            });
+            this.setData({
+                ['City.columnsData']: columnsData,
+                ['City.list']: res.Data,
+            })
+            this.fillCity();
+        }).catch((error) => {
+            console.log(error)
+        });
+    },
+    fillCity(){
+        let { City } = this.data;
+        let proId = City.id || City.list[0].CityId;
+        console.log(proId,'proId')
+        if( proId ){
+            let pro = City.list.find((item)=>{
+                return proId == item.CityId
+            })
+            this.setData({
+                ['City.value'] : pro.CityName,
+                ['City.id'] : proId
+            })
+            this.loadArea(proId);
+        }
+    },
+    loadArea(CityId){
+        ajax({
+            url: '/Home/GetArea',
+            method: 'POST',
+            data: {
+                CityId
+            }
+        }).then((res) => {
+            let [ ...list ] = res.Data;
+            let columnsData = list.map(item => {
+                return item.AreaName;
+            });
+            this.setData({
+                ['Area.columnsData']: columnsData,
+                ['Area.list']: res.Data,
+                ['Area.id']: res.Data[0].AreaId,
+            })
+            this.fillArea();
+        }).catch((error) => {
+            console.log(error)
+        });
+    },
+    fillArea(){
+        let { Area } = this.data;
+        let proId = Area.id || Area.list.AreaId;
+        if( proId ){
+            let pro = Area.list.find((item)=>{
+                return proId == item.AreaId
+            })
+            this.setData({
+                ['Area.value'] : pro.AreaName,
+                ['Area.id'] : proId
+            })
+        }
+    },
+    // 选择省
+    handleProvinceList(){
+        this.setData({
+            ['Province.show']: true,
+        })
+    },
+    handleProvinceConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.Province.list[index].ProvinceId;
+        this.setData({
+            ['Province.id']: id,
+            ['Province.show']: false,
+            ['City.id']: '',
+        })
+        this.fillProvince();
+    },
+    handleProvinceCancel() {
+        this.setData({
+            ['Province.show']: false,
+        })
+    },
+
+    // 选择市
+    handleCityList(){
+        this.setData({
+            ['City.show']: true,
+        })
+    },
+
+    handleCityConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.City.list[index].CityId;
+        this.setData({
+            ['City.id']: id,
+            ['City.show']: false,
+            ['Area.id']: '',
+        })
+        this.fillCity();
 
     },
-    loadCity(){
-
-
+    handleCityCancel() {
+        this.setData({
+            ['City.show']: false,
+        })
     },
-    loadArea(){
-
+    // 选择区
+    handleAreaList(){
+        this.setData({
+            ['Area.show']: true,
+        })
     },
-
+    handleAreaConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.Area.list[index].AreaId;
+        this.setData({
+            ['Area.id']: id,
+            ['Area.show']: false,
+        })
+        this.fillArea();
+    },
+    handleAreaCancel() {
+        this.setData({
+            ['Area.show']: false,
+        })
+    },
 
     // 获取应用领域
     getApplicationList() {
@@ -284,11 +427,11 @@ Page({
                 method: 'POST',
                 data: {}
             }).then((res) => {
-                let list = [...res.Data];
+                let [...list] =  res.Data;
                 let columnsData = list.map(item => {
                     return item.Name;
                 })
-                setItem("DomainList", JSON.stringify(list));
+                setItem("DomainList", JSON.stringify( res.Data));
 
                 this.setData({
                     ['DomainList.list']: list,
@@ -301,7 +444,7 @@ Page({
                 console.log(error)
             })
         } else {
-            let list = [...JSON.parse(DomainList)];
+            let [...list] =  JSON.parse(DomainList);
             let columnsData = list.map(item => {
                 return item.Name;
             })
@@ -324,15 +467,15 @@ Page({
                 ParentId
             }
         }).then((res) => {
-            let list = [...res.Data];
+            let [...list] =  res.Data;
             let columnsData = list.map(item => {
                 return item.Name;
             })
             this.setData({
-                ['DomainCell.list']: list,
+                ['DomainCell.list']: res.Data,
                 ['DomainCell.columnsData']:columnsData,
-                ['DomainCell.value']:list[0].Name,
-                ['DomainCell.id']:list[0].Id,
+                ['DomainCell.value']:res.Data[0].Name,
+                ['DomainCell.id']:res.Data[0].Id,
             })
         }).catch((error) => {
             console.log(error)
@@ -403,13 +546,12 @@ Page({
         wx.chooseLocation({
             success:res=>{
                 if(res.errMsg == 'chooseLocation:ok'){
-                    console.log(res,'res')
                     let { address ,latitude, longitude, name} = res;
                     this.setData({
-                        mapAddress: name,
+                        // mapAddress: name,
                         Longitude:longitude,
                         Latitude:latitude,
-                        Address: address,
+                        // Address: address,
                     })
                 }
             }
@@ -450,9 +592,9 @@ Page({
             BeginTime,
             EndTime,
             Address,
-            ProvinceId,
-            CityId,
-            AreaId,
+            Province,
+            City,
+            Area,
             Longitude,
             Latitude,
             HostUnit,
@@ -552,9 +694,9 @@ Page({
                     TeachDominId: DomainCell.id,
                     MainPicUrl:MainPic ,
                     ActivityName,
-                    ProvinceId,
-                    CityId,
-                    AreaId,
+                    ProvinceId: Province.id,
+                    CityId: City.id,
+                    AreaId:Area.id,
                     ActivityId,
                     BeginTime,
                     EndTime,
@@ -590,9 +732,9 @@ Page({
                     UserId,
                     Token,
                     ActivityId,
-                    ProvinceId,
-                    CityId,
-                    AreaId,
+                    ProvinceId: Province.id,
+                    CityId: City.id,
+                    AreaId:Area.id,
                     BeginTime,
                     EndTime,
                     Address,
