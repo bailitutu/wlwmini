@@ -2,6 +2,7 @@ import {goPage} from '../../../utils/common'
 import {getItem, setItem,} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
 import { isEmpty } from "../../../utils/validate";
+import {getApplicationList, getDomainList} from "../../../utils/services";
 
 Page({
     data: {
@@ -43,9 +44,11 @@ Page({
                 title: '编辑求购'
             })
             this.loadData(opts.WantBuyId);
+        }else{
+            this.loadApplicationList();
+            this.loadDomainList();
         }
-        this.getApplicationList();
-        this.getDomainList();
+
     },
     loadData(WantBuyId) {
         let UserId = getItem('hd_userId') || '';
@@ -69,98 +72,49 @@ Page({
                 TxtContent,
 
             } =  res.Data;
-
-            let ApplicationList = [ ...this.data.Application.list];
-            let DomainList = [...this.data.DomainList.list];
-            let DomainCell = [...this.data.DomainCell.list];
-            let ApplicationValue = '';
-            let DomainListValue = '';
-            let DomainCellValue = '';
-            ApplicationList.map(item => {
-                if(item.Id = AppDominId ){
-                    ApplicationValue = item.Name
-                    return;
-                }
-            });
-            DomainList.map(item => {
-                if(item.Id = TeachDominParentId ){
-                    DomainListValue = item.Name
-                    return;
-                }
-            });
-            DomainCell.map(item => {
-                if(item.Id = TeachDominId ){
-                    DomainCellValue = item.Name
-                    return;
-                }
-            });
             let img_list =  PicUrls != '' ? [{ imgUrl: PicUrls }] : [];
             this.setData({
                 WantBuyName,
                 WantBuyPrice,
                 PicUrls: img_list,
                 TxtContent,
-                ['Application.value']: ApplicationValue,
                 ['Application.id']: AppDominId,
-                ['DomainList.value']:DomainListValue,
                 ['DomainList.id']:TeachDominParentId,
-                ['DomainCell.value']:DomainCellValue,
                 ['DomainCell.id']:TeachDominId
             })
-
+            this.loadApplicationList();
+            this.loadDomainList();
         }).catch((error) => {
             console.log(error)
         })
     },
-    // 获取应用领域
-    getApplicationList() {
-        let DomainApplicationList = getItem('DomainApplicationList') || null;
-        console.log(DomainApplicationList);
-        if (!DomainApplicationList) {
-            ajax({
-                url: '/App/Product/DomainApplicationList',
-                method: 'POST',
-                data: {}
-            }).then((res) => {
-                let list = res.Data;
-                console.log(res.Data)
-                let columnsData = []
-                for( let i=0 ;i< list.length ;i++){
-                    columnsData.push(list[i].Name);
-                }
 
-                // let columnsData = res.Data.map(item => {
-                //     return item.Name;
-                // })
-                console.log(list);
-                // return;
-                this.setData({
-                    ['Application.columnsData']: columnsData,
-                    ['Application.list']: list,
-                    ['Application.value']: list[0].name,
-                    ['Application.id']: list[0].Id,
-                })
-                setItem("DomainApplicationList", JSON.stringify(list));
-            }).catch((error) => {
-                console.log(error)
-            });
-        } else {
-            var list = JSON.parse(DomainApplicationList);
-            console.log(list);
-            let columnsData = [];
-            for( let i=0 ;i< list.length ;i++){
-                columnsData.push(list[i].Name);
-            }
-            console.log(list);
+    // 获取应用领域
+    loadApplicationList() {
+        let ApplicationList = getApplicationList();
+        let columnsData = ApplicationList && ApplicationList.map(item => {
+            return item.Name;
+        })
+        this.setData({
+            ['Application.columnsData']: columnsData,
+            ['Application.list']: ApplicationList,
+        })
+        this.fillApplication();
+    },
+
+    fillApplication(){
+        let { Application } = this.data;
+        let proId = Application.id || Application.list[0].Id;
+        if( proId ){
+            let pro = Application.list.find((item)=>{
+                return proId == item.Id
+            })
             this.setData({
-                ['Application.columnsData']: columnsData,
-                ['Application.list']: list,
-                ['Application.value']: list[0].Name,
-                ['Application.id']: list[0].Id,
+                ['Application.value'] : pro.Name,
+                ['Application.id'] : proId
             })
         }
     },
-
     // 选择应用领域
     handleApplicationList(){
         this.setData({
@@ -171,10 +125,10 @@ Page({
         const { value,index } = event.detail;
         let id = this.data.Application.list[index].Id;
         this.setData({
-            ['Application.value']: value,
             ['Application.id']: id,
             ['Application.show']: false,
         })
+        this.fillApplication();
     },
     handleApplicationCancel() {
         this.setData({
@@ -182,48 +136,35 @@ Page({
         })
     },
 
-
     // 获取技术领域父级
-    getDomainList() {
-        let DomainList = getItem('DomainList') || null;
-        if (!DomainList) {
-            ajax({
-                url: '/app/Product/GetByParent',
-                method: 'POST',
-                data: {}
-            }).then((res) => {
-                let [...list] = res.Data;
-                let columnsData = list.map(item => {
-                    return item.Name;
-                })
-                setItem("DomainList", JSON.stringify(res.Data));
-
-                this.setData({
-                    ['DomainList.list']: res.Data,
-                    ['DomainList.columnsData']:columnsData,
-                    ['DomainList.value']:res.Data[0].Name,
-                    ['DomainList.id']:res.Data[0].Id,
-                })
-                this.getDomainCell(list[0].Id);
-            }).catch((error) => {
-                console.log(error)
-            })
-        } else {
-            let  [...list] = JSON.parse(DomainList);
-            let columnsData = list.map(item => {
-                return item.Name;
+    loadDomainList() {
+        let DomainList = getDomainList();
+        let columnsData = DomainList.map(item => {
+            return item.Name;
+        })
+        this.setData({
+            ['DomainList.list']: DomainList,
+            ['DomainList.columnsData']:columnsData,
+        })
+        this.fillDomainList();
+    },
+    fillDomainList(){
+        let { DomainList } = this.data;
+        let proId = DomainList.id || DomainList.list[0].Id;
+        if( proId ){
+            let pro = DomainList.list.find((item)=>{
+                return proId == item.Id
             })
             this.setData({
-                ['DomainList.list']: JSON.parse(DomainList),
-                ['DomainList.columnsData']:columnsData,
-                ['DomainList.value']:JSON.parse(DomainList)[0].Name,
-                ['DomainList.id']:JSON.parse(DomainList)[0].Id,
+                ['DomainList.value'] : pro.Name,
+                ['DomainList.id'] : proId
             })
-            this.getDomainCell(JSON.parse(DomainList)[0].Id);
+            this.loadDomainCell(proId);
         }
     },
+
     // 获取技术领域子级
-    getDomainCell(ParentId) {
+    loadDomainCell(ParentId) {
         ajax({
             url: '/app/Product/GetByParentId',
             method: 'POST',
@@ -239,13 +180,26 @@ Page({
             this.setData({
                 ['DomainCell.list']: res.Data,
                 ['DomainCell.columnsData']:columnsData,
-                ['DomainCell.value']:res.Data[0].Name,
-                ['DomainCell.id']:res.Data[0].Id,
             })
+            this.fillDomainCell();
         }).catch((error) => {
             console.log(error)
         })
     },
+    fillDomainCell(){
+        let { DomainCell } = this.data;
+        let proId = DomainCell.id || DomainCell.list[0].Id;
+        if( proId ){
+            let pro = DomainCell.list.find((item)=>{
+                return proId == item.Id
+            })
+            this.setData({
+                ['DomainCell.value'] : pro.Name,
+                ['DomainCell.id'] : proId
+            })
+        }
+    },
+
     // 一级选择
     handleDomainListList(){
         this.setData({
@@ -262,7 +216,7 @@ Page({
             ['DomainCell.id']: '',
             ['DomainList.show']: false,
         })
-        this.getDomainCell(id)
+        this.loadDomainCell(id)
     },
     handleDomainListCancel() {
         this.setData({
@@ -299,8 +253,6 @@ Page({
 
     //上传图片
     handleUploadImg(e){
-
-
         this.setData({
             PicUrls: e.detail
         })

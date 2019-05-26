@@ -109,21 +109,18 @@
                 主营领域
             </view>
             <van-cell
-                    title="技术领域"
-                    value="{{ companyInfo.TeachDominParentName || ''}}"
+                    title="{{ DomainList.value || '其他'}}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
-                    bind:click="handleCompanyDomainList"
+                    bind:click="handleDomainListList"
             />
             <van-cell
-                    wx:if="{{ companyInfo.TeachDominParentName }}"
-                    title="应用领域"
-                    value="{{ companyInfo.TeachDominName || ''}}"
+                    title="{{ DomainCell.value || '其他' }}"
                     is-link
                     custom-class="_picker-item"
                     title-class="g-tl"
-                    bind:click="handleCompanyDomainCell"
+                    bind:click="handleDomainCellList"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
@@ -164,24 +161,24 @@
     </view>
 </view>
 <van-popup
-        show="{{ companyInfo.showDomainList }}"
+        show="{{ DomainList.show }}"
         position="bottom"
 >
     <van-picker show-toolbar
                 title="技术领域"
-                columns="{{ DomainList }}"
-                bind:confirm="handleCompanyDomainListConfirm"
-                bind:cancel="handleCompanyDomainListCancel"
+                columns="{{ DomainList.columnsData }}"
+                bind:confirm="handleDomainListConfirm"
+                bind:cancel="handleDomainListCancel"
     />
 </van-popup>
 <van-popup
-        show="{{ companyInfo.showDomainCell }}"
+        show="{{ DomainCell.show }}"
         position="bottom"
 >
     <van-picker show-toolbar
-                title="应用领域"
-                columns="{{ DomainList }}"
-                bind:cancel="handleCompanyDomainCellCancel"
-                bind:confirm="handleCompanyDomainCellConfirm"
+                title="技术领域"
+                columns="{{ DomainCell.columnsData }}"
+                bind:confirm="handleDomainCellConfirm"
+                bind:cancel="handleDomainCellCancel"
     />
 </van-popup>

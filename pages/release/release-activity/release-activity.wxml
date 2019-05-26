@@ -69,7 +69,7 @@
         />
 
         <!--地图选址-->
-        <van-cell title="地图选址" value="{{ mapAddress || '请选择'}}" is-link bind:click="handleMapSelect"></van-cell>
+        <van-cell title="地图选址" value="{{ Longitude && Latitude ? '已选择 ' : '请选择'}}" is-link bind:click="handleMapSelect"></van-cell>
         <!--地图结束-->
         <view class='g-fs-28 g-c-gray g-tl g-pd-20'><text class='g-c-red'>* </text>详细地点</view>
         <van-field

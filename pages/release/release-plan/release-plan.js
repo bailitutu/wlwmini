@@ -1,7 +1,7 @@
-import {goPage} from '../../../utils/common'
-import {getItem, setItem,} from '../../../utils/util'
+import {getItem,} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
 import { isEmpty } from "../../../utils/validate";
+import {getApplicationList, getDomainList} from "../../../utils/services";
 
 Page({
     data: {
@@ -43,9 +43,12 @@ Page({
             wx.setNavigationBarTitle({
                 title: '编辑方案'
             })
+            this.loadData(opts.SchemeId);
+        }else{
+            this.loadApplicationList();
+            this.loadDomainList();
         }
-        this.getApplicationList();
-        this.getDomainList();
+
     },
     loadData(SchemeId) {
         let UserId = getItem('hd_userId') || '';
@@ -69,14 +72,7 @@ Page({
                 PicUrls,
                 TxtContent,
             } =  res.Data;
-            let ApplicationList = [ ...this.data.Application.list];
-            let DomainList = [...this.data.DomainList.list];
-            let DomainCell = [...this.data.DomainCell.list];
-            console.log(DomainCell);
-            let ApplicationValue = ApplicationList && ApplicationList.find((item) => { return item.Id == AppDominId });
-            let DomainListValue = DomainList && DomainList.find((item) => { return item.Id == TeachDominParentId });
-            let DomainCellValue = DomainCell && DomainCell.find((item) => { return item.Id == TeachDominId });
-            console.log(DomainCellValue)
+
             let img_list =  PicUrls != '' ? [{ imgUrl: PicUrls }] : [];
             this.setData({
                 SchemeName,
@@ -84,51 +80,40 @@ Page({
                 SchemePrice,
                 PicUrls: img_list,
                 TxtContent,
-                ['Application.value']: ApplicationValue ?  ApplicationValue.Name : '其他',
                 ['Application.id']: AppDominId,
-                ['DomainList.value']:DomainListValue ? DomainListValue.Name : '',
                 ['DomainList.id']:TeachDominParentId,
-                ['DomainCell.value']:DomainCellValue ? DomainCellValue.Name : '',
                 ['DomainCell.id']:TeachDominId
             })
+            this.loadApplicationList();
+            this.loadDomainList();
 
         }).catch((error) => {
             console.log(error)
         })
     },
     // 获取应用领域
-    getApplicationList() {
-        let DomainApplicationList = getItem('DomainApplicationList') || null;
-        if (!DomainApplicationList) {
-            ajax({
-                url: '/App/Product/DomainApplicationList',
-                method: 'POST',
-                data: {}
-            }).then((res) => {
-                let list = [...res.Data];
-                let columnsData = list.map(item => {
-                    return item.Name;
-                })
-                this.setData({
-                    ['Application.columnsData']: columnsData,
-                    ['Application.list']: list,
-                    ['Application.value']: list[0].name,
-                    ['Application.id']: list[0].Id,
-                })
-                setItem("DomainApplicationList", JSON.stringify(res.Data));
-            }).catch((error) => {
-                console.log(error)
-            });
-        } else {
-            let list = [ ...JSON.parse(DomainApplicationList) ] ;
-            let columnsData = list.map(item => {
-                return item.Name;
+    loadApplicationList() {
+        let ApplicationList = getApplicationList();
+        let columnsData = ApplicationList && ApplicationList.map(item => {
+            return item.Name;
+        })
+        this.setData({
+            ['Application.columnsData']: columnsData,
+            ['Application.list']: ApplicationList,
+        })
+        this.fillApplication();
+    },
+
+    fillApplication(){
+        let { Application } = this.data;
+        let proId = Application.id || Application.list[0].Id;
+        if( proId ){
+            let pro = Application.list.find((item)=>{
+                return proId == item.Id
             })
             this.setData({
-                ['Application.columnsData']: columnsData,
-                ['Application.list']: list,
-                ['Application.value']: list[0].Name,
-                ['Application.id']: list[0].Id,
+                ['Application.value'] : pro.Name,
+                ['Application.id'] : proId
             })
         }
     },
@@ -153,48 +138,34 @@ Page({
             ['Application.show']: false,
         })
     },
-
-
     // 获取技术领域父级
-    getDomainList() {
-        let DomainList = getItem('DomainList') || null;
-        if (!DomainList) {
-            ajax({
-                url: '/app/Product/GetByParent',
-                method: 'POST',
-                data: {}
-            }).then((res) => {
-                let list = [...res.Data];
-                let columnsData = list.map(item => {
-                    return item.Name;
-                })
-                setItem("DomainList", JSON.stringify(list));
-                this.setData({
-                    ['DomainList.list']: list,
-                    ['DomainList.columnsData']:columnsData,
-                    ['DomainList.value']:list[0].Name,
-                    ['DomainList.id']:list[0].Id,
-                })
-                this.getDomainCell(list[0].Id);
-            }).catch((error) => {
-                console.log(error)
-            })
-        } else {
-            let list = [...JSON.parse(DomainList)];
-            let columnsData = list.map(item => {
-                return item.Name;
+    loadDomainList() {
+        let DomainList = getDomainList();
+        let columnsData = DomainList && DomainList.map(item => {
+            return item.Name;
+        })
+        this.setData({
+            ['DomainList.list']: DomainList,
+            ['DomainList.columnsData']:columnsData,
+        })
+        this.fillDomainList();
+    },
+    fillDomainList(){
+        let { DomainList } = this.data;
+        let proId = DomainList.id || DomainList.list[0].Id;
+        if( proId ){
+            let pro = DomainList.list.find((item)=>{
+                return proId == item.Id
             })
             this.setData({
-                ['DomainList.list']: list,
-                ['DomainList.columnsData']:columnsData,
-                ['DomainList.value']:list[0].Name,
-                ['DomainList.id']:list[0].Id,
+                ['DomainList.value'] : pro.Name,
+                ['DomainList.id'] : proId
             })
-            this.getDomainCell(list[0].Id);
+            this.loadDomainCell(proId);
         }
     },
     // 获取技术领域子级
-    getDomainCell(ParentId) {
+    loadDomainCell(ParentId) {
         ajax({
             url: '/app/Product/GetByParentId',
             method: 'POST',
@@ -203,21 +174,31 @@ Page({
                 ParentId
             }
         }).then((res) => {
-            let list = [...res.Data];
+            let [...list] = res.Data;
             let columnsData = list.map(item => {
                 return item.Name;
             })
             this.setData({
-                ['DomainCell.list']: list,
+                ['DomainCell.list']: res.Data,
                 ['DomainCell.columnsData']:columnsData,
-                ['DomainCell.value']:list[0].Name,
-                ['DomainCell.id']:list[0].Id,
             })
-            this.data.isEdit && this.loadData(this.data.SchemeId);
-
+            this.fillDomainCell();
         }).catch((error) => {
             console.log(error)
         })
+    },
+    fillDomainCell(){
+        let { DomainCell } = this.data;
+        let proId = DomainCell.id || DomainCell.list[0].Id;
+        if( proId ){
+            let pro = DomainCell.list.find((item)=>{
+                return proId == item.Id
+            })
+            this.setData({
+                ['DomainCell.value'] : pro.Name,
+                ['DomainCell.id'] : proId
+            })
+        }
     },
     // 一级选择
     handleDomainListList(){
@@ -231,11 +212,10 @@ Page({
         this.setData({
             ['DomainList.value']: value,
             ['DomainList.id']: id,
-            ['DomainCell.value']: '',
             ['DomainCell.id']: '',
             ['DomainList.show']: false,
         })
-        this.getDomainCell(id)
+        this.loadDomainCell(id);
     },
     handleDomainListCancel() {
         this.setData({

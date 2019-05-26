@@ -1,7 +1,7 @@
-import {goPage} from '../../../utils/common'
 import {getItem, setItem,formatDate} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
 import { isEmpty } from "../../../utils/validate";
+import {getApplicationList,getDomainList} from "../../../utils/services";
 
 Page({
     data: {
@@ -76,11 +76,11 @@ Page({
                 title: '编辑活动'
             })
             this.loadData(opts.ActivityId);
+        }else{
+            this.loadProvince()
+            this.loadApplicationList();
+            this.loadDomainList();
         }
-        this.getApplicationList();
-        this.getDomainList();
-        this.loadProvince()
-
         let nowDate = formatDate(new Date());
         this.setData({
             nowDate
@@ -119,30 +119,6 @@ Page({
 
             } =  res.Data;
 
-            let [ ...ApplicationList] = this.data.Application.list;
-            let [...DomainList] = this.data.DomainList.list;
-            let [...DomainCell ]= this.data.DomainCell.list;
-            let ApplicationValue = '';
-            let DomainListValue = '';
-            let DomainCellValue = '';
-            ApplicationList.map(item => {
-                if(item.Id = AppDominId ){
-                    ApplicationValue = item.Name
-                    return;
-                }
-            });
-            DomainList.map(item => {
-                if(item.Id = TeachDominParentId ){
-                    DomainListValue = item.Name
-                    return;
-                }
-            });
-            DomainCell.map(item => {
-                if(item.Id = TeachDominId ){
-                    DomainCellValue = item.Name
-                    return;
-                }
-            });
             let img_list = []
             MainPicUrl.split(',').forEach(item => {
                 img_list.push({
@@ -164,14 +140,13 @@ Page({
                 ['Province.id']: ProvinceId,
                 ['City.id']: CityId,
                 ['Area.id']: AreaId,
-                ['Application.value']: ApplicationValue,
                 ['Application.id']: AppDominId,
-                ['DomainList.value']:DomainListValue,
                 ['DomainList.id']:TeachDominParentId,
-                ['DomainCell.value']:DomainCellValue,
                 ['DomainCell.id']:TeachDominId
             })
-            this.loadProvince()
+            this.loadProvince();
+            this.loadApplicationList();
+            this.loadDomainList();
         }).catch((error) => {
             console.log(error)
         })
@@ -229,7 +204,6 @@ Page({
                 ProvinceId
             }
         }).then((res) => {
-
             let [ ...list ] = res.Data;
             let columnsData = list.map(item => {
                 return item.CityName;
@@ -246,14 +220,13 @@ Page({
     fillCity(){
         let { City } = this.data;
         let proId = City.id || City.list[0].CityId;
-        console.log(proId,'proId')
         if( proId ){
             let pro = City.list.find((item)=>{
                 return proId == item.CityId
             })
             this.setData({
-                ['City.value'] : pro.CityName,
-                ['City.id'] : proId
+                ['City.value']: pro.CityName,
+                ['City.id']: proId
             })
             this.loadArea(proId);
         }
@@ -273,7 +246,6 @@ Page({
             this.setData({
                 ['Area.columnsData']: columnsData,
                 ['Area.list']: res.Data,
-                ['Area.id']: res.Data[0].AreaId,
             })
             this.fillArea();
         }).catch((error) => {
@@ -282,14 +254,14 @@ Page({
     },
     fillArea(){
         let { Area } = this.data;
-        let proId = Area.id || Area.list.AreaId;
+        let proId = Area.id || Area.list[0].AreaId;
         if( proId ){
             let pro = Area.list.find((item)=>{
                 return proId == item.AreaId
             })
             this.setData({
-                ['Area.value'] : pro.AreaName,
-                ['Area.id'] : proId
+                ['Area.value']: pro.AreaName,
+                ['Area.id']: proId
             })
         }
     },
@@ -303,11 +275,12 @@ Page({
         const { value,index } = event.detail;
         let id = this.data.Province.list[index].ProvinceId;
         this.setData({
+            ['Province.value']: value,
             ['Province.id']: id,
             ['Province.show']: false,
             ['City.id']: '',
         })
-        this.fillProvince();
+        this.loadCity();
     },
     handleProvinceCancel() {
         this.setData({
@@ -326,12 +299,12 @@ Page({
         const { value,index } = event.detail;
         let id = this.data.City.list[index].CityId;
         this.setData({
+            ['City.value']: value,
             ['City.id']: id,
             ['City.show']: false,
             ['Area.id']: '',
         })
-        this.fillCity();
-
+        this.loadArea(id);
     },
     handleCityCancel() {
         this.setData({
@@ -348,10 +321,10 @@ Page({
         const { value,index } = event.detail;
         let id = this.data.Area.list[index].AreaId;
         this.setData({
+            ['Area.value'] :value,
             ['Area.id']: id,
             ['Area.show']: false,
         })
-        this.fillArea();
     },
     handleAreaCancel() {
         this.setData({
@@ -360,42 +333,32 @@ Page({
     },
 
     // 获取应用领域
-    getApplicationList() {
-        let DomainApplicationList = getItem('DomainApplicationList') || null;
-        if (!DomainApplicationList) {
-            ajax({
-                url: '/App/Product/DomainApplicationList',
-                method: 'POST',
-                data: {}
-            }).then((res) => {
-                let list = [...res.Data];
-                let columnsData = list.map(item => {
-                    return item.Name;
-                })
-                this.setData({
-                    ['Application.columnsData']: columnsData,
-                    ['Application.list']: list,
-                    ['Application.value']: list[0].name,
-                    ['Application.id']: list[0].Id,
-                })
-                setItem("DomainApplicationList", JSON.stringify(res.Data));
-            }).catch((error) => {
-                console.log(error)
-            });
-        } else {
-            let list = [ ...JSON.parse(DomainApplicationList) ] ;
-            let columnsData = list.map(item => {
-                return item.Name;
+    loadApplicationList() {
+        let ApplicationList = getApplicationList();
+
+        let columnsData = ApplicationList && ApplicationList.map(item => {
+            return item.Name;
+        })
+        this.setData({
+            ['Application.columnsData']: columnsData,
+            ['Application.list']: ApplicationList,
+        })
+        this.fillApplication();
+    },
+
+    fillApplication(){
+        let { Application } = this.data;
+        let proId = Application.id || Application.list[0].Id;
+        if( proId ){
+            let pro = Application.list.find((item)=>{
+                return proId == item.Id
             })
             this.setData({
-                ['Application.columnsData']: columnsData,
-                ['Application.list']: list,
-                ['Application.value']: list[0].Name,
-                ['Application.id']: list[0].Id,
+                ['Application.value'] : pro.Name,
+                ['Application.id'] : proId
             })
         }
     },
-
     // 选择应用领域
     handleApplicationList(){
         this.setData({
@@ -419,46 +382,35 @@ Page({
 
 
     // 获取技术领域父级
-    getDomainList() {
-        let DomainList = getItem('DomainList') || null;
-        if (!DomainList) {
-            ajax({
-                url: '/app/Product/GetByParent',
-                method: 'POST',
-                data: {}
-            }).then((res) => {
-                let [...list] =  res.Data;
-                let columnsData = list.map(item => {
-                    return item.Name;
-                })
-                setItem("DomainList", JSON.stringify( res.Data));
-
-                this.setData({
-                    ['DomainList.list']: list,
-                    ['DomainList.columnsData']:columnsData,
-                    ['DomainList.value']:list[0].Name,
-                    ['DomainList.id']:list[0].Id,
-                })
-                this.getDomainCell(list[0].Id);
-            }).catch((error) => {
-                console.log(error)
-            })
-        } else {
-            let [...list] =  JSON.parse(DomainList);
-            let columnsData = list.map(item => {
-                return item.Name;
+    loadDomainList() {
+        let DomainList = getDomainList();
+        let columnsData = DomainList.map(item => {
+            return item.Name;
+        })
+        this.setData({
+            ['DomainList.list']: DomainList,
+            ['DomainList.columnsData']:columnsData,
+        })
+        this.fillDomainList();
+    },
+    fillDomainList(){
+        let { DomainList } = this.data;
+        let proId = DomainList.id || DomainList.list[0].Id;
+        if( proId ){
+            let pro = DomainList.list.find((item)=>{
+                return proId == item.Id
             })
             this.setData({
-                ['DomainList.list']: list,
-                ['DomainList.columnsData']:columnsData,
-                ['DomainList.value']:list[0].Name,
-                ['DomainList.id']:list[0].Id,
+                ['DomainList.value'] : pro.Name,
+                ['DomainList.id'] : proId
             })
-            this.getDomainCell(list[0].Id);
+            this.loadDomainCell(proId);
         }
     },
+
+
     // 获取技术领域子级
-    getDomainCell(ParentId) {
+    loadDomainCell(ParentId) {
         ajax({
             url: '/app/Product/GetByParentId',
             method: 'POST',
@@ -474,12 +426,25 @@ Page({
             this.setData({
                 ['DomainCell.list']: res.Data,
                 ['DomainCell.columnsData']:columnsData,
-                ['DomainCell.value']:res.Data[0].Name,
-                ['DomainCell.id']:res.Data[0].Id,
             })
+            this.fillDomainCell();
         }).catch((error) => {
             console.log(error)
         })
+    },
+    fillDomainCell(){
+        let { DomainCell } = this.data;
+        let proId = DomainCell.id || DomainCell.list[0].Id;
+        if( proId ){
+            let pro = DomainCell.list.find((item)=>{
+                return proId == item.Id
+            })
+            console.log(pro);
+            this.setData({
+                ['DomainCell.value'] : pro.Name,
+                ['DomainCell.id'] : proId
+            })
+        }
     },
     // 一级选择
     handleDomainListList(){
@@ -497,7 +462,7 @@ Page({
             ['DomainCell.id']: '',
             ['DomainList.show']: false,
         })
-        this.getDomainCell(id)
+        this.loadDomainCell(id)
     },
     handleDomainListCancel() {
         this.setData({
@@ -696,7 +661,7 @@ Page({
                     ActivityName,
                     ProvinceId: Province.id,
                     CityId: City.id,
-                    AreaId:Area.id,
+                    AreaId: Area.id,
                     ActivityId,
                     BeginTime,
                     EndTime,
@@ -734,7 +699,7 @@ Page({
                     ActivityId,
                     ProvinceId: Province.id,
                     CityId: City.id,
-                    AreaId:Area.id,
+                    AreaId: Area.id,
                     BeginTime,
                     EndTime,
                     Address,

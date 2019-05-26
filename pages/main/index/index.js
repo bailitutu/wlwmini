@@ -1,6 +1,7 @@
 import { ajax } from "../../../utils/api";
 import { goPage } from '../../../utils/common'
 import { getItem, setItem } from '../../../utils/util'
+import {getApplicationList,getDomainOutDto} from "../../../utils/services";
 Page({
 
     /**
@@ -547,46 +548,14 @@ Page({
 
     //预设筛选
     loadFilterData(){
-        let DomainApplicationList = getItem( 'DomainApplicationList') || null;
-        if(!DomainApplicationList){
-            ajax({
-                url:'/App/Product/DomainApplicationList',
-                method: 'POST',
-                data:{}
-            }).then( ( res) => {
-                console.log(res);
-                this.setData({
-                    DomainApplicationList: res.Data
-                })
-                setItem("DomainApplicationList", JSON.stringify(res.Data) );
-            }).catch((error) =>{
-                console.log(error)
-            });
-        }else{
-            this.setData({
-                DomainApplicationList: JSON.parse(DomainApplicationList)
-            })
-        }
-        let DomainOutDto = getItem( 'DomainOutDto') || null;
-        if(!DomainOutDto){
-            ajax({
-                url:'/App/Product/GetDomainOutDto',
-                method: 'POST',
-                data:{}
-            }).then( ( res) => {
-                console.log(res);
-                this.setData({
-                    DomainOutDto: res.Data
-                })
-                setItem("DomainOutDto", JSON.stringify(res.Data) );
-            }).catch((error) =>{
-                console.log(error)
-            })
-        }else{
-            this.setData({
-                DomainOutDto: JSON.parse(DomainOutDto)
-            })
-        }
+        let DomainApplicationList = getApplicationList();
+        let DomainOutDto = getDomainOutDto();
+        this.setData({
+            DomainApplicationList,
+            DomainOutDto
+        })
+
+
     },
     // 选择筛选项
     handleFilterOne(e){

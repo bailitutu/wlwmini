@@ -2,6 +2,7 @@ import Toast from "../../../dist/toast/toast";
 import { isPhone, isEmpty } from "../../../utils/validate";
 import { ajax } from "../../../utils/api";
 import { getItem, setItem } from "../../../utils/util";
+import {getDomainList} from "../../../utils/services";
 Page({
 
     data: {
@@ -29,13 +30,22 @@ Page({
             Capital:'',
             Scale:''
         },
-        DomainListData: [],
-        DomainList: [],
-        DomainCellData: [],
-        DomainCell: [],
+        DomainList:{
+            columnsData:[],
+            list: [],
+            value: '',
+            id: '',
+            show: false
+        },
+        DomainCell: {
+            columnsData:[],
+            list: [],
+            value: '',
+            id: '',
+            show: false
+        },
     },
     onLoad: function (options) {
-        this.getDomainList();
         this.loadData();
     },
     //获取企业信息
@@ -101,46 +111,45 @@ Page({
                 ['companyInfo.RegYear']: RegYear,
                 ['companyInfo.Capital']: Capital,
                 ['companyInfo.Scale']: Scale,
+                ['DomainList.id']:TeachDominParentId,
+                ['DomainCell.id']:TeachDominId
             })
-
+            this.loadDomainList();
         }).catch((error) => {
             console.log(error)
         })
 
     },
     // 获取技术领域父级
-    getDomainList() {
-        let DomainList = getItem('DomainList') || null;
-        if (!DomainList) {
-            ajax({
-                url: '/app/Product/GetByParent',
-                method: 'POST',
-                data: {}
-            }).then((res) => {
-                let list = [ ...res.Data ];
-                let listData = list.map(item => {
-                    return item.Name;
-                })
-                setItem("DomainList", JSON.stringify(list));
-                this.setData({
-                    DomainListData: res.Data,
-                    DomainList: listData
-                })
-            }).catch((error) => {
-                console.log(error)
-            })
-        } else {
-            let listData = JSON.parse(DomainList).map(item => {
-                return item.Name;
+    loadDomainList() {
+        let DomainList = getDomainList();
+        let columnsData = DomainList && DomainList.map(item => {
+            return item.Name;
+        })
+        this.setData({
+            ['DomainList.list']: DomainList,
+            ['DomainList.columnsData']:columnsData,
+        })
+        this.fillDomainList();
+    },
+    fillDomainList(){
+        let { DomainList } = this.data;
+        let proId = DomainList.id || DomainList.list[0].Id;
+        if( proId ){
+            let pro = DomainList.list.find((item)=>{
+                return proId == item.Id
             })
             this.setData({
-                DomainListData: JSON.parse(DomainList),
-                DomainList:listData
+                ['DomainList.value'] : pro.Name,
+                ['DomainList.id'] : proId
             })
+            this.loadDomainCell(proId);
         }
     },
+
+
     // 获取技术领域子级
-    getDomainCell(ParentId) {
+    loadDomainCell(ParentId) {
         ajax({
             url: '/app/Product/GetByParentId',
             method: 'POST',
@@ -149,63 +158,73 @@ Page({
                 ParentId
             }
         }).then((res) => {
-            let list = [ ...res.Data ];
-            let cellList = list.map(item => {
+            let [...list] = res.Data;
+            let columnsData = list.map(item => {
                 return item.Name;
             })
             this.setData({
-                DomainCellData: res.Data,
-                DomainCell:cellList
+                ['DomainCell.list']: res.Data,
+                ['DomainCell.columnsData']:columnsData,
             })
+            this.fillDomainCell();
         }).catch((error) => {
             console.log(error)
         })
     },
-
-
-    // 企业注册部分
-    handleCompanyDomainList() {
-        this.setData({
-            ['companyInfo.showDomainList']: true
-        })
-    },
-    handleCompanyDomainCell() {
-        this.setData({
-            ['companyInfo.showDomainCell']: true
-        })
-    },
-
-    handleCompanyDomainListConfirm(event) {
-        const { value, index} = event.detail;
-        let parentId = this.data.DomainListData[index].Id;
-        this.setData({
-            ['companyInfo.TeachDominParentId']: parentId,
-            ['companyInfo.TeachDominParentName']: value,
-            ['companyInfo.showDomainList']: false
-        })
-        this.getDomainCell(parentId)
-    },
-    handleCompanyDomainListCancel() {
-        this.setData({
-            ['companyInfo.showDomainList']: false
-        })
+    fillDomainCell(){
+        let { DomainCell } = this.data;
+        let proId = DomainCell.id || DomainCell.list[0].Id;
+        if( proId ){
+            let pro = DomainCell.list.find((item)=>{
+                return proId == item.Id
+            })
+            this.setData({
+                ['DomainCell.value'] : pro.Name,
+                ['DomainCell.id'] : proId
+            })
+        }
     },
 
-    handleCompanyDomainCellConfirm(event) {
-        const { value, index} = event.detail;
-        let { DomainCellData } = this.data;
-        let cell_id = DomainCellData[index].Id;
-        let  domainId = 'companyInfo.TeachDominId';
-        let  domainName = 'companyInfo.TeachDominName';
+    // 一级选择
+    handleDomainListList(){
         this.setData({
-            [domainId]: cell_id,
-            [domainName] : value,
-            ['companyInfo.showDomainCell']: false,
+            ['DomainList.show']: true,
         })
     },
-    handleCompanyDomainCellCancel() {
+    handleDomainListConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.DomainList.list[index].Id;
         this.setData({
-            ['companyInfo.showDomainCell']: false
+            ['DomainList.value']: value,
+            ['DomainList.id']: id,
+            ['DomainCell.id']: '',
+            ['DomainList.show']: false,
+        })
+        this.loadDomainCell(id);
+    },
+    handleDomainListCancel() {
+        this.setData({
+            ['DomainList.show']: false,
+        })
+    },
+    // 二级选择
+    handleDomainCellList(){
+        this.setData({
+            ['DomainCell.show']: true,
+        })
+    },
+    handleDomainCellConfirm(event) {
+        const { value,index } = event.detail;
+        let id = this.data.DomainCell.list[index].Id;
+        this.setData({
+            ['DomainCell.value']: value,
+            ['DomainCell.id']: id,
+            ['DomainCell.show']: false,
+        })
+    },
+    handleDomainCellCancel() {
+        this.setData({
+            ['DomainCell.show']: false,
         })
     },
     //上传logo
@@ -258,8 +277,6 @@ Page({
             EnterpriseName,
             Abbreviation,
             EnterpriseLogo,
-            TeachDominParentId,
-            TeachDominId,
             WebsiteUrl,
             Address,
             FixedTelephone,
@@ -273,7 +290,10 @@ Page({
             Capital,
             Scale
         } = this.data.companyInfo;
-
+        let {
+            DomainList,
+            DomainCell
+        } = this.data;
         if (isEmpty(EnterpriseName)) {
             wx.showToast({
                 title: '公司名称不能为空',
@@ -288,7 +308,7 @@ Page({
             })
             return;
         }
-        if (TeachDominParentId == '' || TeachDominId == '') {
+        if (DomainList.id == '' || DomainCell.id == '') {
             wx.showToast({
                 title: '请选择主营领域',
                 icon: 'none'
@@ -356,8 +376,8 @@ Page({
                 EnterpriseName,
                 Abbreviation,
                 EnterpriseLogo:EnterpriseLogo[0].imgUrl || '',
-                TeachDominParentId,
-                TeachDominId,
+                TeachDominParentId: DomainList.id,
+                TeachDominId: DomainCell.id ,
                 WebsiteUrl,
                 Address,
                 FixedTelephone,
