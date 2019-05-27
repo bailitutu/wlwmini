@@ -72,6 +72,10 @@ Component({
                         url: BASE_URL + '/App/Home/UpLoadFile',//这里是你图片上传的接口
                         path: imageSrc,//这里是选取的图片的地址数组
                     });
+                    // that.newUploadImg({
+                    //     url: BASE_URL + '/App/Home/UpLoadFile',//这里是你图片上传的接口
+                    //     path: imageSrc,//这里是选取的图片的地址数组
+                    // })
                 },
                 fail: function ({errMsg}) {
                     console.log('chooseImage fail, err is', errMsg)
@@ -79,27 +83,64 @@ Component({
             })
         },
 
-        // 上传图片
+        // newUploadImg(image) {
+        //     var that = this;
+        //     var imgList = this.data.imgList;
+        //     var headers = setRequestHeader({});
+        //     let header = {
+        //         ...headers,
+        //         "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundaryluHnKLFdQ9iFaGRo"
+        //     };
+        //     image.path && image.path.forEach((item,i) => {
+        //         console.log(item);
+        //         wx.uploadFile({
+        //             url: image.url,
+        //             filePath: item,
+        //             name: 'file',
+        //             header: header,
+        //             formData: {},
+        //             success: function (resp) {
+        //                 let img = JSON.parse(resp.data);
+        //                 if (img.Status) {
+        //                     imgList.push({
+        //                         imgUrl: img.Data
+        //                     });
+        //                     that.setData({
+        //                         imgList
+        //                     })
+        //                     if(imgList.length == image.path.length){
+        //                         wx.hideLoading();
+        //                         that.triggerEvent('upload', imgList)
+        //                         return;
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //
+        //     })
+        // },
 
+
+        // 上传图片
         uploadImg(data) {
             var that = this;
             var i = data.i ? data.i : 0;//当前上传的哪张图片
             var success = data.success ? data.success : 0;//上传成功的个数
             var fail = data.fail ? data.fail : 0;//上传失败的个数
-            var  imgList  = this.data.imgList;
+            var imgList = this.data.imgList;
             var headers = setRequestHeader({});
             let header = {
                 ...headers,
                 "Content-Type": "multipart/form-data"
             };
-            var pathUrl =  data.path[i];
+            var pathUrl = data.path[i];
             wx.uploadFile({
                 url: data.url,
                 filePath: pathUrl,
                 name: 'file' + i,
                 header: header,
                 formData: {},
-                success: function(resp) {
+                success: function (resp) {
                     success++;//图片上传成功，图片上传成功的变量+1
                     let img = JSON.parse(resp.data);
                     if (img.Status) {
@@ -113,10 +154,10 @@ Component({
                     }
 
                 },
-                fail: function(err) {
+                fail: function (err) {
                     fail++;
                 },
-                complete: function() {
+                complete: function () {
                     i++;//这个图片执行完上传后，开始上传下一张
                     if (i == data.path.length) {   //当图片传完时，停止调用
                         wx.hideLoading();

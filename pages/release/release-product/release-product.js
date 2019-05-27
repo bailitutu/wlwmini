@@ -1,4 +1,4 @@
-import {getItem, setItem,} from '../../../utils/util'
+import {getItem} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
 import {isEmpty} from "../../../utils/validate";
 import {getApplicationList, getDomainList, getMainClassList} from "../../../utils/services";
@@ -105,8 +105,6 @@ Page({
                 PicUrls,
                 TxtContent,
             } = res.Data;
-
-
             let img_list = []
             PicUrls.split(',').forEach(item => {
                 img_list.push({

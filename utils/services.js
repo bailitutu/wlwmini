@@ -1,4 +1,3 @@
-
 import {getItem, setItem} from "./util";
 import {ajax} from "./api";
 // 获取应用领域
@@ -12,7 +11,7 @@ const getApplicationList = () => {
             method: 'POST',
             data: {}
         }).then((res) => {
-            setItem("DomainApplicationList", JSON.stringify({ value: res.Data}));
+            setItem("DomainApplicationList", JSON.stringify({value: res.Data}));
             return res.Data;
         }).catch((error) => {
             console.log(error)
@@ -32,7 +31,7 @@ const getDomainList = () => {
             method: 'POST',
             data: {}
         }).then((res) => {
-            setItem("DomainList", JSON.stringify({ value: res.Data} ));
+            setItem("DomainList", JSON.stringify({value: res.Data}));
             return res.Data;
         }).catch((error) => {
             console.log(error)
@@ -46,18 +45,18 @@ const getDomainList = () => {
 
 const getDomainOutDto = () => {
     // 筛选项
-    let DomainOutDto = getItem( 'DomainOutDto') || null;
-    if(!DomainOutDto){
+    let DomainOutDto = getItem('DomainOutDto') || null;
+    if (!DomainOutDto) {
         ajax({
-            url:'/App/Product/GetDomainOutDto',
+            url: '/App/Product/GetDomainOutDto',
             method: 'POST',
-            data:{}
-        }).then( ( res) => {
-            setItem("DomainOutDto", JSON.stringify({ value: res.Data}) );
+            data: {}
+        }).then((res) => {
+            setItem("DomainOutDto", JSON.stringify({value: res.Data}));
             return res.Data;
-        }).catch((error) =>{
+        }).catch((error) => {
         })
-    }else{
+    } else {
         return JSON.parse(DomainOutDto).value;
     }
 
@@ -73,16 +72,15 @@ const getMainClassList = () => {
                 classId: 0
             }
         }).then((res) => {
-            setItem("MainClass", JSON.stringify({ value: res.Data}));
-           return res.Data
+            setItem("MainClass", JSON.stringify({value: res.Data}));
+            resolve(res.Data);
         }).catch((error) => {
             console.log(error)
         })
     } else {
-         return JSON.parse(MainClass).value;
+        return JSON.parse(MainClass).value;
     }
 }
-
 
 
 module.exports = {

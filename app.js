@@ -1,4 +1,6 @@
 import { getItem } from './utils/util'
+import {getApplicationList, getDomainList, getMainClassList} from "./utils/services";
+
 App({
     onLaunch: function() {
         let hd_token = getItem('hd_token') || '';
@@ -13,5 +15,10 @@ App({
                 url: '/pages/main/index/index'
             })
         }
-    }
+    },
+    onShow (options) {
+        getApplicationList()
+        getDomainList()
+        getMainClassList();
+    },
 })
