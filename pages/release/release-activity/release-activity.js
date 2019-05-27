@@ -191,7 +191,8 @@ Page({
             })
             this.setData({
                 ['Province.value'] : pro.ProvinceName,
-                ['Province.id'] : proId
+                ['Province.id'] : proId,
+                ['City.id']: '',
             })
             this.loadCity(proId);
         }
@@ -226,7 +227,8 @@ Page({
             })
             this.setData({
                 ['City.value']: pro.CityName,
-                ['City.id']: proId
+                ['City.id']: proId,
+                ['Area.id']: ''
             })
             this.loadArea(proId);
         }
@@ -256,7 +258,7 @@ Page({
         let { Area } = this.data;
         let proId = Area.id || Area.list[0].AreaId;
         if( proId ){
-            let pro = Area.list.find((item)=>{
+            let pro = Area.list &&  Area.list.find((item)=>{
                 return proId == item.AreaId
             })
             this.setData({
@@ -280,7 +282,7 @@ Page({
             ['Province.show']: false,
             ['City.id']: '',
         })
-        this.loadCity();
+        this.loadCity(id);
     },
     handleProvinceCancel() {
         this.setData({
@@ -439,7 +441,6 @@ Page({
             let pro = DomainCell.list.find((item)=>{
                 return proId == item.Id
             })
-            console.log(pro);
             this.setData({
                 ['DomainCell.value'] : pro.Name,
                 ['DomainCell.id'] : proId

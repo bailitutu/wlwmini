@@ -1,6 +1,6 @@
 <view class="body g-bg-f4">
     <view class="_banner-image">
-        <image class="g-full" src="/images/activity_image@2x.png"></image>
+        <image class="g-w-full" src="{{ detail.MainPicUrl }}"></image>
     </view>
 
     <view class="g-pd-t-30 g-pd-b-20 g-pd-lr-30 g-bg-white">
