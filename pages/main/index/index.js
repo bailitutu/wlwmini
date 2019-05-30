@@ -1,7 +1,7 @@
 import { ajax } from "../../../utils/api";
 import { goPage } from '../../../utils/common'
 import { getItem, setItem } from '../../../utils/util'
-import {getApplicationList,getDomainOutDto} from "../../../utils/services";
+import {getApplicationList,getDomainOutDto,getSenior} from "../../../utils/services";
 Page({
 
     /**
@@ -10,6 +10,10 @@ Page({
     data: {
         DomainApplicationList:[],
         DomainOutDto:[],
+        SeniorOne: [],
+        SeniorTwo: [],
+        SeniorOneId:0,
+        SeniorTwoId:0,
         isBottom: false,
         headerBarActive: 0,
         headBarList: [{
@@ -48,7 +52,7 @@ Page({
             title: '我的'
         }],
         Keyword:'', //搜索关键词
-        MainClassId: '', //
+        MainClassId: 0, //
         AppDominId:0, //应用领域
         TeachDominId: 0, //技术领域
         productInfo: {
@@ -322,7 +326,8 @@ Page({
     },
     // 获取产品列表信息
     getProductList( ) {
-        let { Keyword ,AppDominId, TeachDominId, productInfo, MainClassId } = this.data;
+        let { Keyword ,AppDominId, TeachDominId, productInfo, MainClassId , SeniorOneId,
+            SeniorTwoId } = this.data;
         let page = productInfo.page;
         let pageSize = 20;
         let personData = {
@@ -332,7 +337,9 @@ Page({
             AppDominId ,
             TeachDominId,
             Keyword,
-            MainClassId
+            MainClassId,
+            SeniorTwoId,
+            SeniorOneId
         };
         ajax({
             url:'/App/Product/ProductList',
@@ -550,12 +557,25 @@ Page({
     loadFilterData(){
         let DomainApplicationList = getApplicationList();
         let DomainOutDto = getDomainOutDto();
+        let SeniorList = getSenior();
+        let SeniorOne = [];
+        let SeniorTwo = [];
+        SeniorList && SeniorList.forEach(item => {
+            if (item.Type == 1) {
+                SeniorOne.push(item)
+            } else {
+                SeniorTwo.push(item)
+            }
+        });
+
+
+
         this.setData({
             DomainApplicationList,
-            DomainOutDto
+            DomainOutDto,
+            SeniorOne,
+            SeniorTwo
         })
-
-
     },
     // 选择筛选项
     handleFilterOne(e){
@@ -582,12 +602,40 @@ Page({
             })
         }
     },
+
+    handleFilterSeniorOne(e){
+        let { id }  = e.currentTarget.dataset;
+        if( this.data.SeniorOneId == id ){
+            this.setData({
+                SeniorOneId: 0
+            })
+        }else{
+            this.setData({
+                SeniorOneId: id
+            })
+        }
+    },
+    handleFilterSeniorTwo(e){
+        let { id }  = e.currentTarget.dataset;
+        if( this.data.SeniorTwoId == id ){
+            this.setData({
+                SeniorTwoId: 0
+            })
+        }else{
+            this.setData({
+                SeniorTwoId: id
+            })
+        }
+    },
+
     // 重置筛选
     handleResetFilter(){
         this.setData({
             AppDominId: 0,
             TeachDominId: 0,
-            MainClassId: '',
+            MainClassId:0,
+            SeniorOneId: 0,
+            SeniorTwoId:0,
             show: false
         })
         this.handleSearch();

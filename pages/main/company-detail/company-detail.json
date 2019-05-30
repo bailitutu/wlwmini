@@ -6,6 +6,7 @@
   "usingComponents": {
     "van-button": "/dist/button/index",
     "loading": "/components/loading/loading",
+    "contact-dialog": "/components/contact-dialog/contact-dialog",
     "van-tab": "/dist/tab/index",
     "van-tabs": "/dist/tabs/index"
   }

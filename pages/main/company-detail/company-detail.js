@@ -25,16 +25,25 @@ Page({
             list: [],
             noData: false,
             noMore: false,
-        }
-
+        },
+        CompanyId:'',
+        IsCollection: false,
+        showContact: false
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        let UserId = options.CompanyId || ''
-        this.loadData(UserId);
+        let CompanyId = options.CompanyId || '';
+        let UserId = getItem('hd_userId') || '';
+        let Token = getItem('hd_token') || '';
+        this.setData({
+            CompanyId: options.CompanyId
+            ,UserId,
+            Token
+        })
+        this.loadData(CompanyId);
     },
 
     loadData(UserId ){
@@ -89,5 +98,85 @@ Page({
         goPage('活动详情',{ ActivityId: id})
     },
     onTabChange() { },
+    // 收藏
+    handleCollect() {
+        let collect_status = this.data.info.IsCollection || false;
+        let { UserId,Token, CompanyId }= this.data;
+        let personData = {
+            UserId,
+            Token,
+            EnterpriseUserId: CompanyId ,
+        };
+        ajax({
+            url: '/App/UserCenter/EnterpriseCollection',
+            method: 'POST',
+            data: personData
+        }).then((res) => {
+            if (collect_status) {
+                wx.showToast({
+                    title: '取消收藏成功'
+                })
+            } else {
+                wx.showToast({
+                    title: '收藏成功'
+                })
+            }
+            this.setData({
+                ['info.IsCollection']: !collect_status
+            })
+        }).catch((error) => {
+            if (collect_status) {
+                wx.showToast({
+                    title: '取消收藏失败'
+                })
+            } else {
+                wx.showToast({
+                    title: '收藏失败'
+                })
+            }
+        })
+    },
+
+    // 联系
+    handleConnect() {
+        this.setData({
+            showContact: true
+        })
+    },
+    handleConfirmContact(e) {
+        let contactText = e.detail;
+        let { UserId,Token ,CompanyId }= this.data;
+        if (contactText == '') {
+            wx.showToast({
+                title: '请输入咨询内容',
+                icon: 'none'
+            })
+            return;
+        }
+        ajax({
+            url: '/App/Home/AddMessage',
+            method: 'POST',
+            data: {
+                OtherId: CompanyId ,
+                OtherTypeId: 5,
+                Msg: contactText,
+                MsgType: 1,
+                UserId,
+                Token,
+            }
+        }).then((res) => {
+            wx.showToast({
+                title: '留言成功！',
+                icon: 'none',
+                success: () => {
+                    this.setData({
+                        showContact: false
+                    })
+                }
+            })
+        }).catch((error) => {
+            console.log(error)
+        })
+    },
 
 })

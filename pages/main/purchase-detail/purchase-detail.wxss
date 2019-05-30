@@ -1,15 +1,9 @@
 @import "../product-detail/product-detail.wxss";
-._purchase-header{
-    height: 600rpx;
-    position: relative;
+._banner-image{
+    height: 374rpx;
 }
-._purchase-logo{
-    height:374rpx;
-}
-._purchase-logo image{
-    width:302rpx;
-    height:72rpx;
-    margin-top: 64rpx;
+._banner-image image{
+    height: 374rpx;
 }
 ._purchase-content{
     position: absolute;

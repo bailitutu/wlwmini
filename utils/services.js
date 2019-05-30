@@ -73,7 +73,7 @@ const getMainClassList = () => {
             }
         }).then((res) => {
             setItem("MainClass", JSON.stringify({value: res.Data}));
-            resolve(res.Data);
+            return res.Data;
         }).catch((error) => {
             console.log(error)
         })
@@ -82,10 +82,29 @@ const getMainClassList = () => {
     }
 }
 
+const getSenior = ()=>{
+    let Senior = getItem('Senior') || false;
+    if (!Senior) {
+        ajax({
+            url: '/App/Product/SeniorList',
+            method: 'POST',
+            data: {}
+        }).then((res) => {
+            setItem("Senior", JSON.stringify({value: res.Data}));
+            return res.Data;
+        }).catch((error) => {
+            console.log(error)
+        })
+    } else {
+        return JSON.parse(Senior).value;
+    }
+}
+
 
 module.exports = {
     getDomainList,
     getApplicationList,
     getDomainOutDto,
-    getMainClassList
+    getMainClassList,
+    getSenior
 }

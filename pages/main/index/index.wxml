@@ -303,6 +303,33 @@
                 </view>
             </view>
         </view>
+
+        <view class="g-fs-32 g-c-black g-pd-t-30 ">高级选项一</view>
+        <view class="_filter-list g-flex g-jc-fs g-m-t-20 g-fw-w" v-if="{{ SeniorOne }}">
+            <view
+                    class="_filter-btn g-bg-gray g-c-white g-fs-28 {{ SeniorOneId == item.Id ? 'active': ''}}"
+                    wx:for="{{ SeniorOne }}"
+                    wx:key="{{ index }}"
+                    data-id="{{ item.Id }}"
+                    catchtap="handleFilterSeniorOne"
+            >
+                {{ item.Name }}
+            </view>
+        </view>
+        <view class="g-fs-32 g-c-black g-pd-t-30 ">高级选项二</view>
+        <view class="_filter-list g-flex g-jc-fs g-m-t-20 g-fw-w" v-if="{{ SeniorTwo }}">
+            <view
+                    class="_filter-btn g-bg-gray g-c-white g-fs-28 {{ SeniorTwoId == item.Id ? 'active': ''}}"
+                    wx:for="{{ SeniorTwo }}"
+                    wx:key="{{ index }}"
+                    data-id="{{ item.Id }}"
+                    catchtap="handleFilterSeniorTwo"
+            >
+                {{ item.Name }}
+            </view>
+        </view>
+
+
         <view class="g-fs-32 g-c-black g-pd-t-30">操作</view>
         <view class="_filter-list g-flex g-jc-fe g-fw-w g-m-t-20 g-m-b-20 g-pd-b-20">
             <view

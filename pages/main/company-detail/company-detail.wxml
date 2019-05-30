@@ -1,16 +1,23 @@
 <view class="body">
     <view class="_company-header g-flex-lr g-bg-blue  g-pd-30">
         <view class="_company-info g-flex-1">
-            <view class="g-fs-28 g-c-white">{{info.EnterpriseName}}</view>
-            <view class="g-c-white g-fs-24 g-pd-tb-10">{{ info.WebsiteUrl}}</view>
-            <view class="g-c-white g-fs-24 g-pd-tb-10">固话:{{info.FixedTelephone}}</view>
-            <view class="g-c-white g-fs-24 g-pd-tb-10">联系人:{{info.Contacts}}</view>
-            <view class="g-c-white g-fs-24 g-pd-tb-10">邮箱:{{info.Email}}</view>
-            <view class="g-c-white g-fs-24 g-pd-tb-10">QQ:{{info.QQ}}</view>
-            <!--<view class="g-flex-fs g-m-b-20">-->
-                <!--<text class="_company-label g-c-white  g-fs-22 g-bra g-m-lr-5 g-m-r-20" >智慧城市</text>-->
-                <!--<text class="_company-label g-c-white g-fs-22 g-bra g-m-lr-5" >智慧城市</text>-->
-            <!--</view>-->
+            <view class="g-fs-28 g-c-white">企业名称：{{info.EnterpriseName}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">地址：{{ info.Address}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">网址：{{ info.WebsiteUrl}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">固话：{{info.FixedTelephone}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">联系人：{{info.Contacts}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">邮箱：{{info.Email}}</view>
+            <view class="g-c-white g-fs-24 g-pd-tb-10">QQ：{{info.QQ}}</view>
+            <view class="g-flex g-flex-fs g-tc  g-fs-28">
+                <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleConnect">
+                    <image src="/images/detail_icon_contact@2xwhite.png"></image>
+                    <text class="g-c-white">联系</text>
+                </view>
+                <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleCollect">
+                    <image src="{{ info.IsCollection ? '/images/detail_icon_collect@2x.png' : '/images/detail_icon_collect@2xwhie.png'}} "></image>
+                    <text class="g-c-white">{{ info.IsCollection ? "已收藏" : "收藏"}}</text>
+                </view>
+            </view>
         </view>
         <view class="_company-logo">
             <image src="{{info.EnterpriseLogo}}" class="g-full" ></image>
@@ -95,9 +102,6 @@
             <loading noData='{{ Activity.noData }}'  noMore='{{ Activity.noMore }}'></loading>
         </van-tab>
     </van-tabs>
-
-
-
 </view>
-
+<contact-dialog show="{{ showContact }}" bind:confirm="handleConfirmContact"  ></contact-dialog>
 
