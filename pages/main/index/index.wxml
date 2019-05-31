@@ -244,9 +244,7 @@
                 catchtap="handleCompanyDetail"
             >
                 <view class="g-bsf g-bra">
-                    <view class="_company-image g-bra">
-                        <image class="g-full" src="{{ item.HeadUrl || '/images/company_image@2x.png'}}"></image>
-                    </view>
+                    <view class="_company-image g-bra" style="background: url({{ item.HeadUrl || '/images/company_default_logo.jpg' }}) no-repeat center;"></view>
                     <view>
                         <view class="g-fs-28 g-c-black g-pd-20 g-oneline">{{ item.EnterpriseName }}</view>
                         <view class="g-flex-fs g-m-b-20 g-pd-20">

@@ -77,6 +77,7 @@
 ._company-image{
     width:330rpx;
     height:330rpx;
+    background-size:cover;
 }
 ._company-item{
     box-sizing: border-box;

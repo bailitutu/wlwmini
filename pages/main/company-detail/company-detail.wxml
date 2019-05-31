@@ -14,17 +14,22 @@
                     <text class="g-c-white">联系</text>
                 </view>
                 <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn" bindtap="handleCollect">
-                    <image src="{{ info.IsCollection ? '/images/detail_icon_collect@2x.png' : '/images/detail_icon_collect@2xwhie.png'}} "></image>
-                    <text class="g-c-white">{{ info.IsCollection ? "已收藏" : "收藏"}}</text>
+                    <image src="{{ IsCollection ? '/images/detail_icon_collect@2x.png' : '/images/detail_icon_collect@2xwhie.png'}} "></image>
+                    <text class="g-c-white">{{ IsCollection ? "已收藏" : "收藏"}}</text>
                 </view>
             </view>
         </view>
         <view class="_company-logo">
-            <image src="{{info.EnterpriseLogo}}" class="g-full" ></image>
+            <image src="{{info.EnterpriseLogo || '/images/company_default_logo.jpg'}}" class="g-full" ></image>
          </view>
     </view>
 
     <van-tabs active="{{ tabActive }}" color="#0d8df9" animated  bind:change="onTabChange">
+        <van-tab title="公司简介" class="_company-tab-item g-bg-f4">
+            <view class="_section  g-pd-lr-20 g-fs-26 g-c-33">
+                {{ info.Abstract }}
+            </view>
+        </van-tab>
         <van-tab title="公司产品" class="_company-tab-item g-bg-f4">
             <view class="_section g-bg-white">
                 <view class="_product-list g-pd-lr-30">

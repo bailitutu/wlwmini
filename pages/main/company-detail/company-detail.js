@@ -43,26 +43,29 @@ Page({
             ,UserId,
             Token
         })
-        this.loadData(CompanyId);
+        this.loadData(UserId,CompanyId);
     },
 
-    loadData(UserId ){
+    loadData(ColleUserId ,UserId){
         let personData = {
-            UserId,
+            UserId ,
+            ColleUserId
         };
         ajax({
             url:'/App/UserCenter/UserEnterpriseDetail',
             method: 'POST',
             data:personData
         }).then( ( res) => {
+            console.log(res);
             let info = res.Data.UserEnterprise;
             let ProductNoData = !res.Data.Product || res.Data.Product.length == 0 ? true : false;
             let ActivityNoData = !res.Data.Activity || res.Data.Activity.length == 0 ? true : false;
             let SchemeNoData = !res.Data.Scheme || res.Data.Scheme.length == 0 ? true : false;
-
+            let IsCollection = res.Data.IsCollection;
             this.setData({
                 isReady:true,
                 info,
+                IsCollection,
                 Product: {
                     list:res.Data.Product || [],
                     noMore:true,
@@ -100,7 +103,7 @@ Page({
     onTabChange() { },
     // 收藏
     handleCollect() {
-        let collect_status = this.data.info.IsCollection || false;
+        let collect_status = this.data.IsCollection || false;
         let { UserId,Token, CompanyId }= this.data;
         let personData = {
             UserId,
@@ -122,7 +125,7 @@ Page({
                 })
             }
             this.setData({
-                ['info.IsCollection']: !collect_status
+                IsCollection: !collect_status
             })
         }).catch((error) => {
             if (collect_status) {

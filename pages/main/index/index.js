@@ -331,7 +331,7 @@ Page({
         let page = productInfo.page;
         let pageSize = 20;
         let personData = {
-            page: page || 1,
+            pageindex: page || 1,
             pagesize: pageSize,
             OrderBy: productInfo.orderBy || 0,
             AppDominId ,
@@ -476,7 +476,7 @@ Page({
         let page = companyInfo.page;
         let pageSize = 20;
         let personData = {
-            page: page || 1,
+            pageindex: page || 1,
             pagesize: pageSize,
             OrderBy: companyInfo.orderBy || 0,
             AppDominId,
@@ -567,9 +567,7 @@ Page({
                 SeniorTwo.push(item)
             }
         });
-
-
-
+        DomainApplicationList && DomainOutDto &&  SeniorList &&
         this.setData({
             DomainApplicationList,
             DomainOutDto,
