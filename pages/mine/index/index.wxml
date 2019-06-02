@@ -1,31 +1,33 @@
 <view class='body'>
-  <view class='_person-info g-flex-fs '>
-      <view class='_person-header g-m-r-20' bindtap="handleChangeHeader">
+    <view class='_person-info g-flex-fs '>
+        <view class='_person-header g-m-r-20' bindtap="handleChangeHeader">
         <image src="{{ info.HeadUrl || '/images/companydetail_profile@2x.png' }}" class='g-full' />
-      </view>
-      <view class='_person-detail'>
+        </view>
+        <view class='_person-detail'>
           <view class='g-fs-28 g-c-33'>
             {{ info.IsEnterprise ? info.EnterpriseName : info.NickName }}
           </view>
           <view class='g-fs-24 g-c-gray g-m-t-20'>
             手机号：{{ info.Phone || '未知'}}
           </view>
-      </view>
-  </view>
-  <van-cell-group custom-class='g-m-t-40' wx:if='{{ !info.IsEnterprise}}' >
-    <van-cell title="设置"  is-link  url='/pages/mine/person-setting/person-setting?HeadUrl={{info.HeadUrl }}&Phone={{ info.Phone }}&NickName={{ info.NickName}}'/>
-    <van-cell title="我发布的求购"  is-link url='/pages/mine/company-purchase/company-purchase'/>
-    <van-cell title="我的收藏"  is-link url='/pages/mine/person-collect/person-collect'/>
-    <van-cell title="我的活动" is-link url='/pages/mine/company-activity/company-activity'/>
-  </van-cell-group>
-  <van-cell-group custom-class='g-m-t-40' wx:else>
-    <van-cell title="设置" is-link url='/pages/mine/company-setting/company-setting'/>
-    <van-cell title="我发布的求购" is-link url='/pages/mine/company-purchase/company-purchase'/>
-    <van-cell title="我发布的产品" is-link url='/pages/mine/company-product/company-product'/>
-    <van-cell title="我发布的方案"  is-link url='/pages/mine/company-plan/company-plan'/>
-    <van-cell title="我的收藏"  is-link url='/pages/mine/person-collect/person-collect' />
-    <van-cell title="我的活动"  is-link url='/pages/mine/company-activity/company-activity'/>
-  </van-cell-group>
+        </view>
+    </view>
+    <van-cell-group custom-class='g-m-t-40' wx:if='{{ !info.IsEnterprise}}' >
+        <van-cell title="设置"  is-link  url='/pages/mine/person-setting/person-setting?HeadUrl={{info.HeadUrl }}&Phone={{ info.Phone }}&NickName={{ info.NickName}}'/>
+        <van-cell title="我发布的求购"  is-link url='/pages/mine/company-purchase/company-purchase'/>
+        <van-cell title="我的收藏"  is-link url='/pages/mine/person-collect/person-collect'/>
+        <van-cell title="我的活动" is-link url='/pages/mine/company-activity/company-activity'/>
+          <van-cell title="我的消息"  is-link url='/pages/mine/mine-message/mine-message'/>
+    </van-cell-group>
+    <van-cell-group custom-class='g-m-t-40' wx:else>
+        <van-cell title="设置" is-link url='/pages/mine/company-setting/company-setting'/>
+        <van-cell title="我发布的求购" is-link url='/pages/mine/company-purchase/company-purchase'/>
+        <van-cell title="我发布的产品" is-link url='/pages/mine/company-product/company-product'/>
+        <van-cell title="我发布的方案"  is-link url='/pages/mine/company-plan/company-plan'/>
+        <van-cell title="我的收藏"  is-link url='/pages/mine/person-collect/person-collect' />
+        <van-cell title="我的活动"  is-link url='/pages/mine/company-activity/company-activity'/>
+        <van-cell title="我的消息"  is-link url='/pages/mine/mine-message/mine-message'/>
+    </van-cell-group>
 </view>
 
 

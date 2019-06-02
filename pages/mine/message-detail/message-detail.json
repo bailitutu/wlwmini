@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "navigationBarTitleText": "我的消息",
+  "usingComponents": {
+    "van-field": "/dist/field/index",
+    "van-dialog": "/dist/dialog/index"
+  }
+}

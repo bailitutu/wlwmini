@@ -28,7 +28,8 @@ Page({
         },
         CompanyId:'',
         IsCollection: false,
-        showContact: false
+        showContact: false,
+        recommendList:[]
     },
 
     /**
@@ -44,6 +45,7 @@ Page({
             Token
         })
         this.loadData(UserId,CompanyId);
+        this.loadRecommendData();
     },
 
     loadData(ColleUserId ,UserId){
@@ -56,7 +58,6 @@ Page({
             method: 'POST',
             data:personData
         }).then( ( res) => {
-            console.log(res);
             let info = res.Data.UserEnterprise;
             let ProductNoData = !res.Data.Product || res.Data.Product.length == 0 ? true : false;
             let ActivityNoData = !res.Data.Activity || res.Data.Activity.length == 0 ? true : false;
@@ -85,7 +86,6 @@ Page({
         }).catch((error) =>{
             console.log(error)
         })
-
     },
 
     handleProductDetail(e){
@@ -181,5 +181,25 @@ Page({
             console.log(error)
         })
     },
+    // 获取推荐内容
+    loadRecommendData(){
+        ajax({
+            url:'/App/UserCenter/UserEnterpriseIsRecommend',
+            method: 'POST',
+            data:{}
+        }).then( ( res) => {
+            this.setData({
+                recommendList: res.Data || []
+            })
+        }).catch((error) =>{
+            console.log(error,'error');
+        })
+    },
+    // 查看推荐内容
+    handleCheckRecommend(e){
+        let { id } = e.currentTarget.dataset;
+        goPage('企业详情',{ CompanyId: id})
+    }
+
 
 })

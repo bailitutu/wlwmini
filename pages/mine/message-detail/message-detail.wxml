@@ -1,0 +1,55 @@
+<view class="body g-pd-lr-20 g-bg-f4" wx:show="{{isReady}}">
+    <view class="g-bg-white  g-m-t-20 g-bra">
+        <view class="g-pd-20 g-bb" bindtap="handleCheckDetail" data-id="{{ detail.MsgId }}">
+            <view  class=" g-twoline g-fs-26 g-c-333 " style="height: 88rpx;line-height: 44rpx;">
+                {{ detail.OtherName }}
+            </view>
+            <view class="g-c-red g-fs-26 ">{{ detail.OtherTypeName}}</view>
+        </view>
+        <view class="g-flex g-jc-sb g-ai-c g-fs-26 g-pd-20">
+            <text  style="color: #808080;">{{ detail.Addtime }}</text>
+            <text class="g-c-red">对方{{ detail.OherUserIsRead ? "已读" : "未读" }}</text>
+        </view>
+    </view>
+
+    <view class="g-bg-white  g-m-t-20 g-bra g-fs-26"
+          wx:for="{{ messageList.list }}"
+          wx:key="{{ index }}"
+    >
+        <view class="g-pd-20  g-c-333">
+            <view wx:if="{{ item.ToUserId == detail.UserId }}">
+                来自<text style="color: #808080"> {{ detail.NickName || '未知'}} </text>的消息
+            </view>
+            <view wx:else>
+                <text style="color: #808080"> 我 </text>的回复
+            </view>
+        </view>
+        <view style="padding: 20rpx 20rpx 10rpx 40rpx;color: #808080;" >
+            {{ item.Msg || '' }}
+        </view>
+        <view class="g-flex g-jc-sb g-ai-c g-fs-26 g-pd-20">
+            <text style="color: #808080;">{{ item.Addtime }}</text>
+            <text class="g-c-blue g-pd-20"
+                    wx:if="{{ item.Id == detail.ToUserNewReplyId && item.ToUserId == detail.UserId }}"
+                  data-msgid="{{ item.MsgId }}"
+                  bindtap="handleBackMessage"
+            >回复</text>
+        </view>
+    </view>
+</view>
+<van-dialog
+        use-slot
+        title="{{ '回复'+ detail.NickName + '的消息' }}"
+        show="{{ show }}"
+        messageAlign="left"
+        confirmButtonText="确认提交"
+        show-cancel-button
+        bind:cancel="handleCancel"
+        bind:confirm="handleConfirm"
+>
+    <view class="_text-box g-pd-30 ">
+        <view class="_text-cell">
+            <textarea class="_text-area " value="{{  backMsg }}" placeholder-class="g-c-gray g-fs-28" bindinput="bindTextAreaBlur"  placeholder="请输入内容" />
+        </view>
+    </view>
+</van-dialog>

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/mine/mine-message/mine-message",
     "pages/other/login/login",
     "pages/main/index/index",
     "pages/index/index",
@@ -28,7 +29,8 @@
     "pages/release/release-product/release-product",
     "pages/release/release-plan/release-plan",
     "pages/release/release-activity/release-activity",
-    "pages/mine/activity-qrcode/activity-qrcode"
+    "pages/mine/activity-qrcode/activity-qrcode",
+    "pages/mine/message-detail/message-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

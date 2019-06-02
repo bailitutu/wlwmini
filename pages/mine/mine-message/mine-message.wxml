@@ -1,0 +1,50 @@
+<view class="body ">
+    <van-tabs active="{{  currentTab }}" color="#0d8df9"  animated  bind:change="onTabChange">
+        <van-tab title="发信箱" class="_company-tab-item g-bg-f4">
+            <view class="_section g-bg-f4 g-pd-lr-20">
+                <view class=" g-bg-white  g-m-t-20 g-bra"
+                      wx:for="{{ outboxList.list }}"
+                      wx:key="{{ index }}"
+                >
+                    <view class="g-pd-20 g-bb" bindtap="handleCheckDetail" data-id="{{ item.MsgId }}">
+                        <view  class=" g-twoline g-fs-26 g-c-333 " style="height: 88rpx;line-height: 44rpx;">
+                            {{ item.OtherName }}
+                        </view>
+                        <view class="g-c-red g-fs-26 ">{{ item.OtherTypeName}}</view>
+                    </view>
+                    <view class="g-flex g-jc-sb g-ai-c g-fs-26 g-pd-20">
+                        <text class="g-c-blue">{{ item.Addtime }}</text>
+                        <text class="g-c-red">已发送对方{{ item.IsRead ? '已读' : '未读'}}</text>
+                    </view>
+                </view>
+
+                <loading noDataText="没有任何消息记录" noData='{{ outboxList.noData }}'  noMore='{{ outboxList.noMore }}'></loading>
+            </view>
+        </van-tab>
+        <van-tab title="收信箱" class="_company-tab-item">
+            <view class="_section g-bg-f4 g-pd-lr-20">
+                <view class=" g-bg-white  g-m-t-20 g-bra"
+                      wx:for="{{ inboxList.list }}"
+                      wx:key="{{ index }}">
+                    <view class="g-pd-20 g-bb" bindtap="handleCheckDetail" data-id="{{ item.MsgId }}">
+                        <view  class=" g-twoline g-fs-26 g-c-333 " style="height: 88rpx;line-height: 44rpx;">
+                            {{ item.OtherName }}
+                        </view>
+                        <view class="g-c-red g-fs-26 ">{{ item.OtherTypeName}}</view>
+                    </view>
+                    <view class="g-flex g-jc-sb g-ai-c g-fs-26 g-pd-20">
+                        <text class="g-c-blue">{{ item.Addtime }}</text>
+                        <text class="g-c-red">已发送对方{{ item.IsRead ? '已读' : '未读'}}</text>
+                    </view>
+                </view>
+
+                <loading  noDataText="没有任何消息记录" noData='{{ inboxList.noData }}'  noMore='{{ inboxList.noMore }}'></loading>
+            </view>
+
+        </van-tab>
+    </van-tabs>
+
+</view>
+
+
+

@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "navigationBarTitleText": "我的消息",
+  "usingComponents": {
+    "van-button": "/dist/button/index",
+    "loading": "/components/loading/loading",
+    "van-tab": "/dist/tab/index",
+    "van-tabs": "/dist/tabs/index"
+  }
+}

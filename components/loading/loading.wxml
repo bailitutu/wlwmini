@@ -1,6 +1,6 @@
 <view class='loading_compo'>
     <view class='loading_inner' wx:if="{{ noData }}">
-        <text>-- 暂无数据 --</text>
+        <text>-- {{ noDataText }} --</text>
     </view>
     <view class='loading_inner' wx:elif="{{ noMore }}">
         <text>-- 我是有底线的 --</text>
