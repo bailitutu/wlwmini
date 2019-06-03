@@ -1,9 +1,0 @@
-<!--index.wxml-->
-<view class="container">
-  <view style="width:100%;padding: 20rpx;">
-    <text-area
-            height="400"
-            placeholder="这个是提示语"
-    ></text-area>
-  </view>
-</view>

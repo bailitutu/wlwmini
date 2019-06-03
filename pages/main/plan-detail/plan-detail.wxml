@@ -21,7 +21,7 @@
                 <view class="g-fs-28 g-pd-tb-10 ">{{ detail.SchemeName}}</view>
                 <view class="g-c-gray g-fs-24 g-pd-tb-10">{{ detail.EnterpriseName }}</view>
             </view>
-            <view class="_product-price g-c-red g-fs-32">￥{{ detail.SchemePriceTxt}}</view>
+            <view class="_product-price g-c-red g-fs-32">{{ detail.SchemePrice == '0.00' ? '面议' : '￥' +detail.SchemePriceTxt}}</view>
         </view>
         <view class=" g-bt _text-info">
             <text  class="g-fs-26 g-c-gray g-threeline">{{ detail.Abstract }}</text>

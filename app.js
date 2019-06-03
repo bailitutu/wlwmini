@@ -1,5 +1,5 @@
 import { getItem } from './utils/util'
-import {getApplicationList, getDomainList, getMainClassList} from "./utils/services";
+import {getApplicationList, getDomainList, getDomainOutDto, getMainClassList, getSenior} from "./utils/services";
 
 App({
     onLaunch: function() {
@@ -18,7 +18,9 @@ App({
     },
     onShow (options) {
         getApplicationList()
-        getDomainList()
+        getDomainList();
+        getDomainOutDto();
         getMainClassList();
+        getSenior();
     },
 })

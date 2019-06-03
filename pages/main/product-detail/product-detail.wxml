@@ -21,7 +21,7 @@
                 <view class="g-fs-28 g-pd-tb-10 ">{{ detail.ProductName }}</view>
                 <view class="g-c-gray g-fs-24 g-pd-tb-10">{{ detail.EnterpriseName }}</view>
             </view>
-            <view class="_product-price g-c-red g-fs-32">￥{{ detail.ProudctPriceTxt}}</view>
+            <view class="_product-price g-c-red g-fs-32">{{ detail.ProudctPrice == '0.00' ? '面议' : '￥' + detail.ProudctPriceTxt}}</view>
         </view>
         <view class="g-flex g-flex-lr g-tc  g-fs-28">
             <view class="g-1of3 g-flex g-ai-c g-jc-c g-pd-20 _product-btn"  bindtap="handleConnect">

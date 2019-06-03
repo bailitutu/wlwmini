@@ -60,7 +60,7 @@
                 </view>
                 <view class="_product-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
                     <view class="g-twoline g-fs-26">{{ item.ProductName }}</view>
-                    <view class="g-c-red g-fs-28">￥{{ item.ProudctPrice }}</view>
+                    <view class="g-c-red g-fs-28">{{ item.ProudctPrice == '0.00' ? '面议': '￥' + item.ProudctPrice }}</view>
                     <view class="g-oneline g-fs-26 g-c-999" catchtap="handleCompanyDetail" data-id="{{ item.ProductId }}"  > {{ item.EnterpriseName }}</view>
                 </view>
                 <view class="_product-label">
@@ -113,7 +113,7 @@
                 </view>
                 <view class="_plan-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
                     <view class="g-twoline g-fs-26">{{ item.SchemeName }}</view>
-                    <view class="g-c-red g-fs-28">￥{{ item.SchemePriceTxt }}</view>
+                    <view class="g-c-red g-fs-28">{{ item.SchemePrice == '0.00' ?  '面议' :'￥'+ item.SchemePriceTxt }}</view>
                     <view class="g-oneline g-fs-26 g-c-999">{{ item.Abstract }}</view>
                 </view>
             </view>
@@ -164,7 +164,7 @@
                 <view class="g-fs-28 g-c-black g-pd-tb-10 _purchase-title  g-twoline" >
                     {{ item.WantBuyName }}
                 </view>
-                <view class="g-c-red g-pd-lr-20 g-fs-28 _purchase-price">￥{{ item.WantBuyPriceTxt }}</view>
+                <view class="g-c-red g-pd-lr-20 g-fs-28 _purchase-price">{{  item.WantBuyPrice == '0.00' ? '面议' : '￥'+item.WantBuyPriceTxt }}</view>
             </view>
         </view>
         <loading noData='{{ purchaseInfo.noData }}' noMore='{{ purchaseInfo.noMore }}'></loading>
