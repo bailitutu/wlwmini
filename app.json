@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/other/login/login",
     "pages/main/index/index",
     "pages/mine/mine-message/mine-message",
-    "pages/other/login/login",
     "pages/mine/person-collect/person-collect",
     "pages/mine/company-activity/company-activity",
     "pages/main/complain/complain",
