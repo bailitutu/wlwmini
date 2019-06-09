@@ -1,5 +1,6 @@
 import {isPhone, isEmpty} from "../../../utils/validate";
 import {ajax} from "../../../utils/api";
+import {goPage} from "../../../utils/common";
 import { getDomainList, getApplicationList} from "../../../utils/services";
 
 Page({
@@ -110,10 +111,10 @@ Page({
         this.setData({
             ApplicationData: ApplicationList,
             Application: columnsData,
-            ['companyInfo.DomainAppName']: ApplicationList[0].Name,
-            ['companyInfo.DomainAppId']: ApplicationList[0].Id,
-            ['personInfo.DomainAppName']: ApplicationList[0].Name,
-            ['personInfo.DomainAppId']: ApplicationList[0].Id,
+            // ['companyInfo.DomainAppName']: ApplicationList[0].Name,
+            // ['companyInfo.DomainAppId']: ApplicationList[0].Id,
+            // ['personInfo.DomainAppName']: ApplicationList[0].Name,
+            // ['personInfo.DomainAppId']: ApplicationList[0].Id,
         })
     },
 
@@ -126,12 +127,12 @@ Page({
         this.setData({
             DomainListData: DomainList,
             DomainList: listData,
-            ['companyInfo.TeachDominParentName']: DomainList[0].Name,
-            ['companyInfo.TeachDominParentId']: DomainList[0].Id,
-            ['personInfo.TeachDominParentName']: DomainList[0].Name,
-            ['personInfo.TeachDominParentId']: DomainList[0].Id,
+            // ['companyInfo.TeachDominParentName']: DomainList[0].Name,
+            // ['companyInfo.TeachDominParentId']: DomainList[0].Id,
+            // ['personInfo.TeachDominParentName']: DomainList[0].Name,
+            // ['personInfo.TeachDominParentId']: DomainList[0].Id,
         })
-        this.getDomainCell(DomainList[0].Id);
+        // this.getDomainCell(DomainList[0].Id);
     },
     // 获取技术领域子级
     getDomainCell(ParentId) {
@@ -370,13 +371,7 @@ Page({
             })
             return;
         }
-        if (isEmpty(EnterpriseLogo)) {
-            wx.showToast({
-                title: '企业logo必传',
-                icon: 'none'
-            })
-            return;
-        }
+
         if (isEmpty(DomainAppId)) {
             wx.showToast({
                 title: '请选择应用领域',
@@ -384,14 +379,20 @@ Page({
             })
             return;
         }
-        if (TeachDominParentId == '' || TeachDominId == '') {
+        if ( !TeachDominParentId || !TeachDominId) {
             wx.showToast({
                 title: '请选择技术领域',
                 icon: 'none'
             })
             return;
         }
-
+		if (isEmpty(EnterpriseLogo)) {
+			wx.showToast({
+				title: '企业logo必传',
+				icon: 'none'
+			})
+			return;
+		}
         if (isEmpty(Address)) {
             wx.showToast({
                 title: '公司地址必填',
@@ -476,7 +477,14 @@ Page({
                 icon: 'none'
             })
             return;
-        }
+		}
+		if( UserPwd !== UserPwdTwo ){
+			wx.showToast({
+				title: '两次输入的密码不一致！',
+				icon: 'none'
+			})
+			return;
+		}
         if (isEmpty(UserName)) {
             wx.showToast({
                 title: '手机号必填',
@@ -534,7 +542,7 @@ Page({
                 icon:'none',
                 success: () =>{
                     setTimeout(()=>{
-                        wx.navigateBack();
+                        goPage('首页',4);
                     },1500)
                 }
             })
@@ -698,13 +706,13 @@ Page({
             DomainAppId
         } = this.data.personInfo;
 
-        if (isEmpty(HeadUrl)) {
-            wx.showToast({
-                title: '请上传头像',
-                icon: 'none'
-            })
-            return;
-        }
+        // if (isEmpty(HeadUrl)) {
+        //     wx.showToast({
+        //         title: '请上传头像',
+        //         icon: 'none'
+        //     })
+        //     return;
+        // }
         if (isEmpty(EnterpriseName)) {
             wx.showToast({
                 title: '所属企业不能为空',
@@ -753,7 +761,14 @@ Page({
                 icon: 'none'
             })
             return;
-        }
+		}
+		if (UserPwd !== UserPwdTwo) {
+			wx.showToast({
+				title: '两次输入的密码不一致！',
+				icon: 'none'
+			})
+			return;
+		}
         if (isEmpty(UserName)) {
             wx.showToast({
                 title: '手机号必填',
@@ -799,7 +814,7 @@ Page({
                 icon:'none',
                 success: () =>{
                     setTimeout(()=>{
-                        wx.navigateBack();
+                        goPage('首页',4);
                     },1500)
                 }
             })

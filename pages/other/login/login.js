@@ -208,7 +208,10 @@ Page({
         }).catch((error) => {
             console.log(error)
         })
-    },
+	},
+	handleGoHome(){
+		goPage('首页', 4)
+	},
     // 前往注册
     handleRegister() {
         goPage('注册')

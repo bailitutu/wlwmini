@@ -11,15 +11,15 @@ App({
 		getMainClassList();
 		getSenior();
 		// 检测本地用户信息
-		if( !hd_token || !hd_userId){
-			wx.reLaunch({
-				url: '/pages/other/login/login'
-			})
-		}else{
-			wx.reLaunch({
-				url: '/pages/main/index/index'
-			})
-		}
+		// if( !hd_token || !hd_userId){
+		// 	wx.reLaunch({
+		// 		url: '/pages/other/login/login'
+		// 	})
+		// }else{
+		// 	wx.reLaunch({
+		// 		url: '/pages/main/index/index'
+		// 	})
+		// }
 	},
 
 })

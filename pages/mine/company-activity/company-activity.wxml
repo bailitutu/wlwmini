@@ -71,11 +71,10 @@
                               data-activityid="{{ item.ActivityId}}"
                               catchtap="handleCheckSignCode"
                         >签到二维码</text>
-
                         <text class="g-pd-20 g-c-red"
                               data-id="{{ item.ActivityId}}"
                               data-index="{{ index }}"
-                              catchtap="handleDeleteActivity"
+                              catchtap="handleQuitActivity"
                         >关闭</text>
                     </view>
                 </view>

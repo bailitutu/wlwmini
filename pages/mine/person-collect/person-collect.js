@@ -32,7 +32,11 @@ Page({
             noData: false,
             noMore: false
         },
-
+        companyInfo: {
+            list: [],
+            noData: false,
+            noMore: false
+        }
     },
 
     /**
@@ -87,7 +91,18 @@ Page({
                       }
                   });
                   this.getProductList();
-                  break;
+				  break;
+			  case 4:
+				  this.setData({
+					  currentTab: 4,
+					  companyInfo: {
+						  list: [],
+						  noMore: false,
+						  noData: false
+					  }
+				  });
+				  this.getCompanyList();
+				  break;
               default:
                   this.setData({
                       currentTab: 0,
@@ -191,16 +206,37 @@ Page({
         }).catch((error) =>{
             console.log(error)
         })
-    },
+	},
+	getCompanyList() {
+		let { UserId, Token } = this.data;
+		ajax({
+			url: '/App/UserCenter/EnterpriseCollect',
+			method: 'POST',
+			data: {
+				UserId,
+				Token
+			}
+		}).then((res) => {
+			let noData = !res.Data || res.Data.length == 0 ? true : false;
+			this.setData({
+				companyInfo: {
+					list: res.Data,
+					noMore: true,
+					noData,
+				}
+			})
+		}).catch((error) => {
+			console.log(error)
+		})
+	},
     handleDelete(e){
         wx.showModal({
             title:'提示',
             content: '确定删除该收藏吗？',
             success:(res)=>{
                 if (res.confirm) {
-
                     let { id , index } = e.currentTarget.dataset;
-                    let { UserId, Token, currentTab ,activityInfo,planInfo,purchaseInfo,productInfo } = this.data;
+					let { UserId, Token, currentTab, activityInfo, planInfo, purchaseInfo, productInfo, companyInfo } = this.data;
                     ajax({
                         url:'/App/UserCenter/DelCollect',
                         method: 'POST',
@@ -229,6 +265,12 @@ Page({
                                     [ 'productInfo.list'] : productInfo.list
                                 })
                                 break;
+                            case 4:
+								companyInfo.list.splice(index, 1);
+								this.setData({
+									['companyInfo.list']: companyInfo.list
+								})
+								break;
                             default:
                                 activityInfo.list.splice(index,1);
                                 this.setData({
@@ -237,7 +279,7 @@ Page({
                                 break;
                         }
                     }).catch((error) =>{
-                        console.log(error)
+                        console.log(error);
                         wx.showToast({
                             title: '删除失败，请重试！',
                             icon: 'none'
@@ -267,6 +309,10 @@ Page({
     handlePurchaseDetail(e){
         let { id } = e.currentTarget.dataset;
         goPage('求购详情',{ WantBuyId: id})
-    },
+	},
+	handleCompanyDetail(e) {
+		let { id } = e.currentTarget.dataset;
+		goPage('企业详情', { CompanyId: id })
+	}
 
 })

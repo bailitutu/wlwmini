@@ -85,10 +85,6 @@ Page({
             }
         }).then((res) => {
             let noData = !res.Data || res.Data.length == 0 ? true : false;
-            let nowTime = +(new Date());
-            let list = res.Data && res.Data.filter((item)=>{
-                return +(new Date(item.EndTime)) > nowTime;
-            })
             this.setData({
                 publicInfo: {
                     list:res.Data,
@@ -112,10 +108,6 @@ Page({
             }
         }).then((res) => {
             let noData = !res.Data || res.Data.length == 0 ? true : false;
-            let nowTime = +(new Date());
-            let list = res.Data && res.Data.filter((item)=>{
-                return +(new Date(item.EndTime)) > nowTime;
-            })
             this.setData({
                 signInfo: {
                     list:res.Data,
@@ -142,7 +134,6 @@ Page({
             let list =  res.Data.map(item => {
                 return item.Activity;
             })
-
             this.setData({
                 collectInfo: {
                     list,
@@ -172,7 +163,7 @@ Page({
                         UserId,
                         Token
                     }
-                }).then((res) => {
+                }).then((result) => {
                     wx.showModal({
                         title: '提示',
                         content: '您已签到成功！',
@@ -214,33 +205,35 @@ Page({
         wx.showModal({
             title: '提示',
             content: '确定退出该活动吗？',
-            success: () => {
-                let {id, index} = e.currentTarget.dataset;
-                let {UserId, Token, signInfo} = this.data;
-                ajax({
-                    url: '/App/UserCenter/DeleteActivitySign',
-                    method: 'POST',
-                    data: {
-                        UserId,
-                        Token,
-                        signId: id
-                    }
-                }).then((res) => {
-                    wx.showToast({
-                        title: '退出成功！',
-                        icon: 'none'
-                    })
-                    signInfo.list.splice(index, 1);
-                    this.setData({
-                        ['signInfo.list']: signInfo.list
-                    })
-                }).catch((error) => {
-                    console.log(error)
-                    wx.showToast({
-                        title: '退出失败，请重试！',
-                        icon: 'none'
-                    })
-                })
+            success: (res) => {
+				if (res.confirm) {
+					let { id, index } = e.currentTarget.dataset;
+					let { UserId, Token, signInfo } = this.data;
+					ajax({
+						url: '/App/UserCenter/DeleteActivitySign',
+						method: 'POST',
+						data: {
+							UserId,
+							Token,
+							signId: id
+						}
+					}).then((res) => {
+						wx.showToast({
+							title: '退出成功！',
+							icon: 'none'
+						})
+						signInfo.list.splice(index, 1);
+						this.setData({
+							['signInfo.list']: signInfo.list
+						})
+					}).catch((error) => {
+						console.log(error)
+						wx.showToast({
+							title: '退出失败，请重试！',
+							icon: 'none'
+						})
+					})
+				}
             }
         })
 
@@ -251,33 +244,36 @@ Page({
         wx.showModal({
             title: '提示',
             content: '确定删除该活动吗？',
-            success: () => {
-                let {id, index} = e.currentTarget.dataset;
-                let {UserId, Token, publicInfo} = this.data;
-                ajax({
-                    url: '/App/UserCenter/DeleteActivity',
-                    method: 'POST',
-                    data: {
-                        UserId,
-                        Token,
-                        ActivityId: id
-                    }
-                }).then((res) => {
-                    wx.showToast({
-                        title: '删除成功！',
-                        icon: 'none'
-                    })
-                    publicInfo.list.splice(index, 1);
-                    this.setData({
-                        ['publicInfo.list']: publicInfo.list
-                    })
-                }).catch((error) => {
-                    console.log(error)
-                    wx.showToast({
-                        title: '删除失败，请重试！',
-                        icon: 'none'
-                    })
-                })
+            success: (res) => {
+				if (res.confirm) {
+					let { id, index } = e.currentTarget.dataset;
+					let { UserId, Token, publicInfo } = this.data;
+					ajax({
+						url: '/App/UserCenter/DeleteActivity',
+						method: 'POST',
+						data: {
+							UserId,
+							Token,
+							ActivityId: id
+						}
+					}).then((res) => {
+						wx.showToast({
+							title: '删除成功！',
+							icon: 'none'
+						})
+						publicInfo.list.splice(index, 1);
+						this.setData({
+							['publicInfo.list']: publicInfo.list
+						})
+					}).catch((error) => {
+						console.log(error)
+						wx.showToast({
+							title: '删除失败，请重试！',
+							icon: 'none'
+						})
+					})
+				}
+
             }
         })
     },
@@ -286,33 +282,36 @@ Page({
         wx.showModal({
             title: '提示',
             content: '确定删除该活动吗？',
-            success: () => {
-                let {id, index} = e.currentTarget.dataset;
-                let {UserId, Token, collectInfo} = this.data;
-                ajax({
-                    url: '/App/UserCenter/DelCollect',
-                    method: 'POST',
-                    data: {
-                        UserId,
-                        Token,
-                        Id: id
-                    }
-                }).then((res) => {
-                    wx.showToast({
-                        title: '删除成功！',
-                        icon: 'none'
-                    })
-                    collectInfo.list.splice(index, 1);
-                    this.setData({
-                        ['collectInfo.list']: collectInfo.list
-                    })
-                }).catch((error) => {
-                    console.log(error)
-                    wx.showToast({
-                        title: '删除失败，请重试！',
-                        icon: 'none'
-                    })
-                })
+            success: (res) => {
+				if (res.confirm) {
+					let { id, index } = e.currentTarget.dataset;
+					let { UserId, Token, collectInfo } = this.data;
+					ajax({
+						url: '/App/UserCenter/DelCollect',
+						method: 'POST',
+						data: {
+							UserId,
+							Token,
+							Id: id
+						}
+					}).then((result) => {
+						wx.showToast({
+							title: '删除成功！',
+							icon: 'none'
+						})
+						collectInfo.list.splice(index, 1);
+						this.setData({
+							['collectInfo.list']: collectInfo.list
+						})
+					}).catch((error) => {
+						console.log(error)
+						wx.showToast({
+							title: '删除失败，请重试！',
+							icon: 'none'
+						})
+					})
+				}
+
             }
         })
     }

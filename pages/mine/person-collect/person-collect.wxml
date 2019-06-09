@@ -89,7 +89,6 @@
                 </view>
                 <loading noData='{{ planInfo.noData }}'  noMore='{{ planInfo.noMore }}'></loading>
             </view>
-
         </van-tab>
         <van-tab title="产品" class="_company-tab-item">
             <view class="_section g-bg-f4 ">
@@ -119,6 +118,39 @@
             </view>
 
         </van-tab>
+		<van-tab title="企业" class="_company-tab-item g-bg-f4">
+			<view class="_section g-bg-f4">
+				<view class=' g-bg-white g-flex-lr g-bb g-pd-20 g-m-t-20'
+                      wx:for="{{ companyInfo.list }}"
+                      wx:key="{{ index }}">
+                    <view class='g-bra g-m-r-20 _product-image '>
+                        <image src="{{ item.Enterprise.EnterpriseLogo }}" class='g-full'/>
+                    </view>
+                    <view
+						class='g-flex-cols g-oh g-flex-1'
+						style="height: 130rpx;"
+					 	data-id="{{ item.Enterprise.UserId }}"
+					 	catchtap="handleCompanyDetail">
+                        <view class='g-fs-28 g-oneline _list-center-title'>
+                            {{ item.Enterprise.EnterpriseName }}
+                        </view>
+                        <view class='g-fs-28 g-c-red g-flex g-jc-fs g-ai-c'>
+                            <image src="/images/icon_phone.png" style="width: 40rpx;height:40rpx;"></image>
+							<text>{{ item.Enterprise.FixedTelephone }}</text>
+                        </view>
+                    </view>
+                    <view class='g-flex-cols  _list-right-item g-flex-cr'>
+                        <van-button size='mini' type='info' round custom-class='g-bg-gray g-c-white'
+                                    data-index="{{index}}"
+                                    data-id="{{ item.Id }}"
+                                    catchtap="handleDelete"
+                        >
+                            删除</van-button>
+                    </view>
+                </view>
+				<loading noData='{{ companyInfo.noData }}'  noMore='{{ companyInfo.noMore }}'></loading>
+			</view>
+		</van-tab>
     </van-tabs>
 
 </view>

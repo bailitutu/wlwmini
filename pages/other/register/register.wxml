@@ -44,10 +44,10 @@
                 应用领域
             </view>
             <van-cell
-                    title="{{ companyInfo.DomainAppName   }}"
+                    title="{{ companyInfo.DomainAppName || '请选择应用领域'  }}"
                     is-link
                     custom-class="_picker-item"
-                    title-class="g-tl"
+                    title-class="{{ companyInfo.DomainAppName ? 'g-c-333' : 'g-c-gray'}} g-tl"
                     bind:click="handleCompanyApplicationList"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
@@ -55,13 +55,14 @@
                 技术领域
             </view>
             <van-cell
-                    title="{{ companyInfo.TeachDominParentName }}"
+                    title="{{ companyInfo.TeachDominParentName || '请选择技术领域'}}"
                     is-link
                     custom-class="_picker-item"
-                    title-class="g-tl"
+                    title-class="{{ companyInfo.TeachDominParentName ? 'g-c-333' : 'g-c-gray'}} g-tl"
                     bind:click="handleCompanyDomainList"
             />
             <van-cell
+					wx:if="{{ companyInfo.TeachDominParentName }}"
                     title="{{ companyInfo.TeachDominName }}"
                     is-link
                     custom-class="_picker-item"
@@ -322,10 +323,10 @@
             </view>
 
             <van-cell
-                    title="{{ personInfo.DomainAppName   }}"
+                    title="{{ personInfo.DomainAppName || '请选择应用领域'}}"
                     is-link
                     custom-class="_picker-item"
-                    title-class="g-tl"
+                    title-class="{{ personInfo.DomainAppName ? 'g-c-333' : 'g-c-gray'}} g-tl"
                     bind:click="handlePersonApplicationList"
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
@@ -333,13 +334,14 @@
                 技术领域
             </view>
             <van-cell
-                    title="{{ personInfo.TeachDominParentName }}"
+                    title="{{ personInfo.TeachDominParentName || '请选择技术领域'}}"
                     is-link
                     custom-class="_picker-item"
-                    title-class="g-tl"
+                    title-class="{{ personInfo.TeachDominParentName ? 'g-c-333' : 'g-c-gray'}} g-tl"
                     bind:click="handlePersonDomainList"
             />
             <van-cell
+					wx:if="{{ personInfo.TeachDominParentName }}"
                     title="{{ personInfo.TeachDominName }}"
                     is-link
                     custom-class="_picker-item"
@@ -508,6 +510,3 @@
                 bind:confirm="handlePersonDomainCellConfirm"
     />
 </van-popup>
-
-
-

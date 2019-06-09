@@ -17,7 +17,9 @@
     <view class='_btn-cell g-m-t-40'>
         <view class='g-fs-28 g-c-33 g-pd-20 g-tc g-dp-ilb g-c-gray' catchtap='handleRegister'>注册</view>
     </view>
-
+	 <view class='_btn-cell g-m-t-40'>
+        <van-button size="large"  type="info" custom-class='g-bg-blue  g-c-white' catchtap='handleGoHome' >返回首页</van-button>
+    </view>
     <van-popup
     show="{{ show }}"
     position="bottom"
@@ -65,9 +67,3 @@
     </van-popup>
 
 </view>
-
-
-
-
-
-
