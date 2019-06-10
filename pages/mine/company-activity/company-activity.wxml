@@ -72,7 +72,7 @@
                               catchtap="handleCheckSignCode"
                         >签到二维码</text>
                         <text class="g-pd-20 g-c-red"
-                              data-id="{{ item.ActivityId}}"
+                              data-id="{{ item.SignId}}"
                               data-index="{{ index }}"
                               catchtap="handleQuitActivity"
                         >关闭</text>
@@ -90,17 +90,17 @@
                       wx:key="{{index}}"
                 >
                     <view class='g-bra g-m-r-20 _product-image '>
-                        <image src="{{ item.MainPicUrl}}" class='g-full'/>
+                        <image src="{{ item.Activity.MainPicUrl}}" class='g-full'/>
                     </view>
                     <view class='g-flex-cols g-oh g-flex-1'
-                          data-id="{{ item.ActivityId}}"
+                          data-id="{{ item.Activity.ActivityId}}"
                           catchtap="handleCheckDetail"
                     >
                         <view class='g-fs-28 g-oneline _list-center-title'>
-                            {{item.ActivityName}}
+                            {{item.Activity.ActivityName}}
                         </view>
                         <text class='g-fs-28 g-c-999'>
-                            {{ filter.formatTime(item.BeginTime)  }} - {{ filter.formatTime(item.EndTime) }}
+                            {{ filter.formatTime(item.Activity.BeginTime)  }} - {{ filter.formatTime(item.Activity.EndTime) }}
                         </text>
                     </view>
                     <view class='g-flex-cols  _list-right-item g-flex-cr'>

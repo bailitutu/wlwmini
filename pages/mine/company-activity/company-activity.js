@@ -131,12 +131,9 @@ Page({
             }
         }).then((res) => {
             let noData = !res.Data || res.Data.length == 0 ? true : false;
-            let list =  res.Data.map(item => {
-                return item.Activity;
-            })
             this.setData({
                 collectInfo: {
-                    list,
+                    list: res.Data || [],
                     noMore: true,
                     noData,
                 }
@@ -152,7 +149,6 @@ Page({
         let {UserId, Token} = this.data;
         wx.scanCode({
             success: (res) => {
-                console.log(res);
                 let { ActivityId,SigneId } = JSON.parse(res.result);
                 ajax({
                     url: '/App/UserCenter/ConfirmActivitySignature',
@@ -202,13 +198,13 @@ Page({
     },
     //退出活动
     handleQuitActivity(e) {
+		let { id, index } = e.currentTarget.dataset;
+		let { UserId, Token, signInfo } = this.data;
         wx.showModal({
             title: '提示',
             content: '确定退出该活动吗？',
             success: (res) => {
 				if (res.confirm) {
-					let { id, index } = e.currentTarget.dataset;
-					let { UserId, Token, signInfo } = this.data;
 					ajax({
 						url: '/App/UserCenter/DeleteActivitySign',
 						method: 'POST',

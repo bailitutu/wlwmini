@@ -4,7 +4,8 @@
   "usingComponents": {
     "van-button": "/dist/button/index",
     "van-field": "/dist/field/index",
-    "van-dialog": "/dist/dialog/index",
+	"van-dialog": "/dist/dialog/index",
+	"text-area": "/components/text-area/text-area",
     "van-cell-group": "/dist/cell-group/index"
   }
 }

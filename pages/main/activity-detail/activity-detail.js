@@ -123,9 +123,9 @@ Page({
             MobilePhone: e.detail
         })
     },
-    bindTextAreaBlur(e) {
+    bindRemarksChange(e) {
         this.setData({
-            Remarks: e.detail.value
+            Remarks: e.detail
         })
     },
     handleCancel() {

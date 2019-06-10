@@ -1,4 +1,4 @@
-<view class="c-text-area" style="height:{{ height || 400 }}rpx">
+<view class="c-text-area" style="height:{{ height || 400 }}rpx;background-color: {{ bgColor }}">
     <textarea
             show-confirm-bar="{{ false }}"
             class="c-text-area-text"
@@ -9,17 +9,20 @@
             hidden="{{ !focus }}"
             bindblur="handleBlur"
             catchtap="handleTextAreaClick"
-            style="height:{{ height || 400}}rpx"
+            style="height:{{ height || 400}}rpx;background-color: {{ bgColor }}"
     ></textarea>
 
     <view
             hidden="{{ focus }}"
             class="c-text-area-scroll"
             bindtap="handleTextClick"
-            style="height:{{ height || 400}}rpx"
+            style="height:{{ height || 400}}rpx;background-color: {{ bgColor }}"
     >
         {{ value }}
-        <view  hidden="{{ value.length > 0 || focus }}" class="c_placeholder"> {{ placeholder }}</view>
+        <view
+			hidden="{{ value.length > 0 || focus }}"
+			class="c_placeholder"
+			> {{ placeholder }}</view>
 
     </view>
 

@@ -4,7 +4,6 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: #f4f4f4;
     color: #333333;
     text-align: left;
 }
@@ -15,7 +14,6 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     min-height:400rpx;
-    background: #f4f4f4;
     line-height: 36rpx;
     font-size: 30rpx;
     padding: 20rpx;
@@ -23,7 +21,6 @@
 }
 .c-text-area-scroll{
     width:100%;
-    background: #f4f4f4;
     line-height: 36rpx;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

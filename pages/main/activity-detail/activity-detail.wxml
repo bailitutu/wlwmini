@@ -97,7 +97,13 @@
             />
         </view>
         <view class="_text-cell">
-            <textarea class="_text-area " placeholder-class="g-c-gray g-fs-28" bindinput="bindTextAreaBlur"  placeholder="请输入内容" />
+			 <text-area
+                    value="{{ Remarks }}"
+                    placeholder="请输入内容"
+					bind:bgColor="#ffffff"
+                    bind:w-input="bindRemarksChange"
+                    maxlength="200"
+            ></text-area>
         </view>
     </view>
 </van-dialog>

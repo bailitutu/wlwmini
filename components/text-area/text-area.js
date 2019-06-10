@@ -27,7 +27,11 @@ Component({
         maxlength:{
             type: Number,
             default:140
-        }
+		},
+		bgColor: {
+			type: String,
+			default: '#f4f4f4'
+		}
     },
 
     data: {
