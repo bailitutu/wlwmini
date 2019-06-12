@@ -8,6 +8,12 @@
         bind:confirm="handleConfirm"
 >
     <view class="_text-box">
-        <textarea class="_text-area " bindinput="bindTextAreaBlur"  placeholder="请输入咨询内容" />
+		<text-area
+			placeholder="请输入咨询内容"
+			bind:bgColor="#ffffff"
+			value="{{ content }}"
+			bind:w-input="bindTextAreaBlur"
+			maxlength="200"
+		></text-area>
     </view>
 </van-dialog>

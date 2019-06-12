@@ -1,6 +1,7 @@
 
 ._text-box{
-    padding:30rpx;
+	border: 1rpx solid #f4f4f4;
+	margin: 30rpx;
 }
 ._text-area{
     height: 300rpx;

@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "van-dialog": "/dist/dialog/index"
+	"van-dialog": "/dist/dialog/index",
+	"text-area": "/components/text-area/text-area"
   }
 }

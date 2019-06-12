@@ -41,7 +41,6 @@ Page({
                 OtherType,
             }
         }).then((res) => {
-
             this.setData({
                 ReportEnumList: res.Data || [],
                 isReady: true,
@@ -85,7 +84,8 @@ Page({
             ReportImg
         } = this.data;
         let UserId = getItem('hd_userId') || 0;
-        let Token = getItem('hd_token') || '';
+		let Token = getItem('hd_token') || '';
+
         ajax({
             url: '/App/UsersReport/AddReport',
             method: 'POST',

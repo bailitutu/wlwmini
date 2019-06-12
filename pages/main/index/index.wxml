@@ -61,7 +61,7 @@
                 <view class="_product-info g-flex-cols g-ai-s g-jc-sb g-flex-1">
                     <view class="g-twoline g-fs-26">{{ item.ProductName }}</view>
                     <view class="g-c-red g-fs-28">{{ item.ProudctPrice == '0.00' ? '面议': '￥' + item.ProudctPrice }}</view>
-                    <view class="g-oneline g-fs-26 g-c-999" catchtap="handleCompanyDetail" data-id="{{ item.ProductId }}"  > {{ item.EnterpriseName }}</view>
+                    <view class="g-oneline g-fs-26 g-c-999" catchtap="handleCompanyDetail" data-id="{{ item.UserId }}"  > {{ item.EnterpriseName }}</view>
                 </view>
                 <view class="_product-label">
                     <text class="_label-tag g-fs-18 g-bra g-m-lr-5" catchtap="handleFilterClass" data-id="{{ item.MainClassId }}" >{{ item.MainClassName }}</text>
@@ -244,7 +244,7 @@
                 catchtap="handleCompanyDetail"
             >
                 <view class="g-bsf g-bra">
-                    <view class="_company-image g-bra" style="background: url({{ item.HeadUrl || '/images/company_default_logo.jpg' }}) no-repeat center;"></view>
+                    <view class="_company-image g-bra" style="background-image: url({{ item.HeadUrl || 'https://www.iotwmall.com/h5/images/company_image@2x.png' }});"></view>
                     <view>
                         <view class="g-fs-28 g-c-black g-pd-20 g-oneline">{{ item.EnterpriseName }}</view>
                         <view class="g-flex-fs g-m-b-20 g-pd-20">

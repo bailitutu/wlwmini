@@ -1,6 +1,6 @@
 <view class="body g-tc">
     <view class='_login-logo'>
-        <image src="/images/hp_logo.png" class='g-full'  ></image>
+        <image src="https://www.iotwmall.com/h5/images/hp_logo.png" class='g-full'  ></image>
     </view>
 
     <view class='_btn-cell g-m-t-60'>

@@ -11,6 +11,9 @@ page{
 ._company-logo{
     width:100rpx;
     height: 100rpx;
+	background-size: 100% auto;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 ._company-label{
     border:1px solid #ffffff;
@@ -27,5 +30,3 @@ page{
     height:46rpx;
     margin-right: 18rpx;
 }
-
-

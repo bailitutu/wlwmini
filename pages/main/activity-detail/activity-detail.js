@@ -61,7 +61,7 @@ Page({
     // 收藏
     handleCollect() {
         let collect_status = this.data.detail.IsCollection;
-        let UserId = getItem('hd_userId') || '';
+        let UserId = getItem('hd_userId') || 0;
         let Token = getItem('hd_token') || '';
         let personData = {
             UserId,
@@ -138,7 +138,7 @@ Page({
     },
     handleConfirm() {
         let { ActivityId, CallName, MobilePhone, Remarks } = this.data;
-        let UserId = getItem('hd_userId') || '';
+        let UserId = getItem('hd_userId') || 0;
         let Token = getItem('hd_token') || '';
         let personData = {
             UserId: UserId,

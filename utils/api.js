@@ -66,7 +66,7 @@ const ajax = (options = {}) => {
                             showCancel:true,
                             title:'提示',
                             content:'登录过期,请先登录！',
-                            success: ()=>{
+                            success: (res)=>{
 								if (res.confirm) {
 									delItem('hd_token');
 									delItem('hd_userId');

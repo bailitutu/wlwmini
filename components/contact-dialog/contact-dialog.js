@@ -14,7 +14,8 @@ Component({
   methods: {
       handleCancel(){
           this.setData({
-              show: false
+			  show: false,
+			  content: ''
           })
           this.triggerEvent('cancel');
       },
@@ -23,7 +24,7 @@ Component({
       },
       bindTextAreaBlur(e){
           this.setData({
-              content: e.detail.value
+              content: e.detail
           })
       }
   }

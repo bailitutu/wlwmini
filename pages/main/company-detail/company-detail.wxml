@@ -19,8 +19,9 @@
                 </view>
             </view>
         </view>
-        <view class="_company-logo">
-            <image src="{{info.EnterpriseLogo || '/images/company_default_logo.jpg'}}" class="g-full" ></image>
+        <view class="_company-logo"
+			 style="background-image: url({{ info.EnterpriseLogo || 'https://www.iotwmall.com/h5/images/company_image@2x.png' }});"
+			>
          </view>
     </view>
 
@@ -126,4 +127,3 @@
 
 </view>
 <contact-dialog show="{{ showContact }}" bind:confirm="handleConfirmContact"  ></contact-dialog>
-

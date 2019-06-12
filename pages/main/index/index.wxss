@@ -77,7 +77,9 @@
 ._company-image{
     width:330rpx;
     height:330rpx;
-    background-size:cover;
+    background-size: 100% auto;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 ._company-item{
     box-sizing: border-box;
@@ -118,5 +120,3 @@
     margin-top: 10px;
     margin-right: 10px;
 }
-
-
