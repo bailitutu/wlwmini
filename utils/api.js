@@ -63,13 +63,15 @@ const ajax = (options = {}) => {
                 }else{
                     if( r.data.ErrNum == '10001'){
                         wx.showModal({
-                            showCancel:false,
+                            showCancel:true,
                             title:'提示',
-                            content:'登录过期',
+                            content:'登录过期,请先登录！',
                             success: ()=>{
-                                delItem('hd_token');
-                                delItem('hd_userId');
-                                goPage('登录',{ }, 4)
+								if (res.confirm) {
+									delItem('hd_token');
+									delItem('hd_userId');
+									goPage('登录', {}, 4)
+								}
                             }
                         })
                     }else{
@@ -96,5 +98,3 @@ const ajax = (options = {}) => {
 module.exports = {
     ajax
 }
-
-

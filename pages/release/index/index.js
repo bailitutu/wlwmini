@@ -1,5 +1,5 @@
 import {goPage} from '../../../utils/common'
-import {getItem,} from '../../../utils/util'
+import { getItem, delItem} from '../../../utils/util'
 
 Page({
 
@@ -21,6 +21,23 @@ Page({
         })
     },
     handleRelease(e) {
+		let UserId = getItem('hd_userId') || 0;
+		let Token = getItem('hd_token') || '';
+		if(!UserId || !Token){
+			wx.showModal({
+				showCancel: true,
+				title: '提示',
+				content: '登录过期,请先登录！',
+				success: (res) => {
+					if (res.confirm) {
+						delItem('hd_token');
+						delItem('hd_userId');
+						goPage('登录', {}, 4)
+					}
+				}
+			})
+			return;
+		}
         let {type} = e.currentTarget.dataset;
         goPage(type)
     }

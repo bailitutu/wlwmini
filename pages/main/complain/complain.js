@@ -28,7 +28,7 @@ Page({
         this.loadReportEnumList();
     },
     loadReportEnumList() {
-        let UserId = getItem('hd_userId') || '';
+        let UserId = getItem('hd_userId') || 0;
         let Token = getItem('hd_token') || '';
         let {OtherId, OtherType} = this.data;
         ajax({
@@ -84,9 +84,8 @@ Page({
             ReportContent,
             ReportImg
         } = this.data;
-        let UserId = getItem('hd_userId') || '';
+        let UserId = getItem('hd_userId') || 0;
         let Token = getItem('hd_token') || '';
-
         ajax({
             url: '/App/UsersReport/AddReport',
             method: 'POST',

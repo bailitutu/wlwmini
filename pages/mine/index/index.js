@@ -1,4 +1,4 @@
-import { getItem } from "../../../utils/util";
+import { getItem, delItem } from "../../../utils/util";
 import { goPage } from "../../../utils/common";
 import { ajax } from "../../../utils/api";
 import {BASE_URL} from "../../../utils/config";
@@ -50,11 +50,17 @@ Page({
 
         if( !Token || !UserId){
             wx.showModal({
-                showCancel:false,
+                showCancel:true,
                 title:'提示',
                 content:'请先登录',
-                success: ()=>{
-                    goPage('登录',{ }, 4)
+                success: (res)=>{
+					if (res.confirm) {
+						delItem('hd_token');
+						delItem('hd_userId');
+						goPage('登录', {}, 4)
+					}else{
+						wx.navigateBack();
+					}
                 }
             })
             return;

@@ -24,7 +24,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        let UserId = getItem('hd_userId') || '';
+        let UserId = getItem('hd_userId') || 0;
         let Token = getItem('hd_token') || '';
         this.setData({
             SchemeId: options.SchemeId

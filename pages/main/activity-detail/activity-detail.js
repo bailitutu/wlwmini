@@ -33,7 +33,7 @@ Page({
     },
     loadData() {
         let {ActivityId} = this.data;
-        let UserId = getItem('hd_userId') || '';
+        let UserId = getItem('hd_userId') || 0;
         let Token = getItem('hd_token') || '';
         let personData = {
             UserId: UserId,

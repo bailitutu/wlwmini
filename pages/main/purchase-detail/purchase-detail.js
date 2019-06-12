@@ -12,7 +12,7 @@ Page({
         recommendList: []
     },
     onLoad: function (options) {
-        let UserId = getItem('hd_userId') || '';
+        let UserId = getItem('hd_userId') || 0;
         let Token = getItem('hd_token') || '';
         this.setData({
             UserId,

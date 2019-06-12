@@ -26,8 +26,8 @@ Page({
       this.loadRecommendData();
     },
     loadData(){
-        let UserId = getItem('hd_userId');
-        let Token = getItem('hd_token');
+        let UserId = getItem('hd_userId') || 0;
+        let Token = getItem('hd_token') || '';
         let ProductId = this.data.ProductId
         let personData = {
             UserId,
@@ -55,7 +55,7 @@ Page({
     // 收藏
     handleCollect(){
         let collect_status = this.data.detail.IsCollection;
-        let UserId = getItem('hd_userId') || '' ;
+        let UserId = getItem('hd_userId') || 0 ;
         let Token = getItem('hd_token') || '';
         let personData = {
             UserId,
@@ -67,8 +67,6 @@ Page({
             method: 'POST',
             data:personData
         }).then( ( res) => {
-
-
             if( collect_status ){
                 wx.showToast({
                     title: '取消收藏成功'
@@ -102,8 +100,8 @@ Page({
     // 提交咨询
     handleConfirmContact(e){
         let  contactText =  e.detail;
-        let UserId = getItem('hd_userId');
-        let Token = getItem('hd_token');
+        let UserId = getItem('hd_userId') || 0;
+        let Token = getItem('hd_token') || '';
         let OtherId = this.data.ProductId;
         if( contactText == ''){
             wx.showToast({
