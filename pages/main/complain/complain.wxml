@@ -28,7 +28,7 @@
     <view class="g-pd-lr-30">
         <view class="g-c-666 g-fs-28">
             举报描述
-            <text class="g-c-999">(大小不超过100KB)</text>
+            <text class="g-c-999">(大小不超过2M)</text>
         </view>
         <img-picker multiple max="3" bind:upload="handleUploadImg" bind:removeImg="handleRemoveImg"></img-picker>
 

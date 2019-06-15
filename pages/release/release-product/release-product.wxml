@@ -80,7 +80,7 @@
         <view class="g-pd-lr-30">
             <view class="g-c-666 g-fs-28 g-m-t-20">
                 图片
-                <text class="g-c-999">(大小不超过100KB)</text>
+                <text class="g-c-999">(大小不超过2M)</text>
             </view>
             <view class=" g-m-t-20">
                 <img-picker multiple="{{ false }}" max="{{1}}" imgList="{{ PicUrls }}"   bind:upload="handleUploadImg" bind:removeImg="handleRemoveImg"></img-picker>

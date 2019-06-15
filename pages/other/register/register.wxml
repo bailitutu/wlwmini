@@ -154,7 +154,7 @@
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                营业执照副本（大小不超过100k）
+                营业执照副本（大小不超过2M）
             </view>
             <img-picker multiple max="1" bind:upload="handleUploadBusinessLicense" bind:removeImg="handleRemoveBusinessLicense"></img-picker>
 
@@ -173,7 +173,7 @@
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                联系人名片照片（大小不超过100k）
+                联系人名片照片（大小不超过2M）
             </view>
             <img-picker multiple max="1" bind:upload="handleUploadContactsCardUrl" bind:removeImg="handleRemoveContactsCardUrl"></img-picker>
 

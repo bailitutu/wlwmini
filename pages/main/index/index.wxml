@@ -161,7 +161,7 @@
                 data-id="{{ item.WantBuyId }}"
                 catchtap="handlePurchaseDetail"
             >
-                <view class="g-fs-28 g-c-black g-pd-tb-10 _purchase-title  g-twoline" >
+                <view class="g-fs-28 g-c-black  _purchase-title  g-twoline" >
                     {{ item.WantBuyName }}
                 </view>
                 <view class="g-c-red g-pd-lr-20 g-fs-28 _purchase-price">{{  item.WantBuyPrice == '0.00' ? '面议' : '￥'+item.WantBuyPriceTxt }}</view>
