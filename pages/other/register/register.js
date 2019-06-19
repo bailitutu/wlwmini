@@ -5,7 +5,7 @@ import { getDomainList, getApplicationList} from "../../../utils/services";
 
 Page({
     data: {
-        currentTab: 1,
+        currentTab: 2,
         companyInfo: {
             UserName: "",
             UserPwd: '',

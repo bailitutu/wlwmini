@@ -2,6 +2,7 @@ import {getItem,} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
 import { isEmpty } from "../../../utils/validate";
 import {getApplicationList, getDomainList} from "../../../utils/services";
+import { goPage } from '../../../utils/common'
 
 Page({
     data: {
@@ -356,7 +357,7 @@ Page({
                     icon: 'success',
                     success:() =>{
                         setTimeout(()=>{
-                            wx.navigateBack();
+							goPage('我发布的方案', {}, 3);
                         },1000)
                     }
                 })

@@ -22,13 +22,12 @@
                 placeholder="请输入投诉内容"
                 bind:w-input="bindTextAreaBlur"
         ></text-area>
-        <!--<textarea class="_complain-text" bindblur="bindTextAreaBlur" auto-height placeholder="请输入投诉内容" />-->
     </view>
 
     <view class="g-pd-lr-30">
         <view class="g-c-666 g-fs-28">
             举报描述
-            <text class="g-c-999">(大小不超过2M)</text>
+            <text class="g-c-999">(大小不超过2M，长按可删除)</text>
         </view>
         <img-picker multiple max="3" bind:upload="handleUploadImg" bind:removeImg="handleRemoveImg"></img-picker>
 

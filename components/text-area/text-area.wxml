@@ -8,6 +8,7 @@
             focus="{{ showFocus }}"
             hidden="{{ !focus }}"
             bindblur="handleBlur"
+            value="{{ value || ''}}"
             catchtap="handleTextAreaClick"
             style="height:{{ height || 400}}rpx;background-color: {{ bgColor }}"
     ></textarea>

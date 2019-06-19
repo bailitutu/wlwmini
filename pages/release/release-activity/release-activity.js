@@ -2,6 +2,7 @@ import {getItem, setItem,formatDate} from '../../../utils/util'
 import {ajax} from "../../../utils/api";
 import { isEmpty } from "../../../utils/validate";
 import {getApplicationList,getDomainList} from "../../../utils/services";
+import { goPage } from '../../../utils/common'
 
 Page({
     data: {
@@ -192,7 +193,6 @@ Page({
             this.setData({
                 ['Province.value'] : pro.ProvinceName,
                 ['Province.id'] : proId,
-                ['City.id']: '',
             })
             this.loadCity(proId);
         }
@@ -228,7 +228,6 @@ Page({
             this.setData({
                 ['City.value']: pro.CityName,
                 ['City.id']: proId,
-                ['Area.id']: ''
             })
             this.loadArea(proId);
         }
@@ -680,7 +679,7 @@ Page({
                     icon: 'success',
                     success:() =>{
                         setTimeout(()=>{
-                            wx.navigateBack();
+							goPage('我发布的活动', {}, 3);
                         },1000)
                     }
                 })

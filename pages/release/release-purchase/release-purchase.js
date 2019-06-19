@@ -336,7 +336,7 @@ Page({
                     icon: 'success',
                     success:() =>{
                        setTimeout(()=>{
-                           wx.navigateBack();
+						   goPage('我发布的求购',{}, 3);
                        },1000)
                     }
                 })

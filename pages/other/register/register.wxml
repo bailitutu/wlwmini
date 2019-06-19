@@ -2,14 +2,15 @@
 
     <view class='_find-type g-m-t-40'>
         <view class='_find-type-content g-m-t-40'>
+			<van-button size="small" round type="info"
+                        custom-class='{{ currentTab == "2" ? "g-bg-blue" : "g-bg-gray"}}   g-c-white _type-btn'
+                        data-type="2" bind:click='handleType'>个人
+            </van-button>
             <van-button size="small" round type="info"
                         custom-class='{{ currentTab == "1" ? "g-bg-blue" : "g-bg-gray"}}  g-c-white _type-btn'
                         data-type="1" bind:click='handleType'>企业
             </van-button>
-            <van-button size="small" round type="info"
-                        custom-class='{{ currentTab == "2" ? "g-bg-blue" : "g-bg-gray"}}   g-c-white _type-btn'
-                        data-type="2" bind:click='handleType'>个人
-            </van-button>
+
         </view>
     </view>
     <view class='g-pd-lr-30 g-m-t-60' wx:if="{{ currentTab == '1'}}">
@@ -72,7 +73,7 @@
 
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                logo
+                logo（大小不超过2M，长按可删除）
             </view>
             <img-picker multiple max="1" bind:upload="handleUploadLogo" bind:removeImg="handleRemoveLogo"></img-picker>
 
@@ -154,7 +155,7 @@
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                营业执照副本（大小不超过2M）
+                营业执照副本（大小不超过2M，长按可删除）
             </view>
             <img-picker multiple max="1" bind:upload="handleUploadBusinessLicense" bind:removeImg="handleRemoveBusinessLicense"></img-picker>
 
@@ -173,7 +174,7 @@
             />
             <view class='g-fs-28 g-c-gray g-tl g-pd-20'>
                 <text class='g-c-red'>*</text>
-                联系人名片照片（大小不超过2M）
+                联系人名片照片（大小不超过2M，长按可删除）
             </view>
             <img-picker multiple max="1" bind:upload="handleUploadContactsCardUrl" bind:removeImg="handleRemoveContactsCardUrl"></img-picker>
 

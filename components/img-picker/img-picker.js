@@ -69,7 +69,7 @@ Component({
                         mask: true
                     })
                     that.uploadImg({
-                        url: BASE_URL + '/App/Home/UpLoadFile',//这里是你图片上传的接口
+                      url: BASE_URL + '/Img/UpLoadFile',//这里是你图片上传的接口
                         path: imageSrc,//这里是选取的图片的地址数组
                     });
                     // that.newUploadImg({
