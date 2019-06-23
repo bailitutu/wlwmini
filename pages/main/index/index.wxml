@@ -26,10 +26,10 @@
         <view class="_section-filter g-flex-lr g-bb g-pd-lr-20">
             <view class="g-flex-fs">
                 <view
-                        class="g-c-black g-fs-28 _filter-cell"
-                        data-type="1"
-                        data-order="1"
-                        bindtap="handleOrderBy"
+					class="g-c-black g-fs-28 _filter-cell"
+					data-type="1"
+					data-order="1"
+					bindtap="handleOrderBy"
                 >
                     综合
                     <image wx:if="{{ productInfo.orderBy != 1 && productInfo.orderBy != 2 }}" class="g-m-r-10 _icon-up-down" src="/images/huisexiangxiajiantou.png"></image>
@@ -343,24 +343,6 @@
                 确定
             </view>
         </view>
-
-
     </view>
 
 </van-popup>
-
-<van-tabbar active="{{ tabBarActive }}" bind:change="handleTabBarChange">
-    <van-tabbar-item wx:for="{{ tabBarList }}" wx:key="index" wx:for-item="tabItem">
-        <image
-                slot="icon"
-                src="{{ tabItem.normal }}"
-                mode="aspectFit"
-        />
-        <image
-                slot="icon-active"
-                src="{{ tabItem.active }}"
-                mode="aspectFit"
-        />
-        {{ tabItem.title }}
-    </van-tabbar-item>
-</van-tabbar>

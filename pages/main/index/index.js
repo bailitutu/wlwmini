@@ -37,20 +37,6 @@ Page({
             iconActive: '/images/hp_list_company_hig@2x.png',
             name: '企业'
         }],
-        tabBarActive: 0,
-        tabBarList: [{
-            normal: '/images/hp_label_hp_nor@2x.png',
-            active: '/images/hp_label_hp_hig@2x.png',
-            title: '主页'
-        }, {
-            normal: '/images/hp_label_issue_nor@2x.png',
-            active: '/images/hp_label_issue_hig@2x.png',
-            title: '发布'
-        }, {
-            normal: '/images/hp_label_about_nor@2x.png',
-            active: '/images/hp_label_about_hig@2x.png',
-            title: '我的'
-        }],
         Keyword:'', //搜索关键词
         MainClassId: 0, //
         AppDominId:0, //应用领域
@@ -541,18 +527,6 @@ Page({
         let { id } = e.currentTarget.dataset;
         goPage('企业详情',{ CompanyId: id})
     },
-    // 跳转发布
-    handleTabBarChange(page){
-        if(page.detail == 1 ){
-            goPage('发布');
-        }else if(page.detail == 2){
-            goPage('个人中心');
-        }
-        this.setData({
-            tabBarActive: page.detail
-        })
-    },
-
     //预设筛选
     loadFilterData(){
         let DomainApplicationList = getApplicationList();
