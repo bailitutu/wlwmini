@@ -8,7 +8,7 @@ import { BASE_URL, PageURL } from './config'
 const goPage = ( page ,param = { },type = 1) => {
     let paramArr = []
     let pageUrl = '';
-    if(param){
+    if(Object.keys(param).length){
         for( let item in param ){
             paramArr.push(item+ '='+ param[item]);
         }
@@ -19,7 +19,7 @@ const goPage = ( page ,param = { },type = 1) => {
 
     switch (type) {
         case 2:
-            wx.switchTab({
+			wx.switchTab({
                 url: pageUrl
             });
             break;
@@ -44,4 +44,3 @@ const goPage = ( page ,param = { },type = 1) => {
 module.exports = {
     goPage,
 }
-

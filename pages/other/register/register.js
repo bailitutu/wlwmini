@@ -542,7 +542,7 @@ Page({
                 icon:'none',
                 success: () =>{
                     setTimeout(()=>{
-                        goPage('首页',4);
+						goPage('主页',{}, 2);
                     },1500)
                 }
             })
@@ -814,7 +814,7 @@ Page({
                 icon:'none',
                 success: () =>{
                     setTimeout(()=>{
-                        goPage('首页',4);
+						goPage('主页',{},2);
                     },1500)
                 }
             })

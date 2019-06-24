@@ -3,7 +3,7 @@ const PageURL = {
 	'密码登录': '/pages/other/pwd-login/pwd-login',
 	'注册': '/pages/other/register/register',
 	'登录': '/pages/other/login/login',
-	'首页': '/pages/main/index/index',
+	'主页': '/pages/main/index/index',
 	'忘记密码': '/pages/other/find-pwd/find-pwd',
 	'重置密码': '/pages/other/reset-pwd/reset-pwd',
 	'发布': '/pages/release/index/index',

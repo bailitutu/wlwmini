@@ -96,7 +96,7 @@ Page({
             setItem('hd_token', res.Data.Token)
             setItem('hd_userId', res.Data.UserId);
             setItem('hd_IsEnterprise', res.Data.IsEnterprise);
-            goPage('首页', {}, 4)
+			goPage('主页', {}, 2)
         }).catch((error) => {
             console.log(error,'error');
             wx.hideLoading();
@@ -204,13 +204,13 @@ Page({
         }).then((res) => {
             setItem('hd_token', res.Data.Token)
             setItem('hd_userId', res.Data.UserId);
-            goPage('首页', {}, 4)
+			goPage('主页', {}, 2)
         }).catch((error) => {
             console.log(error)
         })
 	},
 	handleGoHome(){
-		goPage('首页', 4)
+		goPage('主页', {}, 2);
 	},
     // 前往注册
     handleRegister() {

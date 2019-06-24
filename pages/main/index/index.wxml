@@ -289,13 +289,13 @@
             <view class="g-fs-24 g-c-gray g-m-t-20">{{ item.Name }}</view>
             <view class="_filter-list g-flex g-jc-fs g-fw-w" >
                 <view
-                        class="_filter-btn g-bg-gray g-c-white {{ TeachDominId == cell.Id ? 'active': ''}} g-fs-28"
-                        wx:for="{{ item.SublevelList }}"
-                        wx:for-index="idx"
-                        wx:for-item="cell"
-                        wx:key="{{ idx }}"
-                        data-id="{{ cell.Id }}"
-                        catchtap="handleFilterTwo"
+					class="_filter-btn g-bg-gray g-c-white {{ TeachDominId == cell.Id ? 'active': ''}} g-fs-28"
+					wx:for="{{ item.SublevelList }}"
+					wx:for-index="idx"
+					wx:for-item="cell"
+					wx:key="{{ idx }}"
+					data-id="{{ cell.Id }}"
+					catchtap="handleFilterTwo"
                 >
                     {{ cell.Name }}
                 </view>

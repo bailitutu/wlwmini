@@ -59,7 +59,7 @@ Page({
 						delItem('hd_userId');
 						goPage('登录', {}, 4)
 					}else{
-						wx.navigateBack();
+						goPage("主页",{}, 2);
 					}
                 }
             })
