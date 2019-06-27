@@ -6,37 +6,41 @@ Component({
     properties: {
         height: {
             type: Number,
-            default: 400
+            value: 400
         },
         value: {
             type: String,
-            default: ''
+			value: ''
         },
         placeholderClass:{
             type: String,
-            default:''
+			value:''
         },
         placeholder:{
             type: String,
-            default:''
+			value:''
         },
         disabled:{
             type:Boolean,
-            default:false,
+			value:false,
         },
         maxlength:{
             type: Number,
-            default:140
+			value:140
 		},
 		bgColor: {
 			type: String,
-			default: '#f4f4f4'
+			value: '#f4f4f4'
 		}
     },
 
     data: {
         focus: false
-    },
+	},
+	created () {
+		console.log(this)
+		console.log(this.data.bgColor,'bg');
+	},
     methods: {
         handleTextClick(){
             this.setData({

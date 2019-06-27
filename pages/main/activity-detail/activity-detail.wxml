@@ -100,7 +100,7 @@
 			 <text-area
                     value="{{ Remarks }}"
                     placeholder="请输入内容"
-					bind:bgColor="#ffffff"
+					bgColor="#ffffff"
                     bind:w-input="bindRemarksChange"
                     maxlength="200"
             ></text-area>

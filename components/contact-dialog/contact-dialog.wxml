@@ -10,7 +10,7 @@
     <view class="_text-box">
 		<text-area
 			placeholder="请输入咨询内容"
-			bind:bgColor="#ffffff"
+			bgColor="#ffffff"
 			value="{{ content }}"
 			bind:w-input="bindTextAreaBlur"
 			maxlength="200"
