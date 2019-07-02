@@ -191,8 +191,8 @@ Page({
                 return proId == item.ProvinceId
             })
             this.setData({
-                ['Province.value'] : pro.ProvinceName,
-                ['Province.id'] : proId,
+				['Province.value']: pro ? pro.ProvinceName : Province.list[0].ProvinceName,
+				['Province.id']: pro ? proId : Province.list[0].ProvinceId,
             })
             this.loadCity(proId);
         }
@@ -226,8 +226,8 @@ Page({
                 return proId == item.CityId
             })
             this.setData({
-                ['City.value']: pro.CityName,
-                ['City.id']: proId,
+				['City.value']: pro ? pro.CityName : City.list[0].CityName,
+				['City.id']: pro ? proId : City.list[0].CityId ,
             })
             this.loadArea(proId);
         }
@@ -261,8 +261,8 @@ Page({
                 return proId == item.AreaId
             })
             this.setData({
-                ['Area.value']: pro.AreaName,
-                ['Area.id']: proId
+				['Area.value']: pro ? pro.AreaName : Area.list[0].AreaName,
+				['Area.id']: pro ? proId : Area.list[0].AreaId
             })
         }
     },
@@ -355,8 +355,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['Application.value'] : pro.Name,
-                ['Application.id'] : proId
+				['Application.value']: pro ? pro.Name : Application.list[0].Name,
+				['Application.id']: pro ? proId : Application.list[0].Id
             })
         }
     },
@@ -402,8 +402,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['DomainList.value'] : pro.Name,
-                ['DomainList.id'] : proId
+				['DomainList.value']: pro ? pro.Name : DomainList.list[0].Name,
+				['DomainList.id']: pro ? proId : DomainList.list[0].Id
             })
             this.loadDomainCell(proId);
         }
@@ -441,8 +441,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['DomainCell.value'] : pro.Name,
-                ['DomainCell.id'] : proId
+				['DomainCell.value']: pro ? pro.Name : DomainCell.list[0].Name,
+				['DomainCell.id']: pro ? proId : DomainCell.list[0].Id
             })
         }
     },

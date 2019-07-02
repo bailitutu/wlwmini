@@ -138,7 +138,7 @@ Page({
         let ApplicationList = getApplicationList();
         let columnsData = ApplicationList && ApplicationList.map(item => {
             return item.Name;
-        })
+		})
         this.setData({
             ['Application.columnsData']: columnsData,
             ['Application.list']: ApplicationList,
@@ -147,15 +147,15 @@ Page({
     },
 
     fillApplication() {
-        let {Application} = this.data;
-        let proId = Application.id || Application.list[0].Id;
+		let {Application} = this.data;
+		let proId = Application.id || Application.list[0].Id;
         if (proId) {
             let pro = Application.list.find((item) => {
                 return proId == item.Id
-            })
+			})
             this.setData({
-                ['Application.value']: pro.Name,
-                ['Application.id']: proId
+				['Application.value']: pro ? pro.Name : Application.list[0].Name,
+				['Application.id']: pro ? proId : Application.list[0].Id
             })
         }
     },
@@ -203,8 +203,8 @@ Page({
                 return proId == item.ClassId
             })
             this.setData({
-                ['MainClass.value']: pro.ClassName,
-                ['MainClass.id']: proId
+				['MainClass.value']: pro ? pro.ClassName : MainClass.list[0].ClassName,
+				['MainClass.id']: pro ? proId : MainClass.list[0].ClassId
             })
             this.loadSubClass(proId);
         }
@@ -239,8 +239,8 @@ Page({
                 return proId == item.ClassId
             })
             this.setData({
-                ['SubClass.value']: pro.ClassName,
-                ['SubClass.id']: proId
+				['SubClass.value']: pro ? pro.ClassName : SubClass.list[0].ClassName,
+				['SubClass.id']:pro ? proId : SubClass.list[0].ClassId
             })
         }
     },
@@ -309,8 +309,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['DomainList.value']: pro.Name,
-                ['DomainList.id']: proId
+				['DomainList.value']: pro ? pro.Name : DomainList.list[0].Name,
+				['DomainList.id']: pro ? proId : DomainList.list[0].Id
             })
             this.loadDomainCell(proId);
         }
@@ -346,8 +346,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['DomainCell.value']: pro.Name,
-                ['DomainCell.id']: proId
+				['DomainCell.value']: pro ? pro.Name : DomainCell.list[0].Name,
+				['DomainCell.id']: pro ? proId : DomainCell.list[0].Id
             })
         }
     },
@@ -411,7 +411,7 @@ Page({
             let SeniorOne = [];
             let SeniorTwo = [];
             let SeniorOneData = [];
-            let SeniorTwoData = [];
+			let SeniorTwoData = [];
             list.forEach(item => {
                 if (item.Type == 1) {
                     SeniorOne.push(item.Name);

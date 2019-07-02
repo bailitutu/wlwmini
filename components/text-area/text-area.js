@@ -38,8 +38,6 @@ Component({
         focus: false
 	},
 	created () {
-		console.log(this)
-		console.log(this.data.bgColor,'bg');
 	},
     methods: {
         handleTextClick(){

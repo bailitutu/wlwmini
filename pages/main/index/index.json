@@ -1,6 +1,6 @@
 {
   "component": true,
-  "navigationBarTitleText": "物联网",
+  "navigationBarTitleText": "物联网商城",
   "navigationBarBackgroundColor": "#0d8df9",
   "navigationBarTextStyle": "white",
   "usingComponents": {

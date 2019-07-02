@@ -113,8 +113,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['Application.value'] : pro.Name,
-                ['Application.id'] : proId
+				['Application.value']: pro ? pro.Name : Application.list[0].Name,
+				['Application.id']: pro ? proId : Application.list[0].Id
             })
         }
     },
@@ -159,8 +159,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['DomainList.value'] : pro.Name,
-                ['DomainList.id'] : proId
+				['DomainList.value']: pro ? pro.Name : DomainList.list[0].Name,
+				['DomainList.id']: pro ? proId : DomainList.list[0].Id
             })
             this.loadDomainCell(proId);
         }
@@ -196,8 +196,8 @@ Page({
                 return proId == item.Id
             })
             this.setData({
-                ['DomainCell.value'] : pro.Name,
-                ['DomainCell.id'] : proId
+				['DomainCell.value']: pro ? pro.Name : DomainCell.list[0].Name,
+				['DomainCell.id']: pro ? proId : DomainCell.list[0].Id
             })
         }
     },
