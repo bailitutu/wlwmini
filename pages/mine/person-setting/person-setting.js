@@ -1,5 +1,5 @@
 import { goPage } from "../../../utils/common";
-import {clearAllItem} from "../../../utils/util";
+import { delItem } from "../../../utils/util";
 Page({
     data: {
         isReady:false,
@@ -25,7 +25,8 @@ Page({
             content: '确定退出吗？',
             success(res) {
                 if (res.confirm) {
-                    clearAllItem();
+					delItem('hd_token');
+					delItem('hd_userId');
                     goPage('登录',{ },4);
                     return;
                 }

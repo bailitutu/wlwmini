@@ -7,23 +7,16 @@ Page({
         isPerson: true,
         isShow: false,
     },
-
-    onLoad: function (options) {
-        let hd_IsEnterprise = getItem('hd_IsEnterprise');
-        this.setData({
-            isPerson: !hd_IsEnterprise,
-            isShow: true
-        })
-    },
     onShow() {
+		this.checkLogin();
         this.setData({
             isShow: true
         })
-    },
-    handleRelease(e) {
+	},
+	checkLogin(){
 		let UserId = getItem('hd_userId') || 0;
 		let Token = getItem('hd_token') || '';
-		if(!UserId || !Token){
+		if (!UserId || !Token) {
 			wx.showModal({
 				showCancel: true,
 				title: '提示',
@@ -33,13 +26,23 @@ Page({
 						delItem('hd_token');
 						delItem('hd_userId');
 						goPage('登录', {}, 4)
+					}else{
+						goPage('主页', {}, 2);
 					}
 				}
 			})
 			return;
+		}else{
+			let hd_IsEnterprise = getItem('hd_IsEnterprise');
+			this.setData({
+				isPerson: !hd_IsEnterprise,
+				isShow: true
+			})
 		}
-        let {type} = e.currentTarget.dataset;
-        goPage(type)
+	},
+    handleRelease(e) {
+		let {type} = e.currentTarget.dataset;
+		goPage(type)
     }
 
 })
